@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 16px 0;
+
+  width: 100%;
+  height: 88px;
+  margin: 0 auto;
+
+  box-sizing: border-box;
+
+  .wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+    padding: 0 20px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
