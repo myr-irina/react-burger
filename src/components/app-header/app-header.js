@@ -11,13 +11,14 @@ function AppHeader() {
   return (
     <section className={headerStyles.header}>
       <div style={{ display: 'flex', flexDirection: 'row' }} className="mr-5">
-        <section className={headerStyles.wrapper}>
-          <div className="pr-2">
-            <BurgerIcon type="primary" />
-          </div>
-          <p className="text text_type_main-default">Конструктор</p>
-        </section>
-
+        <div className="mr-2">
+          <section className={headerStyles.wrapper}>
+            <div className="pr-2">
+              <BurgerIcon type="primary" />
+            </div>
+            <p className="text text_type_main-default">Конструктор</p>
+          </section>
+        </div>
         <section className={headerStyles.wrapper}>
           <div className="pr-2">
             <ListIcon type="secondary" />
