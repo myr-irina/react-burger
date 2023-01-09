@@ -10,7 +10,7 @@ import { Logo } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui
 function AppHeader() {
   return (
     <section className={headerStyles.header}>
-      <div style={{ display: 'flex', flexDirection: 'row' }} className="mr-5">
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
         <div className="mr-2">
           <section className={headerStyles.wrapper}>
             <div className="pr-2">
@@ -19,7 +19,7 @@ function AppHeader() {
             <p className="text text_type_main-default">Конструктор</p>
           </section>
         </div>
-        <section className={headerStyles.wrapper}>
+        <section className={`${headerStyles.wrapper} ml-2`}>
           <div className="pr-2">
             <ListIcon type="secondary" />
           </div>
