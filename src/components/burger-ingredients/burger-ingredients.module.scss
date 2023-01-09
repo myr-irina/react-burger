@@ -1,9 +1,15 @@
 .container {
   flex: 1;
+  padding-top: 10;
+
+  &__header {
+    composes: text text_type_main-large mb-5 mt-10 from global;
+  }
 
   &__main {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    column-gap: 24px;
     width: 100%;
   }
 
