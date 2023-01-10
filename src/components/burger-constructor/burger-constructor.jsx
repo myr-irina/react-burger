@@ -13,7 +13,12 @@ function BurgerConstructor() {
     <div className={burgerConstructorStyles.container}>
       <div
         className={burgerConstructorStyles.container__list}
-        style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+          width: '100%',
+        }}
       >
         <div className={burgerConstructorStyles.element}>
           <DragIcon type="primary" />

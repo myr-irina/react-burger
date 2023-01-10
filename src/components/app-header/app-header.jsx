@@ -10,24 +10,24 @@ import { Logo } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui
 function AppHeader() {
   return (
     <section className={headerStyles.header}>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <ul style={{ display: 'flex', flexDirection: 'row' }}>
         <div className="mr-2">
-          <section className={headerStyles.wrapper}>
+          <li className={headerStyles.wrapper}>
             <div className="pr-2">
               <BurgerIcon type="primary" />
             </div>
             <p className="text text_type_main-default">Конструктор</p>
-          </section>
+          </li>
         </div>
-        <section className={`${headerStyles.wrapper} ml-2`}>
+        <li className={`${headerStyles.wrapper} ml-2`}>
           <div className="pr-2">
             <ListIcon type="secondary" />
           </div>
           <p className="text_type_main-default text_color_inactive">
             Лента заказов
           </p>
-        </section>
-      </div>
+        </li>
+      </ul>
       <Logo />
 
       <section className={headerStyles.wrapper}>

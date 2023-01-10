@@ -1,6 +1,5 @@
 .container {
-  flex: 1;
-  padding-top: 10;
+  // margin-top: 100px;
 
   &__header {
     composes: text text_type_main-large mb-5 mt-10 from global;
@@ -13,10 +12,29 @@
     width: 100%;
   }
 
+  &__list {
+    max-height: 600px;
+    overflow-y: scroll;
+  }
+
   &__section {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+  }
+
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #2f2f37;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #8585ad;
+    border: 3px solid #2f2f37;
+    border-radius: 6px;
   }
 }
