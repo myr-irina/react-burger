@@ -74,14 +74,13 @@ function BurgerConstructor() {
         </div>
       </div>
       <section className={burgerConstructorStyles.container__info}>
-        <p className="text text_type_digits-medium">1234567890</p>
-        {/* <p className={burgerStyles.container__wrapper_desc}>20</p> */}
+        <p className={burgerConstructorStyles.container__info_text}>610</p>
         <CurrencyIcon type="primary" />
         <Button
           htmlType="button"
           type="primary"
           size="medium"
-          // extraClass="ml-2"
+          extraClass="ml-10"
         >
           Оформить заказ
         </Button>

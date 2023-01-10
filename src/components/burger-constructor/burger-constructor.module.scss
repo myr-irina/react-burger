@@ -16,6 +16,11 @@
     align-items: center;
     justify-content: flex-end;
     margin-top: 60px;
+    width: 100%;
+
+    &_text {
+      composes: text text_type_digits-default mr-2 from global;
+    }
   }
 
   ::-webkit-scrollbar {
