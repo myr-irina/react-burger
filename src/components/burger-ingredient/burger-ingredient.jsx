@@ -6,16 +6,18 @@ import {
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function BurgerIngredient() {
+function BurgerIngredient(data) {
   return (
     <div className={burgerStyles.container}>
       <Counter count={1} size="default" extraClass="m-1" />
-      <img src={BunImg} alt="булка" />
+      <img src={data.data.image} alt="булка" />
       <div className={burgerStyles.container__wrapper}>
-        <p className={burgerStyles.container__wrapper_desc}>20</p>
+        <p className={burgerStyles.container__wrapper_desc}>
+          {data.data.price}
+        </p>
         <CurrencyIcon type="primary" />
       </div>
-      <p className="text text_type_main-default">Краторная булка N-200i</p>
+      <p className="text text_type_main-default">{data.data.name}</p>
     </div>
   );
 }

@@ -8,10 +8,10 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import BunImg from './../../images/crater-bun.svg';
 
-function BurgerConstructor() {
+function BurgerConstructor({ data }) {
   return (
     <div className={burgerConstructorStyles.container}>
-      <div
+      <ul
         className={burgerConstructorStyles.container__list}
         style={{
           display: 'flex',
@@ -20,7 +20,7 @@ function BurgerConstructor() {
           width: '100%',
         }}
       >
-        <div className={burgerConstructorStyles.element}>
+        <li className={burgerConstructorStyles.element}>
           <DragIcon type="primary" />
           <ConstructorElement
             type="top"
@@ -29,40 +29,40 @@ function BurgerConstructor() {
             price={200}
             thumbnail={BunImg}
           />
-        </div>
-        <div className={burgerConstructorStyles.element}>
+        </li>
+        <li className={burgerConstructorStyles.element}>
           <DragIcon type="primary" />
           <ConstructorElement
             text="Краторная булка N-200i (верх)"
             price={50}
             thumbnail={BunImg}
           />
-        </div>
-        <div className={burgerConstructorStyles.element}>
+        </li>
+        <li className={burgerConstructorStyles.element}>
           <DragIcon type="primary" />
           <ConstructorElement
             text="Краторная булка N-200i (верх)"
             price={50}
             thumbnail={BunImg}
           />
-        </div>
-        <div className={burgerConstructorStyles.element}>
+        </li>
+        <li className={burgerConstructorStyles.element}>
           <DragIcon type="primary" />
           <ConstructorElement
             text="Краторная булка N-200i (верх)"
             price={50}
             thumbnail={BunImg}
           />
-        </div>
-        <div className={burgerConstructorStyles.element}>
+        </li>
+        <li className={burgerConstructorStyles.element}>
           <DragIcon type="primary" />
           <ConstructorElement
             text="Краторная булка N-200i (верх)"
             price={50}
             thumbnail={BunImg}
           />
-        </div>
-        <div className={burgerConstructorStyles.element}>
+        </li>
+        <li className={burgerConstructorStyles.element}>
           <DragIcon type="primary" />
           <ConstructorElement
             type="bottom"
@@ -71,8 +71,8 @@ function BurgerConstructor() {
             price={200}
             thumbnail={BunImg}
           />
-        </div>
-      </div>
+        </li>
+      </ul>
       <section className={burgerConstructorStyles.container__info}>
         <p className={burgerConstructorStyles.container__info_text}>610</p>
         <CurrencyIcon type="primary" />
