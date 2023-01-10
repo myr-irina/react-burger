@@ -6,9 +6,8 @@ import {
   CurrencyIcon,
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import BunImg from './../../images/crater-bun.svg';
 
-function BurgerConstructor({ data }) {
+function BurgerConstructor(data) {
   return (
     <div className={burgerConstructorStyles.container}>
       <ul
@@ -20,58 +19,46 @@ function BurgerConstructor({ data }) {
           width: '100%',
         }}
       >
-        <li className={burgerConstructorStyles.element}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text="Краторная булка N-200i (верх)"
-            price={200}
-            thumbnail={BunImg}
-          />
-        </li>
-        <li className={burgerConstructorStyles.element}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text="Краторная булка N-200i (верх)"
-            price={50}
-            thumbnail={BunImg}
-          />
-        </li>
-        <li className={burgerConstructorStyles.element}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text="Краторная булка N-200i (верх)"
-            price={50}
-            thumbnail={BunImg}
-          />
-        </li>
-        <li className={burgerConstructorStyles.element}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text="Краторная булка N-200i (верх)"
-            price={50}
-            thumbnail={BunImg}
-          />
-        </li>
-        <li className={burgerConstructorStyles.element}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            text="Краторная булка N-200i (верх)"
-            price={50}
-            thumbnail={BunImg}
-          />
-        </li>
-        <li className={burgerConstructorStyles.element}>
-          <DragIcon type="primary" />
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text="Краторная булка N-200i (низ)"
-            price={200}
-            thumbnail={BunImg}
-          />
-        </li>
+        {data.data.map((burger, index) => {
+          if (index === 0) {
+            return (
+              <li key={burger._id} className={burgerConstructorStyles.element}>
+                <DragIcon type="primary" />
+                <ConstructorElement
+                  type="top"
+                  isLocked={true}
+                  text={burger.name}
+                  price={burger.price}
+                  thumbnail={burger.image_mobile}
+                />
+              </li>
+            );
+          } else if (index === data.data.length - 1) {
+            return (
+              <li key={burger._id} className={burgerConstructorStyles.element}>
+                <DragIcon type="primary" />
+                <ConstructorElement
+                  type="bottom"
+                  isLocked={true}
+                  text={burger.name}
+                  price={burger.price}
+                  thumbnail={burger.image_mobile}
+                />
+              </li>
+            );
+          } else {
+            return (
+              <li key={burger._id} className={burgerConstructorStyles.element}>
+                <DragIcon type="primary" />
+                <ConstructorElement
+                  text={burger.name}
+                  price={burger.price}
+                  thumbnail={burger.image_mobile}
+                />
+              </li>
+            );
+          }
+        })}
       </ul>
       <section className={burgerConstructorStyles.container__info}>
         <p className={burgerConstructorStyles.container__info_text}>610</p>
