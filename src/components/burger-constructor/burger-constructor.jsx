@@ -10,20 +10,14 @@ import {
 function BurgerConstructor(data) {
   return (
     <div className={burgerConstructorStyles.container}>
-      <ul
-        className={burgerConstructorStyles.container__list}
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '10px',
-          width: '100%',
-        }}
-      >
+      <ul className={burgerConstructorStyles.container__list}>
         {data.data.map((burger, index) => {
           if (index === 0) {
             return (
-              <li key={burger._id} className={burgerConstructorStyles.element}>
-                <DragIcon type="primary" />
+              <li
+                key={burger._id}
+                className={`${burgerConstructorStyles.element} ml-4`}
+              >
                 <ConstructorElement
                   type="top"
                   isLocked={true}
@@ -35,8 +29,10 @@ function BurgerConstructor(data) {
             );
           } else if (index === data.data.length - 1) {
             return (
-              <li key={burger._id} className={burgerConstructorStyles.element}>
-                <DragIcon type="primary" />
+              <li
+                key={burger._id}
+                className={`${burgerConstructorStyles.element} ml-4`}
+              >
                 <ConstructorElement
                   type="bottom"
                   isLocked={true}
@@ -62,7 +58,7 @@ function BurgerConstructor(data) {
       </ul>
       <section className={burgerConstructorStyles.container__info}>
         <p className={burgerConstructorStyles.container__info_text}>610</p>
-        <CurrencyIcon type="primary" />
+        <CurrencyIcon />
         <Button
           htmlType="button"
           type="primary"

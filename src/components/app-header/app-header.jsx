@@ -10,20 +10,15 @@ import { Logo } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui
 function AppHeader() {
   return (
     <section className={headerStyles.header}>
-      <ul style={{ display: 'flex', flexDirection: 'row' }}>
-        <div className="mr-2">
-          <li className={headerStyles.wrapper}>
-            <div className="pr-2">
-              <BurgerIcon type="primary" />
-            </div>
-            <p className="text text_type_main-default">Конструктор</p>
-          </li>
-        </div>
-        <li className={`${headerStyles.wrapper} ml-2`}>
-          <div className="pr-2">
-            <ListIcon type="secondary" />
-          </div>
-          <p className="text_type_main-default text_color_inactive">
+      <ul className={headerStyles.wrapper}>
+        <li className={`${headerStyles.wrapper} mr-2`}>
+          <BurgerIcon type="primary" />
+          <p className={`${'text_type_main-default'} pl-2`}>Конструктор</p>
+        </li>
+
+        <li className={headerStyles.wrapper}>
+          <ListIcon type="secondary" />
+          <p className={`${'text_type_main-default text_color_inactive'} pl-2`}>
             Лента заказов
           </p>
         </li>
@@ -31,10 +26,8 @@ function AppHeader() {
       <Logo />
 
       <section className={headerStyles.wrapper}>
-        <div className="pr-2">
-          <ProfileIcon type="secondary" />
-        </div>
-        <p className="text_type_main-default text_color_inactive">
+        <ProfileIcon type="secondary" />
+        <p className={`${'text_type_main-default text_color_inactive'} pl-2`}>
           Личный кабинет
         </p>
       </section>

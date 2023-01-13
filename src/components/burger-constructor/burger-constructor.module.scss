@@ -6,8 +6,13 @@
   margin-top: 100px;
 
   &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
     overflow-y: scroll;
     max-height: 500px;
+    padding: 0 16px;
   }
 
   &__info {

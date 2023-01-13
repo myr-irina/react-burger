@@ -1,6 +1,5 @@
 import React from 'react';
 import burgerStyles from './burger-ingredient.module.scss';
-import BunImg from './../../images/crater-bun.svg';
 import {
   Counter,
   CurrencyIcon,

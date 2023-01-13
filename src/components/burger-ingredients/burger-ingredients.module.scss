@@ -1,6 +1,4 @@
 .container {
-  // margin-top: 100px;
-
   &__header {
     composes: text text_type_main-large mb-5 mt-10 from global;
   }
