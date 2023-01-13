@@ -6,8 +6,13 @@ import {
   CurrencyIcon,
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 
 function BurgerConstructor(data) {
+  const totalSum = data.data.reduce((acc, curr) => {
+    return acc + curr.price;
+  }, 0);
+
   return (
     <div className={burgerConstructorStyles.container}>
       <ul className={burgerConstructorStyles.container__list}>
@@ -57,7 +62,9 @@ function BurgerConstructor(data) {
         })}
       </ul>
       <section className={burgerConstructorStyles.container__info}>
-        <p className={burgerConstructorStyles.container__info_text}>610</p>
+        <p className={burgerConstructorStyles.container__info_text}>
+          {totalSum}
+        </p>
         <CurrencyIcon />
         <Button
           htmlType="button"
@@ -71,5 +78,9 @@ function BurgerConstructor(data) {
     </div>
   );
 }
+
+BurgerConstructor.propTypes = {
+  data: PropTypes.array.isRequired,
+};
 
 export default BurgerConstructor;

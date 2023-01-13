@@ -4,6 +4,7 @@ import appStyles from './app.module.css';
 import { data } from '../../utils/data';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
+import PropTypes from 'prop-types';
 
 function App() {
   return (
@@ -16,5 +17,9 @@ function App() {
     </section>
   );
 }
+
+// App.propTypes = {
+//   data: PropTypes.object.isRequired,
+// };
 
 export default App;

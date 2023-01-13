@@ -2,6 +2,7 @@ import React from 'react';
 import burgersStyles from './burger-ingredients.module.scss';
 import BurgerIngredient from '../burger-ingredient/burger-ingredient';
 import Tabs from '../tabs/tabs';
+import PropTypes from 'prop-types';
 
 function BurgerIngredients({ data }) {
   return (
@@ -55,5 +56,9 @@ function BurgerIngredients({ data }) {
     </main>
   );
 }
+
+BurgerIngredients.propTypes = {
+  data: PropTypes.array.isRequired,
+};
 
 export default BurgerIngredients;

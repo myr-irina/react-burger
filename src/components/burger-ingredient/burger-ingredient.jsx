@@ -4,6 +4,7 @@ import {
   Counter,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 
 function BurgerIngredient(data) {
   return (
@@ -20,5 +21,14 @@ function BurgerIngredient(data) {
     </div>
   );
 }
+
+BurgerIngredient.propTypes = {
+  data: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+  }),
+};
 
 export default BurgerIngredient;
