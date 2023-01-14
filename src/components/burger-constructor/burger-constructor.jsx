@@ -82,8 +82,9 @@ function BurgerConstructor(props) {
   );
 }
 
-// BurgerConstructor.propTypes = {
-//   data: PropTypes.array.isRequired,
-// };
+BurgerConstructor.propTypes = {
+  data: PropTypes.array.isRequired,
+  onOpen: PropTypes.func.isRequired,
+};
 
 export default BurgerConstructor;

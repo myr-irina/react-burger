@@ -1,12 +1,10 @@
 import React from 'react';
 import styles from './ingredient-details.module.scss';
+import PropTypes from 'prop-types';
 
 function IngredientDetails({ modalContent }) {
   return (
     <>
-      {/* <h2 className={styles.header}>
-        <p className={`${'text text_type_main-large'} mt-4 mb-8`}>{title}</p>
-      </h2> */}
       <img className={styles.image} src={modalContent.image} alt="ингредиент" />
       <p className={`${'text text_type_main-medium'} mt-4 mb-8`}>
         {modalContent.name}
@@ -56,5 +54,9 @@ function IngredientDetails({ modalContent }) {
     </>
   );
 }
+
+IngredientDetails.propTypes = {
+  modalContent: PropTypes.object.isRequired,
+};
 
 export default IngredientDetails;
