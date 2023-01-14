@@ -13,10 +13,6 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    getBurgers();
-  }, []);
-
-  function getBurgers() {
     setIsLoading(true);
     fetch(BASE_URL)
       .then(res => res.json())
@@ -29,7 +25,7 @@ function App() {
         setData({ ...data });
         setIsLoading(false);
       });
-  }
+  }, []);
 
   return (
     <section className={appStyles.app}>
