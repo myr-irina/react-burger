@@ -8,15 +8,17 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 
-function BurgerConstructor(data) {
-  const totalSum = data.data.reduce((acc, curr) => {
+function BurgerConstructor(props) {
+  const { data, onOpen } = props;
+
+  const totalSum = data.reduce((acc, curr) => {
     return acc + curr.price;
   }, 0);
 
   return (
     <div className={burgerConstructorStyles.container}>
       <ul className={burgerConstructorStyles.container__list}>
-        {data.data.map((burger, index) => {
+        {data.map((burger, index) => {
           if (index === 0) {
             return (
               <li
@@ -32,7 +34,7 @@ function BurgerConstructor(data) {
                 />
               </li>
             );
-          } else if (index === data.data.length - 1) {
+          } else if (index === data.length - 1) {
             return (
               <li
                 key={burger._id}
@@ -67,6 +69,7 @@ function BurgerConstructor(data) {
         </p>
         <CurrencyIcon />
         <Button
+          onClick={onOpen}
           htmlType="button"
           type="primary"
           size="medium"
@@ -79,8 +82,8 @@ function BurgerConstructor(data) {
   );
 }
 
-BurgerConstructor.propTypes = {
-  data: PropTypes.array.isRequired,
-};
+// BurgerConstructor.propTypes = {
+//   data: PropTypes.array.isRequired,
+// };
 
 export default BurgerConstructor;

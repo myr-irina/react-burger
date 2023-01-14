@@ -4,7 +4,7 @@ import BurgerIngredient from '../burger-ingredient/burger-ingredient';
 import Tabs from '../tabs/tabs';
 import PropTypes from 'prop-types';
 
-function BurgerIngredients({ data, isLoading }) {
+function BurgerIngredients({ data, isLoading, onOpen, onCardClick }) {
   return (
     <main className={burgersStyles.container}>
       <h2 className={burgersStyles.container__header}>Соберите бургер</h2>
@@ -23,7 +23,11 @@ function BurgerIngredients({ data, isLoading }) {
                 .map(filteredburger => {
                   return (
                     <li key={filteredburger._id}>
-                      <BurgerIngredient data={filteredburger} />
+                      <BurgerIngredient
+                        data={filteredburger}
+                        onOpen={onOpen}
+                        onCardClick={onCardClick}
+                      />
                     </li>
                   );
                 })}
@@ -37,7 +41,11 @@ function BurgerIngredients({ data, isLoading }) {
                 .map(filteredburger => {
                   return (
                     <li key={filteredburger._id}>
-                      <BurgerIngredient data={filteredburger} />
+                      <BurgerIngredient
+                        data={filteredburger}
+                        onOpen={onOpen}
+                        onCardClick={onCardClick}
+                      />
                     </li>
                   );
                 })}
@@ -51,7 +59,11 @@ function BurgerIngredients({ data, isLoading }) {
                 .map(filteredburger => {
                   return (
                     <li key={filteredburger._id}>
-                      <BurgerIngredient data={filteredburger} />
+                      <BurgerIngredient
+                        data={filteredburger}
+                        onOpen={onOpen}
+                        onCardClick={onCardClick}
+                      />
                     </li>
                   );
                 })}

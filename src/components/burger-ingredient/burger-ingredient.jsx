@@ -6,18 +6,23 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 
-function BurgerIngredient(data) {
+function BurgerIngredient(props) {
+  const { data, onCardClick, onOpen } = props;
+
+  function handleClick() {
+    onCardClick(data);
+    onOpen();
+  }
+
   return (
-    <div className={burgerStyles.container}>
+    <div className={burgerStyles.container} onClick={handleClick}>
       <Counter count={1} size="default" extraClass="m-1" />
-      <img src={data.data.image} alt="булка" />
+      <img src={data.image} alt="ингредиент" />
       <div className={burgerStyles.container__wrapper}>
-        <p className={burgerStyles.container__wrapper_desc}>
-          {data.data.price}
-        </p>
+        <p className={burgerStyles.container__wrapper_desc}>{data.price}</p>
         <CurrencyIcon type="primary" />
       </div>
-      <p className="text text_type_main-default">{data.data.name}</p>
+      <p className="text text_type_main-default">{data.name}</p>
     </div>
   );
 }
