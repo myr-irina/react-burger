@@ -1,15 +1,12 @@
 import React from 'react';
-import Modal from '../modal/modal';
 import styles from './ingredient-details.module.scss';
 
-function IngredientDetails({ modalContent, onClose }) {
+function IngredientDetails({ modalContent }) {
   return (
-    <Modal onClose={onClose}>
-      <h2 className={styles.header}>
-        <p className={`${'text text_type_main-large'} mt-4 mb-8`}>
-          Детали ингредиента
-        </p>
-      </h2>
+    <>
+      {/* <h2 className={styles.header}>
+        <p className={`${'text text_type_main-large'} mt-4 mb-8`}>{title}</p>
+      </h2> */}
       <img className={styles.image} src={modalContent.image} alt="ингредиент" />
       <p className={`${'text text_type_main-medium'} mt-4 mb-8`}>
         {modalContent.name}
@@ -56,7 +53,7 @@ function IngredientDetails({ modalContent, onClose }) {
           </p>
         </li>
       </ul>
-    </Modal>
+    </>
   );
 }
 

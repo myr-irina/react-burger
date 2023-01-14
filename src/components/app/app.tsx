@@ -6,6 +6,7 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import { BASE_URL } from '../../utils/constants';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import Modal from '../modal/modal';
 
 function App() {
   const [data, setData] = useState({
@@ -89,11 +90,18 @@ function App() {
           />
         </main>
       </section>
-      {isOrderDetailsModalOpen && <OrderDetails onClose={handleCloseModal} />}
+      {isOrderDetailsModalOpen && (
+        <Modal
+          title={null}
+          handleClose={handleCloseModal}
+          children={<OrderDetails />}
+        />
+      )}
       {isIngredientModalOpen && (
-        <IngredientDetails
-          modalContent={modalContent !== null && modalContent}
-          onClose={handleCloseModal}
+        <Modal
+          title="Детали ингредиента"
+          children={<IngredientDetails modalContent={modalContent} />}
+          handleClose={handleCloseModal}
         />
       )}
     </>
