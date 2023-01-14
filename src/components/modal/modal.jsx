@@ -8,7 +8,7 @@ const modalRoot = document.getElementById('react-modals');
 function Modal({ children, onClose }) {
   return ReactDOM.createPortal(
     <>
-      <div className={styles.modal_opened}>
+      <div className={styles.modal_opened} onClick={onClose}>
         <div className={styles.modal_content}>
           <div className={styles.modal_close}>
             <CloseIcon type="primary" onClick={onClose} />
