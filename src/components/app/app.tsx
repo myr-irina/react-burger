@@ -32,9 +32,9 @@ function App() {
 
   return (
     <>
+      <AppHeader />
       <section className={appStyles.app}>
         {hasError && <p>Произошла ошибка</p>}
-        <AppHeader />
         <main className={appStyles.container}>
           <BurgerIngredients data={data.burgers} isLoading={isLoading} />
           <BurgerConstructor data={data.burgers} />
