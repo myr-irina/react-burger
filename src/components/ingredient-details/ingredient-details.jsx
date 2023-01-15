@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './ingredient-details.module.scss';
-import PropTypes from 'prop-types';
+import { ingredientPropTypes } from '../../utils/constants';
 
 function IngredientDetails({ content }) {
   return (
@@ -55,8 +55,8 @@ function IngredientDetails({ content }) {
   );
 }
 
-// IngredientDetails.propTypes = {
-//   modalContent: PropTypes.object.isRequired,
-// };
+IngredientDetails.propTypes = {
+  content: ingredientPropTypes.isRequired,
+};
 
 export default IngredientDetails;

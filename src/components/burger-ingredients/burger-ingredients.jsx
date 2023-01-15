@@ -5,18 +5,10 @@ import Tabs from '../tabs/tabs';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import PropTypes from 'prop-types';
+import { ingredientPropTypes } from '../../utils/constants';
 
 function BurgerIngredients({ data, isLoading }) {
   const [isOpen, setIsOpen] = useState(false);
-
-  // const [selectedCard, setSelectedCard] = useState({
-  //   name: '',
-  //   proteins: null,
-  //   fat: null,
-  //   carbohydrates: null,
-  //   calories: null,
-  //   image: '',
-  // });
   const [selectedCard, setSelectedCard] = useState(null);
 
   function handleCardClick(card) {
@@ -110,7 +102,7 @@ function BurgerIngredients({ data, isLoading }) {
 }
 
 BurgerIngredients.propTypes = {
-  data: PropTypes.array.isRequired,
+  data: PropTypes.arrayOf(ingredientPropTypes).isRequired,
   isloading: PropTypes.bool,
 };
 

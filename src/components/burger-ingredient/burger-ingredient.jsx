@@ -5,6 +5,7 @@ import {
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
+import { ingredientPropTypes } from '../../utils/constants';
 
 function BurgerIngredient(props) {
   const { data, onCardClick, onOpen } = props;
@@ -28,12 +29,9 @@ function BurgerIngredient(props) {
 }
 
 BurgerIngredient.propTypes = {
-  card: PropTypes.shape({
-    _id: PropTypes.string,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-  }),
+  data: ingredientPropTypes.isRequired,
+  onCardClick: PropTypes.func.isRequired,
+  onOpen: PropTypes.func.isRequired,
 };
 
 export default BurgerIngredient;

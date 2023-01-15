@@ -9,9 +9,11 @@ import {
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import PropTypes from 'prop-types';
+import { ingredientPropTypes } from '../../utils/constants';
 
 function BurgerConstructor(props) {
   const { data } = props;
+
   const [isOpen, setIsOpen] = useState(false);
 
   function handleOpenModal() {
@@ -107,7 +109,7 @@ function BurgerConstructor(props) {
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.array.isRequired,
+  data: PropTypes.arrayOf(ingredientPropTypes).isRequired,
 };
 
 export default BurgerConstructor;
