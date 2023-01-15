@@ -15,7 +15,7 @@ function AppHeader() {
         <Link to="/" className={headerStyles.link}>
           <li className={`${headerStyles.wrapper}`}>
             <BurgerIcon type="primary" />
-            <p className={headerStyles.link_text}>Конструктор</p>
+            <p className={`${headerStyles.link_text}`}>Конструктор</p>
           </li>
         </Link>
 

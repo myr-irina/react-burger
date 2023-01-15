@@ -4,6 +4,7 @@ import appStyles from './app.module.css';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import { BASE_URL } from '../../utils/constants';
+import { checkReponse } from '../../utils/constants';
 
 function App() {
   const [data, setData] = useState({
@@ -14,7 +15,7 @@ function App() {
   useEffect(() => {
     setIsLoading(true);
     fetch(BASE_URL)
-      .then(res => res.json())
+      .then(checkReponse)
       .then(burgersData => {
         setData({ ...data, burgers: burgersData.data });
         setIsLoading(false);
