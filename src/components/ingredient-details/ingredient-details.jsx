@@ -3,7 +3,6 @@ import styles from './ingredient-details.module.scss';
 import PropTypes from 'prop-types';
 
 function IngredientDetails({ content }) {
-  console.log(content);
   return (
     <>
       <img className={styles.image} src={content.image} alt="ингредиент" />

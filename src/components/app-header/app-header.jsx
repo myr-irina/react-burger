@@ -6,14 +6,17 @@ import {
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/logo';
+import { Link } from 'react-router-dom';
 
 function AppHeader() {
   return (
-    <section className={headerStyles.header}>
+    <nav className={headerStyles.header}>
       <ul className={headerStyles.wrapper}>
         <li className={`${headerStyles.wrapper} mr-2`}>
           <BurgerIcon type="primary" />
-          <p className={`${'text_type_main-default'} pl-2`}>Конструктор</p>
+          <Link to="/" className={headerStyles.link}>
+            Конструктор
+          </Link>
         </li>
 
         <li className={headerStyles.wrapper}>
@@ -31,7 +34,7 @@ function AppHeader() {
           Личный кабинет
         </p>
       </section>
-    </section>
+    </nav>
   );
 }
 
