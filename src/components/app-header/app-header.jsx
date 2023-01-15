@@ -12,28 +12,36 @@ function AppHeader() {
   return (
     <nav className={headerStyles.header}>
       <ul className={headerStyles.wrapper}>
-        <li className={`${headerStyles.wrapper} mr-2`}>
-          <BurgerIcon type="primary" />
-          <Link to="/" className={headerStyles.link}>
-            Конструктор
-          </Link>
-        </li>
+        <Link to="/" className={headerStyles.link}>
+          <li className={`${headerStyles.wrapper}`}>
+            <BurgerIcon type="primary" />
+            <p className={headerStyles.link_text}>Конструктор</p>
+          </li>
+        </Link>
 
-        <li className={headerStyles.wrapper}>
-          <ListIcon type="secondary" />
-          <p className={`${'text_type_main-default text_color_inactive'} pl-2`}>
-            Лента заказов
-          </p>
-        </li>
+        <Link to="/" className={headerStyles.link_inactive}>
+          <li className={headerStyles.wrapper}>
+            <ListIcon type="secondary" />
+            <p
+              className={`${'text_type_main-default text_color_inactive'} pl-2`}
+            >
+              Лента заказов
+            </p>
+          </li>
+        </Link>
       </ul>
-      <Logo />
+      <Link to="/" className={headerStyles.link_logo}>
+        <Logo />
+      </Link>
 
-      <section className={headerStyles.wrapper}>
-        <ProfileIcon type="secondary" />
-        <p className={`${'text_type_main-default text_color_inactive'} pl-2`}>
-          Личный кабинет
-        </p>
-      </section>
+      <Link to="/" className={headerStyles.link_inactive}>
+        <div className={headerStyles.wrapper}>
+          <ProfileIcon type="secondary" />
+          <p className={`${'text_type_main-default text_color_inactive'} pl-2`}>
+            Личный кабинет
+          </p>
+        </div>
+      </Link>
     </nav>
   );
 }
