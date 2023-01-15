@@ -5,8 +5,6 @@ import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import { BASE_URL } from '../../utils/constants';
 import { checkReponse } from '../../utils/constants';
-import PropTypes from 'prop-types';
-import { ingredientPropTypes } from '../../utils/constants';
 
 function App() {
   const [data, setData] = useState({
