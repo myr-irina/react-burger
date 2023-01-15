@@ -23,8 +23,8 @@ function Modal({ children, handleClose, title }) {
 
   return ReactDOM.createPortal(
     <>
-      <div className={styles.modal} onClick={handleClose}>
-        <ModalOverlay />
+      <div className={styles.modal}>
+        <ModalOverlay onClick={handleClose} />
         <div className={styles.modal_content}>
           <div className={styles.modal_header}>
             {title && <p className="text text_type_main-large">{title}</p>}

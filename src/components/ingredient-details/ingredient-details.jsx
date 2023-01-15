@@ -2,12 +2,13 @@ import React from 'react';
 import styles from './ingredient-details.module.scss';
 import PropTypes from 'prop-types';
 
-function IngredientDetails({ modalContent }) {
+function IngredientDetails({ content }) {
+  console.log(content);
   return (
     <>
-      <img className={styles.image} src={modalContent.image} alt="ингредиент" />
+      <img className={styles.image} src={content.image} alt="ингредиент" />
       <p className={`${'text text_type_main-medium'} mt-4 mb-8`}>
-        {modalContent.name}
+        {content.name}
       </p>
       <ul className={styles.list}>
         <li className={styles.list_item}>
@@ -17,7 +18,7 @@ function IngredientDetails({ modalContent }) {
             Калории, ккал
           </p>
           <p className={`${'text text_type_main-default text_color_inactive'}`}>
-            {modalContent.calories}
+            {content.calories}
           </p>
         </li>
         <li className={styles.list_item}>
@@ -27,7 +28,7 @@ function IngredientDetails({ modalContent }) {
             Белки, г
           </p>
           <p className={`${'text text_type_main-default text_color_inactive'}`}>
-            {modalContent.proteins}
+            {content.proteins}
           </p>
         </li>
         <li className={styles.list_item}>
@@ -37,7 +38,7 @@ function IngredientDetails({ modalContent }) {
             Жиры, г
           </p>
           <p className={`${'text text_type_main-default text_color_inactive'}`}>
-            {modalContent.fat}
+            {content.fat}
           </p>
         </li>
         <li className={styles.list_item}>
@@ -47,7 +48,7 @@ function IngredientDetails({ modalContent }) {
             Углеводы, г
           </p>
           <p className={`${'text text_type_main-default text_color_inactive'}`}>
-            {modalContent.carbohydrates}
+            {content.carbohydrates}
           </p>
         </li>
       </ul>
@@ -55,8 +56,8 @@ function IngredientDetails({ modalContent }) {
   );
 }
 
-IngredientDetails.propTypes = {
-  modalContent: PropTypes.object.isRequired,
-};
+// IngredientDetails.propTypes = {
+//   modalContent: PropTypes.object.isRequired,
+// };
 
 export default IngredientDetails;

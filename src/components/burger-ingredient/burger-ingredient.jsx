@@ -28,8 +28,8 @@ function BurgerIngredient(props) {
 }
 
 BurgerIngredient.propTypes = {
-  data: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
+  card: PropTypes.shape({
+    _id: PropTypes.string,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
