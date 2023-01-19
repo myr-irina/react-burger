@@ -1,0 +1,11 @@
+.order {
+  &_icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-image: url('./../../images/graphics.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin-bottom: 60px;
+  }
+}

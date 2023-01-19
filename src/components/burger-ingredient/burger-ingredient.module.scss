@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  max-width: 270px;
+  height: 208px;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    &_desc {
+      composes: text text_type_digits-default pr-4 mb-1 from global;
+    }
+  }
+}
