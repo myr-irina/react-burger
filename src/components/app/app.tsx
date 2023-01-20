@@ -4,6 +4,7 @@ import appStyles from './app.module.css';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import { getIngredients } from '../../utils/constants';
+import Preloader from '../preloader/preloader';
 
 function App() {
   const [ingredients, setIngredients] = useState([]);
@@ -24,9 +25,7 @@ function App() {
     <>
       <AppHeader />
       {isLoading ? (
-        <p className={`${'text text_type_main-medium'} mt-6 ml-4`}>
-          Данные загружаются
-        </p>
+        <Preloader />
       ) : (
         <section className={appStyles.app}>
           {hasError && <p>Произошла ошибка</p>}

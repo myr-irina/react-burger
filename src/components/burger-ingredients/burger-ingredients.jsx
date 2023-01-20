@@ -10,7 +10,7 @@ import IngredientsCategory from '../ingredients-category/ingredients-category';
 function BurgerIngredients({ data }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
-  const [currentTub, setCurrentTub] = useState('bun');
+  const [currentTub, setCurrentTub] = useState('buns');
 
   function handleCardClick(card) {
     setSelectedCard(card);
@@ -31,10 +31,12 @@ function BurgerIngredients({ data }) {
   }
 
   const buns = useMemo(() => data.filter(item => item.type === 'bun'), [data]);
+
   const fillings = useMemo(
     () => data.filter(item => item.type === 'main'),
     [data]
   );
+
   const sauces = useMemo(
     () => data.filter(item => item.type === 'sauce'),
     [data]
@@ -48,21 +50,21 @@ function BurgerIngredients({ data }) {
           <ul className={styles.container__menu}>
             <Tab
               value="buns"
-              active={currentTub === 'bun'}
+              active={currentTub === 'buns'}
               onClick={onTabClick}
             >
               Булки
             </Tab>
             <Tab
               value="sauces"
-              active={currentTub === 'sauce'}
+              active={currentTub === 'sauces'}
               onClick={onTabClick}
             >
               Соусы
             </Tab>
             <Tab
               value="fillings"
-              active={currentTub === 'filling'}
+              active={currentTub === 'fillings'}
               onClick={onTabClick}
             >
               Начинки
