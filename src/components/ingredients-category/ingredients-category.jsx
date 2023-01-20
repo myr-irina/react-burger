@@ -40,4 +40,4 @@ IngredientsCategory.propTypes = {
   onCardClick: PropTypes.func.isRequired,
 };
 
-export default IngredientsCategory;
+export default React.memo(IngredientsCategory);

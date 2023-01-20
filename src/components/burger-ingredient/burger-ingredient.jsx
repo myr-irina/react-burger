@@ -36,4 +36,4 @@ BurgerIngredient.propTypes = {
   onOpen: PropTypes.func.isRequired,
 };
 
-export default BurgerIngredient;
+export default React.memo(BurgerIngredient);
