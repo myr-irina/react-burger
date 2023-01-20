@@ -3,43 +3,39 @@ import AppHeader from '../app-header/app-header';
 import appStyles from './app.module.css';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import { BASE_URL } from '../../utils/constants';
-import { checkReponse } from '../../utils/constants';
+import { getIngredients } from '../../utils/constants';
 
 function App() {
-  const [data, setData] = useState({
-    burgers: [],
-  });
-  const [isLoading, setIsLoading] = useState(false);
+  const [ingredients, setIngredients] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [hasError, setError] = React.useState(false);
 
   useEffect(() => {
-    setError(false);
-    setIsLoading(true);
-
-    fetch(BASE_URL)
-      .then(checkReponse)
-      .then(burgersData => {
-        setData({ ...data, burgers: burgersData.data });
-        setIsLoading(false);
-      })
-      .catch(e => {
-        setData({ ...data });
-        setIsLoading(false);
+    getIngredients()
+      .then(setIngredients)
+      .catch(() => {
+        alert('Во время загрузки ингредиентов произошла ошибка');
         setError(true);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   return (
     <>
       <AppHeader />
-      <section className={appStyles.app}>
-        {hasError && <p>Произошла ошибка</p>}
-        <main className={appStyles.container}>
-          <BurgerIngredients data={data.burgers} isLoading={isLoading} />
-          <BurgerConstructor data={data.burgers} />
-        </main>
-      </section>
+      {isLoading ? (
+        <p className={`${'text text_type_main-medium'} mt-6 ml-4`}>
+          Данные загружаются
+        </p>
+      ) : (
+        <section className={appStyles.app}>
+          {hasError && <p>Произошла ошибка</p>}
+          <main className={appStyles.container}>
+            <BurgerIngredients data={ingredients} />
+            <BurgerConstructor data={ingredients} />
+          </main>
+        </section>
+      )}
     </>
   );
 }

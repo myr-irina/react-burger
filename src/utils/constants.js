@@ -1,22 +1,14 @@
-import PropTypes from 'prop-types';
-
-export const BASE_URL = 'https://norma.nomoreparties.space/api/ingredients';
+export const BASE_URL = 'https://norma.nomoreparties.space/api';
 
 export const checkReponse = res => {
   return res.ok ? res.json() : res.json().then(err => Promise.reject(err));
 };
 
-export const ingredientPropTypes = PropTypes.shape({
-  calories: PropTypes.number,
-  carbohydrates: PropTypes.number,
-  fat: PropTypes.number,
-  image: PropTypes.string,
-  image_large: PropTypes.string,
-  image_mobile: PropTypes.string,
-  name: PropTypes.string,
-  price: PropTypes.number,
-  proteins: PropTypes.number,
-  type: PropTypes.string,
-  __v: PropTypes.number,
-  _id: PropTypes.string,
-});
+export const getIngredients = () => {
+  return fetch(`${BASE_URL}/ingredients`)
+    .then(checkReponse)
+    .then(data => {
+      if (data?.success) return data.data;
+      return Promise.reject(data);
+    });
+};
