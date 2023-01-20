@@ -12,3 +12,20 @@ export const getIngredients = () => {
       return Promise.reject(data);
     });
 };
+
+export const createOrder = ingredients => {
+  return fetch(`${BASE_URL}/orders`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      ingredients: ingredients,
+    }),
+  })
+    .then(checkReponse)
+    .then(data => {
+      if (data?.success) return data;
+      return Promise.reject(data);
+    });
+};

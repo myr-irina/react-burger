@@ -6,16 +6,20 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import { getIngredients } from '../../utils/constants';
 import Preloader from '../preloader/preloader';
 
+import { IngredientsContext } from '../services/appContext';
+import { OrderContext } from '../services/appContext';
+
 function App() {
   const [ingredients, setIngredients] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setError] = React.useState(false);
+  const [order, setOrder] = useState(null);
 
   useEffect(() => {
     getIngredients()
       .then(setIngredients)
-      .catch(() => {
-        alert('Во время загрузки ингредиентов произошла ошибка');
+      .catch(err => {
+        alert(`Во время загрузки ингредиентов произошла ошибка ${err.message}`);
         setError(true);
       })
       .finally(() => setIsLoading(false));
@@ -31,7 +35,13 @@ function App() {
           {hasError && <p>Произошла ошибка</p>}
           <main className={appStyles.container}>
             <BurgerIngredients data={ingredients} />
-            <BurgerConstructor data={ingredients} />
+            <IngredientsContext.Provider
+              value={{ ingredients, setIngredients }}
+            >
+              <OrderContext.Provider value={{ order, setOrder }}>
+                <BurgerConstructor />
+              </OrderContext.Provider>
+            </IngredientsContext.Provider>
           </main>
         </section>
       )}
