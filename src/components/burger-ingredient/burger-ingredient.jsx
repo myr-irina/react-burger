@@ -5,33 +5,35 @@ import {
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
-import { ingredientPropTypes } from '../../utils/constants';
+import { ingredientPropTypes } from '../../utils/prop-types';
 
 function BurgerIngredient(props) {
-  const { data, onCardClick, onOpen } = props;
+  const { ingredientData, onCardClick, onOpen, count } = props;
 
   function handleClick() {
-    onCardClick(data);
+    onCardClick(ingredientData);
     onOpen();
   }
 
   return (
     <div className={burgerStyles.container} onClick={handleClick}>
-      <Counter count={1} size="default" extraClass="m-1" />
-      <img src={data.image} alt="ингредиент" />
+      {count && <Counter count={count} size="default" extraClass="m-1" />}
+      <img src={ingredientData.image} alt="ингредиент" />
       <div className={burgerStyles.container__wrapper}>
-        <p className={burgerStyles.container__wrapper_desc}>{data.price}</p>
+        <p className={burgerStyles.container__wrapper_desc}>
+          {ingredientData.price}
+        </p>
         <CurrencyIcon type="primary" />
       </div>
-      <p className="text text_type_main-default">{data.name}</p>
+      <p className="text text_type_main-default">{ingredientData.name}</p>
     </div>
   );
 }
 
 BurgerIngredient.propTypes = {
-  data: ingredientPropTypes.isRequired,
+  ingredientData: ingredientPropTypes.isRequired,
   onCardClick: PropTypes.func.isRequired,
   onOpen: PropTypes.func.isRequired,
 };
 
-export default BurgerIngredient;
+export default React.memo(BurgerIngredient);

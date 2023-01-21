@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import burgerConstructorStyles from './burger-constructor.module.scss';
+import React, { useState, useEffect, useContext, useMemo } from 'react';
+import styles from './burger-constructor.module.scss';
 import {
   ConstructorElement,
   Button,
@@ -8,13 +8,27 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
-import PropTypes from 'prop-types';
-import { ingredientPropTypes } from '../../utils/constants';
 
-function BurgerConstructor(props) {
-  const { data } = props;
+import { IngredientsContext, OrderContext } from '../services/appContext';
+import { createOrder } from '../../utils/constants';
+
+function BurgerConstructor() {
+  const { ingredients } = useContext(IngredientsContext);
+  const { order, setOrder } = useContext(OrderContext);
 
   const [isOpen, setIsOpen] = useState(false);
+
+  function sendOrder() {
+    createOrder(ids)
+      .then(res => setOrder(res.order.number))
+      .catch(err =>
+        alert(`Во время создания заказа произошла ошибка ${err.message}`)
+      );
+  }
+
+  useEffect(() => {
+    sendOrder();
+  }, []);
 
   function handleOpenModal() {
     setIsOpen(true);
@@ -24,69 +38,78 @@ function BurgerConstructor(props) {
     setIsOpen(false);
   }
 
-  const totalSum = data.reduce((acc, curr) => {
-    return acc + curr.price;
-  }, 0);
+  const ids = useMemo(
+    () =>
+      ingredients.map(item => {
+        return item._id;
+      }),
+    [ingredients]
+  );
+
+  const bun = useMemo(
+    () => ingredients.filter(item => item.type === 'bun'),
+    [ingredients]
+  );
+
+  const bunIngredients = useMemo(
+    () => ingredients.filter(item => item.type !== 'bun'),
+    [ingredients]
+  );
+
+  const sum = useMemo(
+    () =>
+      bunIngredients.reduce((acc, curr) => {
+        return acc + curr.price;
+      }, 0),
+    [bunIngredients]
+  );
+  const totalSum = sum + bun[0].price * 2;
 
   return (
     <>
-      <div className={burgerConstructorStyles.container}>
-        <ul className={burgerConstructorStyles.container__list}>
-          {data.map((burger, index) => {
-            if (index === 0) {
-              return (
-                <li
-                  key={burger._id}
-                  className={`${burgerConstructorStyles.element} ml-4`}
-                >
-                  <ConstructorElement
-                    type="top"
-                    isLocked={true}
-                    text={burger.name}
-                    price={burger.price}
-                    thumbnail={burger.image_mobile}
-                  />
-                </li>
-              );
-            } else if (index === data.length - 1) {
-              return (
-                <li
-                  key={burger._id}
-                  className={`${burgerConstructorStyles.element} ml-4`}
-                >
-                  <ConstructorElement
-                    type="bottom"
-                    isLocked={true}
-                    text={burger.name}
-                    price={burger.price}
-                    thumbnail={burger.image_mobile}
-                  />
-                </li>
-              );
-            } else {
-              return (
-                <li
-                  key={burger._id}
-                  className={burgerConstructorStyles.element}
-                >
-                  <DragIcon type="primary" />
-                  <ConstructorElement
-                    text={burger.name}
-                    price={burger.price}
-                    thumbnail={burger.image_mobile}
-                  />
-                </li>
-              );
-            }
+      <div className={styles.container}>
+        <div className={`${styles.element} ml-8`}>
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={`${bun[0].name} (верх)`}
+            price={ingredients[0].price}
+            thumbnail={ingredients[0].image_mobile}
+          />
+        </div>
+
+        <ul className={styles.container__list}>
+          {bunIngredients.map((element, index) => {
+            return (
+              <li className={`${styles.block} ml-4`} key={index}>
+                <DragIcon />
+                <ConstructorElement
+                  text={element.name}
+                  price={element.price}
+                  thumbnail={element.image_mobile}
+                />
+              </li>
+            );
           })}
         </ul>
-        <section className={burgerConstructorStyles.container__info}>
-          <p className={burgerConstructorStyles.container__info_text}>
-            {totalSum}
-          </p>
+        <div className={`${styles.element} ml-8`}>
+          <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={`${bun[0].name} (низ)`}
+            price={ingredients[0].price}
+            thumbnail={ingredients[0].image_mobile}
+          />
+        </div>
+
+        <section className={styles.container__info}>
+          <p className={styles.container__info_text}>{totalSum}</p>
           <CurrencyIcon />
           <Button
-            onClick={handleOpenModal}
+            onClick={() => {
+              sendOrder();
+              handleOpenModal();
+            }}
             htmlType="button"
             type="primary"
             size="medium"
@@ -101,15 +124,11 @@ function BurgerConstructor(props) {
         <Modal
           title={null}
           handleClose={handleCloseModal}
-          children={<OrderDetails />}
+          children={<OrderDetails order={order} />}
         />
       )}
     </>
   );
 }
-
-BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropTypes).isRequired,
-};
 
 export default BurgerConstructor;

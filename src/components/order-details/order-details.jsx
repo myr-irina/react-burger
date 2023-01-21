@@ -1,10 +1,11 @@
 import React from 'react';
 import styles from './styles.module.scss';
+import PropTypes from 'prop-types';
 
-function OrderDetails() {
+function OrderDetails({ order }) {
   return (
     <>
-      <p className={`${'text text_type_digits-large'} mt-30 mb-8`}>123456</p>
+      <p className={`${'text text_type_digits-large'} mt-30 mb-8`}>{order}</p>
       <p className={`${'text text_type_main-medium'} mb-15`}>
         идентификатор заказа
       </p>
@@ -18,5 +19,8 @@ function OrderDetails() {
     </>
   );
 }
+OrderDetails.propTypes = {
+  order: PropTypes.number.isRequired,
+};
 
 export default OrderDetails;
