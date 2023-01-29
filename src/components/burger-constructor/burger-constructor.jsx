@@ -1,4 +1,7 @@
 import React, { useState, useEffect, useContext, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+
 import styles from './burger-constructor.module.scss';
 import {
   ConstructorElement,
@@ -9,14 +12,21 @@ import {
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 
-import { IngredientsContext, OrderContext } from '../services/appContext';
-import { createOrder } from '../../utils/constants';
+import { OrderContext } from '../services/appContext';
+import { createOrder } from '../../utils/api-requests';
+import { fetchIngredients } from '../services/actions/ingredients';
 
 function BurgerConstructor() {
-  const { ingredients } = useContext(IngredientsContext);
   const { order, setOrder } = useContext(OrderContext);
-
   const [isOpen, setIsOpen] = useState(false);
+
+  const { ingredients } = useSelector(store => store.ingredients);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchIngredients());
+  }, [dispatch]);
 
   function sendOrder() {
     createOrder(ids)
@@ -63,7 +73,7 @@ function BurgerConstructor() {
       }, 0),
     [bunIngredients]
   );
-  const totalSum = sum + bun[0].price * 2;
+  // const totalSum = sum + bun[0].price * 2;
 
   return (
     <>
@@ -72,16 +82,16 @@ function BurgerConstructor() {
           <ConstructorElement
             type="top"
             isLocked={true}
-            text={`${bun[0].name} (верх)`}
-            price={ingredients[0].price}
-            thumbnail={ingredients[0].image_mobile}
+            // text={`${bun[0].name} (верх)`}
+            // price={ingredients[0].price}
+            // thumbnail={ingredients[0].image_mobile}
           />
         </div>
 
         <ul className={styles.container__list}>
           {bunIngredients.map((element, index) => {
             return (
-              <li className={`${styles.block} ml-4`} key={index}>
+              <li className={`${styles.block} ml-4`} key={element.v4}>
                 <DragIcon />
                 <ConstructorElement
                   text={element.name}
@@ -96,14 +106,14 @@ function BurgerConstructor() {
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            text={`${bun[0].name} (низ)`}
-            price={ingredients[0].price}
-            thumbnail={ingredients[0].image_mobile}
+            // text={`${bun[0].name} (низ)`}
+            // price={ingredients[0].price}
+            // thumbnail={ingredients[0].image_mobile}
           />
         </div>
 
         <section className={styles.container__info}>
-          <p className={styles.container__info_text}>{totalSum}</p>
+          {/* <p className={styles.container__info_text}>{totalSum}</p> */}
           <CurrencyIcon />
           <Button
             onClick={() => {

@@ -1,13 +1,28 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import styles from './burger-ingredients.module.scss';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
-import PropTypes from 'prop-types';
+
 import { ingredientPropTypes } from '../../utils/prop-types';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsCategory from '../ingredients-category/ingredients-category';
+import { getIngredientsData } from '../services/actions/ingredients';
+import { fetchIngredients } from '../services/actions/ingredients';
 
-function BurgerIngredients({ data }) {
+function BurgerIngredients() {
+  const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
+    store => store.ingredients
+  );
+  console.log(ingredients);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchIngredients());
+  }, [dispatch]);
+
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentTub, setCurrentTub] = useState('buns');
@@ -30,16 +45,19 @@ function BurgerIngredients({ data }) {
     if (element) element.scrollIntoView({ behavior: 'smooth' });
   }
 
-  const buns = useMemo(() => data.filter(item => item.type === 'bun'), [data]);
+  const buns = useMemo(
+    () => ingredients.filter(item => item.type === 'bun'),
+    [ingredients]
+  );
 
   const fillings = useMemo(
-    () => data.filter(item => item.type === 'main'),
-    [data]
+    () => ingredients.filter(item => item.type === 'main'),
+    [ingredients]
   );
 
   const sauces = useMemo(
-    () => data.filter(item => item.type === 'sauce'),
-    [data]
+    () => ingredients.filter(item => item.type === 'sauce'),
+    [ingredients]
   );
 
   return (
@@ -112,8 +130,8 @@ function BurgerIngredients({ data }) {
   );
 }
 
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(ingredientPropTypes).isRequired,
-};
+// BurgerIngredients.propTypes = {
+//   ingredients: PropTypes.arrayOf(ingredientPropTypes).isRequired,
+// };
 
 export default BurgerIngredients;
