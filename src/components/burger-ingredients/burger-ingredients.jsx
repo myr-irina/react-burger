@@ -1,21 +1,15 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styles from './burger-ingredients.module.scss';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
-
-import { ingredientPropTypes } from '../../utils/prop-types';
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientsCategory from '../ingredients-category/ingredients-category';
-import { getIngredientsData } from '../services/actions/ingredients';
 import { fetchIngredients } from '../services/actions/ingredients';
 
 function BurgerIngredients() {
-  const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
-    store => store.ingredients
-  );
-  console.log(ingredients);
+  const { ingredients } = useSelector(store => store.ingredients);
 
   const dispatch = useDispatch();
 
@@ -129,9 +123,5 @@ function BurgerIngredients() {
     </>
   );
 }
-
-// BurgerIngredients.propTypes = {
-//   ingredients: PropTypes.arrayOf(ingredientPropTypes).isRequired,
-// };
 
 export default BurgerIngredients;

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 import AppHeader from '../app-header/app-header';
 import appStyles from './app.module.css';
@@ -15,10 +17,10 @@ function App() {
       <AppHeader />
       <section className={appStyles.app}>
         <main className={appStyles.container}>
-          <BurgerIngredients />
-          {/* <OrderContext.Provider value={{ order, setOrder }}>
+          <DndProvider backend={HTML5Backend}>
+            <BurgerIngredients />
             <BurgerConstructor />
-          </OrderContext.Provider> */}
+          </DndProvider>
         </main>
       </section>
     </>

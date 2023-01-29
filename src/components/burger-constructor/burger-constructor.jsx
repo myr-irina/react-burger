@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 
 import styles from './burger-constructor.module.scss';
 import {
@@ -9,36 +8,23 @@ import {
   CurrencyIcon,
   DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 
-import { OrderContext } from '../services/appContext';
-import { createOrder } from '../../utils/api-requests';
 import { fetchIngredients } from '../services/actions/ingredients';
+import { fetchOrderId } from '../services/actions/order';
 
 function BurgerConstructor() {
-  const { order, setOrder } = useContext(OrderContext);
+  const order = useSelector(store => store.order);
   const [isOpen, setIsOpen] = useState(false);
-
-  const { ingredients } = useSelector(store => store.ingredients);
+  const { bun, fillings } = useSelector(store => store.burgerConstructor);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchIngredients());
   }, [dispatch]);
-
-  function sendOrder() {
-    createOrder(ids)
-      .then(res => setOrder(res.order.number))
-      .catch(err =>
-        alert(`Во время создания заказа произошла ошибка ${err.message}`)
-      );
-  }
-
-  useEffect(() => {
-    sendOrder();
-  }, []);
 
   function handleOpenModal() {
     setIsOpen(true);
@@ -49,31 +35,31 @@ function BurgerConstructor() {
   }
 
   const ids = useMemo(
-    () =>
-      ingredients.map(item => {
+    () => [
+      bun._id,
+      ...fillings.map(item => {
         return item._id;
       }),
-    [ingredients]
+    ],
+    [fillings, bun]
   );
 
-  const bun = useMemo(
-    () => ingredients.filter(item => item.type === 'bun'),
-    [ingredients]
-  );
+  const totalSum = useMemo(() => {
+    let bunSum = 0;
+    if (bun) {
+      bunSum += bun.price * 2;
+    }
 
-  const bunIngredients = useMemo(
-    () => ingredients.filter(item => item.type !== 'bun'),
-    [ingredients]
-  );
+    const fillingsSum = fillings.reduce((acc, curr) => {
+      return acc + curr.price;
+    }, 0);
 
-  const sum = useMemo(
-    () =>
-      bunIngredients.reduce((acc, curr) => {
-        return acc + curr.price;
-      }, 0),
-    [bunIngredients]
-  );
-  // const totalSum = sum + bun[0].price * 2;
+    return bunSum + fillingsSum;
+  }, [bun, fillings]);
+
+  function sendOrder() {
+    dispatch(fetchOrderId(ids));
+  }
 
   return (
     <>
@@ -82,16 +68,15 @@ function BurgerConstructor() {
           <ConstructorElement
             type="top"
             isLocked={true}
-            // text={`${bun[0].name} (верх)`}
-            // price={ingredients[0].price}
-            // thumbnail={ingredients[0].image_mobile}
+            text={`${bun.name} (верх)`}
+            price={bun.price}
+            thumbnail={bun.image_mobile}
           />
         </div>
-
         <ul className={styles.container__list}>
-          {bunIngredients.map((element, index) => {
+          {fillings.map((element, index) => {
             return (
-              <li className={`${styles.block} ml-4`} key={element.v4}>
+              <li className={`${styles.block} ml-4`} key={index}>
                 <DragIcon />
                 <ConstructorElement
                   text={element.name}
@@ -106,14 +91,14 @@ function BurgerConstructor() {
           <ConstructorElement
             type="bottom"
             isLocked={true}
-            // text={`${bun[0].name} (низ)`}
-            // price={ingredients[0].price}
-            // thumbnail={ingredients[0].image_mobile}
+            text={`${bun.name} (низ)`}
+            price={bun.price}
+            thumbnail={bun.image_mobile}
           />
         </div>
 
         <section className={styles.container__info}>
-          {/* <p className={styles.container__info_text}>{totalSum}</p> */}
+          <p className={styles.container__info_text}>{totalSum}</p>
           <CurrencyIcon />
           <Button
             onClick={() => {

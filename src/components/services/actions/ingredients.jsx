@@ -23,28 +23,3 @@ export function fetchIngredients() {
       });
   };
 }
-
-// export const getIngredientsRequest = () => ({
-//   type: GET_INGREDIENTS_REQUEST,
-// });
-
-// export const getIngredientsSuccess = ingredients => ({
-//   type: GET_INGREDIENTS_SUCCESS,
-//   payload: ingredients,
-// });
-
-// export const getIngredientsFailed = () => ({
-//   type: GET_INGREDIENTS_FAILED,
-// });
-
-// export const fetchIngredients = () => {
-//   return async dispatch => {
-//     dispatch(getIngredientsRequest());
-//     try {
-//       const data = await getIngredients();
-//       dispatch(getIngredientsSuccess(data));
-//     } catch (error) {
-//       dispatch(getIngredientsFailed());
-//     }
-//   };
-// };

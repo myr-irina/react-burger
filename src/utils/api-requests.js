@@ -15,7 +15,6 @@ export const getIngredients = () => {
       'Content-Type': 'application/json',
     },
   }).then(data => {
-    console.log(data);
     if (data?.success) {
       return data.data;
     }
