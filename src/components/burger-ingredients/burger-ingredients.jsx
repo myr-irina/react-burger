@@ -8,8 +8,13 @@ import Modal from '../modal/modal';
 import IngredientsCategory from '../ingredients-category/ingredients-category';
 import { fetchIngredients } from '../services/actions/ingredients';
 
+import { SET_INGREDIENT_DATA } from '../services/actions/ingredient-details';
+
 function BurgerIngredients() {
   const { ingredients } = useSelector(store => store.ingredients);
+  const { ingredientData } = useSelector(store => store.ingredientDetails);
+
+  console.log(ingredientData);
 
   const dispatch = useDispatch();
 
@@ -18,11 +23,11 @@ function BurgerIngredients() {
   }, [dispatch]);
 
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState(null);
+
   const [currentTub, setCurrentTub] = useState('buns');
 
-  function handleCardClick(card) {
-    setSelectedCard(card);
+  function handleCardClick(ingredient) {
+    dispatch({ type: SET_INGREDIENT_DATA, payload: ingredient });
   }
 
   function handleOpenModal() {
@@ -117,7 +122,7 @@ function BurgerIngredients() {
 
       {isOpen && (
         <Modal title="Детали ингредиента" handleClose={handleCloseModal}>
-          <IngredientDetails content={selectedCard} />
+          <IngredientDetails content={ingredientData} />
         </Modal>
       )}
     </>
