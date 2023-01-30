@@ -18,7 +18,9 @@ function BurgerIngredients() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentTab, setCurrentTab] = useState('buns');
 
-  const { ingredients } = useSelector(store => store.ingredients);
+  const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
+    store => store.ingredients
+  );
   const { ingredientData } = useSelector(store => store.ingredientDetails);
 
   const buns = useMemo(

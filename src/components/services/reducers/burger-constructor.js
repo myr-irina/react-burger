@@ -1,4 +1,9 @@
-import { ADD_BURGER_INGREDIENT } from '../actions/burger-constructor';
+import {
+  ADD_BURGER_INGREDIENT,
+  DELETE_BURGER_INGREDIENT,
+  REORDER_BURGER_INGREDIENTS,
+  RESET_BURGER_INGREDIENTS,
+} from '../actions/burger-constructor';
 
 const initialState = {
   bun: [],
@@ -8,20 +13,43 @@ const initialState = {
 export const burgerConstructorReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_BURGER_INGREDIENT: {
-      if (action.payload.type === 'bun') {
+      if (action.payload.ingredientData.type === 'bun') {
         return {
           ...state,
-          bun: action.payload,
+          bun: action.payload.ingredientData,
         };
       }
 
       return {
         ...state,
-        fillings: [...state.fillings, action.payload],
+        fillings: [...state.fillings, action.payload.ingredientData],
       };
     }
 
-    default:
+    case REORDER_BURGER_INGREDIENTS: {
+      return {
+        ...state,
+        fillings: state.fillings.splice(
+          action.payload.to,
+          0,
+          state.fillings.splice(action.payload.from, 1)[0]
+        ),
+      };
+    }
+
+    case DELETE_BURGER_INGREDIENT: {
+      return {
+        ...state,
+        fillings: state.fillings.filter(itemId => itemId !== action.payload),
+      };
+    }
+
+    case RESET_BURGER_INGREDIENTS: {
+      return initialState;
+    }
+
+    default: {
       return state;
+    }
   }
 };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useDrop } from 'react-dnd';
 
 import styles from './burger-constructor.module.scss';
 import {
@@ -13,10 +14,11 @@ import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 
 import { fetchIngredients } from '../services/actions/ingredients';
-import { fetchOrderId } from '../services/actions/order';
+import { createOrderId, ORDER_RESET } from '../services/actions/order';
+import { addBurgerIngredient } from '../services/actions/burger-constructor';
 
 function BurgerConstructor() {
-  const order = useSelector(store => store.order);
+  const { order } = useSelector(store => store.order);
   const [isOpen, setIsOpen] = useState(false);
   const { bun, fillings } = useSelector(store => store.burgerConstructor);
 
@@ -31,6 +33,7 @@ function BurgerConstructor() {
   }
 
   function handleCloseModal() {
+    dispatch({ type: ORDER_RESET });
     setIsOpen(false);
   }
 
@@ -58,12 +61,22 @@ function BurgerConstructor() {
   }, [bun, fillings]);
 
   function sendOrder() {
-    dispatch(fetchOrderId(ids));
+    dispatch(createOrderId(ids));
   }
+
+  const [{ isHover }, dropTarget] = useDrop({
+    accept: 'fillingsItem',
+    collect: monitor => ({
+      isHover: monitor.isOver(),
+    }),
+    drop(item) {
+      dispatch(addBurgerIngredient(item));
+    },
+  });
 
   return (
     <>
-      <div className={styles.container}>
+      <div className={styles.container} ref={dropTarget}>
         <div className={`${styles.element} ml-8`}>
           <ConstructorElement
             type="top"
