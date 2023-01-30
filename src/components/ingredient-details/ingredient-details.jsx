@@ -55,8 +55,8 @@ function IngredientDetails({ content }) {
   );
 }
 
-// IngredientDetails.propTypes = {
-//   content: ingredientPropTypes.isRequired,
-// };
+IngredientDetails.propTypes = {
+  content: ingredientPropTypes.isRequired,
+};
 
 export default IngredientDetails;
