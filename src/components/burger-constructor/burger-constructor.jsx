@@ -74,6 +74,10 @@ function BurgerConstructor() {
     },
   });
 
+  const receivedOrderId = useMemo(() => {
+    return order ? order.order.number : 0;
+  }, [order]);
+
   return (
     <>
       <div className={styles.container} ref={dropTarget}>
@@ -132,7 +136,7 @@ function BurgerConstructor() {
         <Modal
           title={null}
           handleClose={handleCloseModal}
-          children={<OrderDetails order={order} />}
+          children={<OrderDetails order={receivedOrderId} />}
         />
       )}
     </>

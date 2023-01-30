@@ -34,7 +34,7 @@ export const createOrder = ingredients => {
   })
     .then(checkReponse)
     .then(data => {
-      if (data?.success) return data.data;
+      if (data?.success) return data;
       return Promise.reject(data);
     });
 };
