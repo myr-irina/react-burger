@@ -32,7 +32,7 @@ function BurgerIngredient(props) {
       style={{ opacity }}
       ref={ref}
     >
-      {count && <Counter count={count} size="default" extraClass="m-1" />}
+      {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
       <img src={ingredientData.image} alt="ингредиент" />
       <div className={burgerStyles.container__wrapper}>
         <p className={burgerStyles.container__wrapper_desc}>
