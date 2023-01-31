@@ -37,27 +37,29 @@ function BurgerConstructor() {
     setIsOpen(false);
   }
 
-  const ids = useMemo(
-    () => [
+  const ids = useMemo(() => {
+    return [
       bun._id,
       ...fillings.map(item => {
         return item._id;
       }),
-    ],
-    [fillings, bun]
-  );
+    ];
+  }, [fillings, bun]);
 
   const totalSum = useMemo(() => {
-    let bunSum = 0;
-    if (bun) {
-      bunSum += bun.price * 2;
+    if (bun.length === 0) return;
+    if (bun.length !== 0 || fillings.length !== 0) {
+      let bunSum = 0;
+      if (bun) {
+        bunSum += bun.price * 2;
+      }
+
+      const fillingsSum = fillings.reduce((acc, curr) => {
+        return acc + curr.price;
+      }, 0);
+
+      return bunSum + fillingsSum;
     }
-
-    const fillingsSum = fillings.reduce((acc, curr) => {
-      return acc + curr.price;
-    }, 0);
-
-    return bunSum + fillingsSum;
   }, [bun, fillings]);
 
   function sendOrder() {
@@ -81,38 +83,56 @@ function BurgerConstructor() {
   return (
     <>
       <div className={styles.container} ref={dropTarget}>
-        <div className={`${styles.element} ml-8`}>
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={`${bun.name} (верх)`}
-            price={bun.price}
-            thumbnail={bun.image_mobile}
-          />
-        </div>
-        <ul className={styles.container__list}>
-          {fillings.map((element, index) => {
-            return (
-              <li className={`${styles.block} ml-4`} key={index}>
-                <DragIcon />
-                <ConstructorElement
-                  text={element.name}
-                  price={element.price}
-                  thumbnail={element.image_mobile}
-                />
-              </li>
-            );
-          })}
-        </ul>
-        <div className={`${styles.element} ml-8`}>
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text={`${bun.name} (низ)`}
-            price={bun.price}
-            thumbnail={bun.image_mobile}
-          />
-        </div>
+        {bun.length === 0 && fillings.length === 0 ? (
+          <div className={styles.empty_field}>
+            <p className="text text_type_main-default">
+              Переместите сюда выбранную Вами булочку
+            </p>
+            <p className="text text_type_main-default">
+              А затем начинки и соусы.
+            </p>
+          </div>
+        ) : null}
+
+        {bun.length !== 0 && (
+          <div className={`${styles.element} ml-8`}>
+            <ConstructorElement
+              type="top"
+              isLocked={true}
+              text={`${bun.name} (верх)`}
+              price={bun.price}
+              thumbnail={bun.image_mobile}
+            />
+          </div>
+        )}
+
+        {fillings.length !== 0 && (
+          <ul className={styles.container__list}>
+            {fillings.map((element, index) => {
+              return (
+                <li className={`${styles.block} ml-4`} key={index}>
+                  <DragIcon />
+                  <ConstructorElement
+                    text={element.name}
+                    price={element.price}
+                    thumbnail={element.image_mobile}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+        )}
+        {bun.length !== 0 && (
+          <div className={`${styles.element} ml-8`}>
+            <ConstructorElement
+              type="bottom"
+              isLocked={true}
+              text={`${bun.name} (низ)`}
+              price={bun.price}
+              thumbnail={bun.image_mobile}
+            />
+          </div>
+        )}
 
         <section className={styles.container__info}>
           <p className={styles.container__info_text}>{totalSum}</p>
@@ -126,6 +146,7 @@ function BurgerConstructor() {
             type="primary"
             size="medium"
             extraClass="ml-10"
+            disabled={bun.length === 0}
           >
             Оформить заказ
           </Button>

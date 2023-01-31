@@ -45,10 +45,10 @@ function BurgerIngredient(props) {
   );
 }
 
-// BurgerIngredient.propTypes = {
-//   ingredientData: ingredientPropTypes.isRequired,
-//   onCardClick: PropTypes.func.isRequired,
-//   onOpen: PropTypes.func.isRequired,
-// };
+BurgerIngredient.propTypes = {
+  ingredientData: ingredientPropTypes.isRequired,
+  onCardClick: PropTypes.func.isRequired,
+  onOpen: PropTypes.func.isRequired,
+};
 
 export default React.memo(BurgerIngredient);
