@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './preloader.styles.scss';
+import styles from './styles.module.scss';
 
 function Preloader() {
   return <div className={styles.loader}></div>;

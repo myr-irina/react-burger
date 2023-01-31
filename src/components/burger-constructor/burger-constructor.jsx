@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 
@@ -12,22 +12,16 @@ import {
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 
-import { fetchIngredients } from '../services/actions/ingredients';
-import { createOrderId, ORDER_RESET } from '../services/actions/order';
-import { addBurgerIngredient } from '../services/actions/burger-constructor';
-import { RESET_BURGER_INGREDIENTS } from '../services/actions/burger-constructor';
+import { createOrderId, ORDER_RESET } from '../../services/actions/order';
+import { addBurgerIngredient } from '../../services/actions/burger-constructor';
+import { RESET_BURGER_INGREDIENTS } from '../../services/actions/burger-constructor';
 import IngredientBox from '../ingredient-box/ingredient-box';
 
 function BurgerConstructor() {
-  const { order } = useSelector(store => store.order);
   const [isOpen, setIsOpen] = useState(false);
   const { bun, fillings } = useSelector(store => store.burgerConstructor);
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchIngredients());
-  }, [dispatch]);
 
   function handleOpenModal() {
     setIsOpen(true);
@@ -77,10 +71,6 @@ function BurgerConstructor() {
       dispatch(addBurgerIngredient(item));
     },
   });
-
-  const receivedOrderId = useMemo(() => {
-    return order ? order.order.number : 0;
-  }, [order]);
 
   return (
     <>
@@ -156,7 +146,7 @@ function BurgerConstructor() {
         <Modal
           title={null}
           handleClose={handleCloseModal}
-          children={<OrderDetails order={receivedOrderId} />}
+          children={<OrderDetails />}
         />
       )}
     </>

@@ -1,4 +1,4 @@
-import { createOrder } from '../../../utils/api-requests';
+import { createOrder } from '../../utils/api-requests';
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';

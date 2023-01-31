@@ -11,7 +11,7 @@ import {
 import {
   DELETE_BURGER_INGREDIENT,
   REORDER_BURGER_INGREDIENTS,
-} from '../services/actions/burger-constructor';
+} from '../../services/actions/burger-constructor';
 
 function IngredientsBox({ element, index }) {
   const dispatch = useDispatch();

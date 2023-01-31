@@ -7,13 +7,12 @@ import styles from './burger-ingredients.module.scss';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 import IngredientsCategory from '../ingredients-category/ingredients-category';
-import { fetchIngredients } from '../services/actions/ingredients';
+import Preloader from '../preloader/preloader';
 
 import {
   SET_INGREDIENT_DATA,
   RESET_INGREDIENT_DATA,
-} from '../services/actions/ingredient-details';
-import Preloader from '../preloader/preloader';
+} from '../../services/actions/ingredient-details';
 
 function BurgerIngredients() {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,10 +39,6 @@ function BurgerIngredients() {
   );
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchIngredients());
-  }, [dispatch]);
 
   const [bunsRef, inViewBunsRef] = useInView({ threshold: 0.2 });
   const [saucesRef, inViewSaucesRef] = useInView({ threshold: 0.4 });
