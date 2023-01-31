@@ -5,7 +5,12 @@ export const checkReponse = res => {
 };
 
 function requestUrl(url, options) {
-  return fetch(url, options).then(checkReponse);
+  return fetch(url, options)
+    .then(checkReponse)
+    .then(data => {
+      if (data?.success) return data;
+      return Promise.reject(data);
+    });
 }
 
 export const getIngredients = () => {
@@ -14,16 +19,11 @@ export const getIngredients = () => {
     headers: {
       'Content-Type': 'application/json',
     },
-  }).then(data => {
-    if (data?.success) {
-      return data.data;
-    }
-    return Promise.reject(data);
   });
 };
 
 export const createOrder = ingredients => {
-  return fetch(`${BASE_URL}/orders`, {
+  return requestUrl(`${BASE_URL}/orders`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -31,10 +31,5 @@ export const createOrder = ingredients => {
     body: JSON.stringify({
       ingredients: ingredients,
     }),
-  })
-    .then(checkReponse)
-    .then(data => {
-      if (data?.success) return data;
-      return Promise.reject(data);
-    });
+  });
 };

@@ -13,7 +13,7 @@ export function fetchIngredients() {
       .then(data => {
         dispatch({
           type: GET_INGREDIENTS_SUCCESS,
-          payload: data,
+          payload: data.data,
         });
       })
       .catch(error => {
