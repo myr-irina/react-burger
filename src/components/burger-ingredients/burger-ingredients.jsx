@@ -13,6 +13,7 @@ import {
   SET_INGREDIENT_DATA,
   RESET_INGREDIENT_DATA,
 } from '../services/actions/ingredient-details';
+import Preloader from '../preloader/preloader';
 
 function BurgerIngredients() {
   const [isOpen, setIsOpen] = useState(false);
@@ -78,6 +79,10 @@ function BurgerIngredients() {
     if (element) element.scrollIntoView({ behavior: 'smooth' });
   }
 
+  if (ingredientsFailed) {
+    return <p>Произошла ошибка при загрузке данных.</p>;
+  }
+
   return (
     <>
       <main className={styles.container}>
@@ -109,36 +114,42 @@ function BurgerIngredients() {
         </nav>
 
         <div className={styles.container__list}>
-          <section>
-            <IngredientsCategory
-              title="Булки"
-              titleId="buns"
-              ingredients={buns}
-              onOpen={handleOpenModal}
-              onCardClick={handleCardClick}
-              ref={bunsRef}
-            />
-          </section>
-          <section className={`${styles.container__section} mt-10`}>
-            <IngredientsCategory
-              title="Соусы"
-              titleId="sauces"
-              ingredients={sauces}
-              onOpen={handleOpenModal}
-              onCardClick={handleCardClick}
-              ref={saucesRef}
-            />
-          </section>
-          <section className={`${styles.container__section} mt-10`}>
-            <IngredientsCategory
-              title="Начинки"
-              titleId="fillings"
-              ingredients={fillings}
-              onOpen={handleOpenModal}
-              onCardClick={handleCardClick}
-              ref={fillingsRef}
-            />
-          </section>
+          {ingredientsRequest ? (
+            <Preloader />
+          ) : (
+            <>
+              <section>
+                <IngredientsCategory
+                  title="Булки"
+                  titleId="buns"
+                  ingredients={buns}
+                  onOpen={handleOpenModal}
+                  onCardClick={handleCardClick}
+                  ref={bunsRef}
+                />
+              </section>
+              <section className={`${styles.container__section} mt-10`}>
+                <IngredientsCategory
+                  title="Соусы"
+                  titleId="sauces"
+                  ingredients={sauces}
+                  onOpen={handleOpenModal}
+                  onCardClick={handleCardClick}
+                  ref={saucesRef}
+                />
+              </section>
+              <section className={`${styles.container__section} mt-10`}>
+                <IngredientsCategory
+                  title="Начинки"
+                  titleId="fillings"
+                  ingredients={fillings}
+                  onOpen={handleOpenModal}
+                  onCardClick={handleCardClick}
+                  ref={fillingsRef}
+                />
+              </section>
+            </>
+          )}
         </div>
       </main>
 
