@@ -26,6 +26,16 @@ export const burgerConstructorReducer = (state = initialState, action) => {
       };
     }
 
+    case DELETE_BURGER_INGREDIENT: {
+      return {
+        ...state,
+        fillings: [
+          ...state.fillings.slice(0, action.payload),
+          ...state.fillings.slice(action.payload + 1),
+        ],
+      };
+    }
+
     case REORDER_BURGER_INGREDIENTS: {
       return {
         ...state,
@@ -36,14 +46,6 @@ export const burgerConstructorReducer = (state = initialState, action) => {
         ),
       };
     }
-
-    case DELETE_BURGER_INGREDIENT: {
-      return {
-        ...state,
-        fillings: state.fillings.filter(itemId => itemId !== action.payload),
-      };
-    }
-
     case RESET_BURGER_INGREDIENTS: {
       return initialState;
     }
