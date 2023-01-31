@@ -7,7 +7,6 @@ import {
   ConstructorElement,
   Button,
   CurrencyIcon,
-  DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import Modal from '../modal/modal';
@@ -16,10 +15,8 @@ import OrderDetails from '../order-details/order-details';
 import { fetchIngredients } from '../services/actions/ingredients';
 import { createOrderId, ORDER_RESET } from '../services/actions/order';
 import { addBurgerIngredient } from '../services/actions/burger-constructor';
-import {
-  DELETE_BURGER_INGREDIENT,
-  RESET_BURGER_INGREDIENTS,
-} from '../services/actions/burger-constructor';
+import { RESET_BURGER_INGREDIENTS } from '../services/actions/burger-constructor';
+import IngredientBox from '../ingredient-box/ingredient-box';
 
 function BurgerConstructor() {
   const { order } = useSelector(store => store.order);
@@ -115,20 +112,11 @@ function BurgerConstructor() {
           <ul className={styles.container__list}>
             {fillings.map((element, index) => {
               return (
-                <li className={`${styles.block} ml-4`} key={index}>
-                  <DragIcon />
-                  <ConstructorElement
-                    text={element.name}
-                    price={element.price}
-                    thumbnail={element.image_mobile}
-                    handleClose={() =>
-                      dispatch({
-                        type: DELETE_BURGER_INGREDIENT,
-                        payload: index,
-                      })
-                    }
-                  />
-                </li>
+                <IngredientBox
+                  element={element}
+                  index={index}
+                  key={element.id}
+                />
               );
             })}
           </ul>

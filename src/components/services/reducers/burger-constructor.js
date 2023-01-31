@@ -13,16 +13,16 @@ const initialState = {
 export const burgerConstructorReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_BURGER_INGREDIENT: {
-      if (action.payload.ingredientData.type === 'bun') {
+      if (action.payload.type === 'bun') {
         return {
           ...state,
-          bun: action.payload.ingredientData,
+          bun: action.payload,
         };
       }
 
       return {
         ...state,
-        fillings: [...state.fillings, action.payload.ingredientData],
+        fillings: [...state.fillings, action.payload],
       };
     }
 
@@ -37,13 +37,16 @@ export const burgerConstructorReducer = (state = initialState, action) => {
     }
 
     case REORDER_BURGER_INGREDIENTS: {
+      const fillings = [...state.fillings];
+      fillings.splice(
+        action.payload.to,
+        0,
+        fillings.splice(action.payload.from, 1)[0]
+      );
+
       return {
         ...state,
-        fillings: state.fillings.splice(
-          action.payload.to,
-          0,
-          state.fillings.splice(action.payload.from, 1)[0]
-        ),
+        fillings,
       };
     }
     case RESET_BURGER_INGREDIENTS: {

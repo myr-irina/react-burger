@@ -9,7 +9,7 @@ export function addBurgerIngredient(ingredient) {
   return {
     type: ADD_BURGER_INGREDIENT,
     payload: {
-      ...ingredient,
+      ...ingredient.ingredientData,
       id: uuidv4(),
     },
   };
