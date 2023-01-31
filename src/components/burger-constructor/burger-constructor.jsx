@@ -113,9 +113,9 @@ function BurgerConstructor() {
 
         {fillings.length !== 0 && (
           <ul className={styles.container__list}>
-            {fillings.map((element, id) => {
+            {fillings.map((element, index) => {
               return (
-                <li className={`${styles.block} ml-4`} key={id}>
+                <li className={`${styles.block} ml-4`} key={index}>
                   <DragIcon />
                   <ConstructorElement
                     text={element.name}
@@ -124,7 +124,7 @@ function BurgerConstructor() {
                     handleClose={() =>
                       dispatch({
                         type: DELETE_BURGER_INGREDIENT,
-                        payload: id,
+                        payload: index,
                       })
                     }
                   />
