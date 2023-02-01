@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 function AppHeader() {
   return (
-    <section className={headerStyles.header}>
+    <header className={headerStyles.header}>
       <nav className={headerStyles.wrapper}>
         <ul className={headerStyles.block}>
           <Link to="/" className={headerStyles.link}>
@@ -46,7 +46,7 @@ function AppHeader() {
           </div>
         </Link>
       </nav>
-    </section>
+    </header>
   );
 }
 

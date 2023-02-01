@@ -4,17 +4,26 @@ export const checkReponse = res => {
   return res.ok ? res.json() : res.json().then(err => Promise.reject(err));
 };
 
-export const getIngredients = () => {
-  return fetch(`${BASE_URL}/ingredients`)
+function requestUrl(url, options) {
+  return fetch(url, options)
     .then(checkReponse)
     .then(data => {
-      if (data?.success) return data.data;
+      if (data?.success) return data;
       return Promise.reject(data);
     });
+}
+
+export const getIngredients = () => {
+  return requestUrl(`${BASE_URL}/ingredients`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
 };
 
 export const createOrder = ingredients => {
-  return fetch(`${BASE_URL}/orders`, {
+  return requestUrl(`${BASE_URL}/orders`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -22,10 +31,5 @@ export const createOrder = ingredients => {
     body: JSON.stringify({
       ingredients: ingredients,
     }),
-  })
-    .then(checkReponse)
-    .then(data => {
-      if (data?.success) return data;
-      return Promise.reject(data);
-    });
+  });
 };

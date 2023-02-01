@@ -5,7 +5,11 @@ import { ingredientPropTypes } from '../../utils/prop-types';
 function IngredientDetails({ content }) {
   return (
     <>
-      <img className={styles.image} src={content.image} alt="ингредиент" />
+      <img
+        className={styles.image}
+        src={content.image}
+        alt={`изображение ${content.name}`}
+      />
       <p className={`${'text text_type_main-medium'} mt-4 mb-8`}>
         {content.name}
       </p>
