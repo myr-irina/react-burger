@@ -42,7 +42,7 @@ function Login() {
       </p>
       <p className="text text_type_main-default text_color_inactive mt-4">
         Забыли пароль?{' '}
-        <Link className={styles.link} to="/reset-password">
+        <Link className={styles.link} to="/forgot-password">
           Восстановить пароль
         </Link>
       </p>

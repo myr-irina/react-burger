@@ -58,7 +58,7 @@ function Register() {
       </Button>
       <p className="text text_type_main-default text_color_inactive mt-20">
         Уже зарегистрированы?{' '}
-        <Link className={styles.link} to="/">
+        <Link className={styles.link} to="/login">
           Войти
         </Link>
       </p>

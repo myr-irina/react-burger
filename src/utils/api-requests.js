@@ -27,9 +27,51 @@ export const createOrder = ingredients => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Accept: 'application/json',
     },
     body: JSON.stringify({
       ingredients: ingredients,
+    }),
+  });
+};
+
+export const resetPassword = email => {
+  return requestUrl(`${BASE_URL}/password-reset`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({
+      email: email,
+    }),
+  });
+};
+
+export const createNewPassword = password => {
+  return requestUrl(`${BASE_URL}/password-reset/reset`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({
+      password: password,
+    }),
+  });
+};
+
+export const registerUser = userData => {
+  return requestUrl(`${BASE_URL}/auth/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({
+      email: userData.email,
+      password: userData.password,
+      name: userData.name,
     }),
   });
 };
