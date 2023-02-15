@@ -1,33 +1,34 @@
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-
+import {
+  ForgotPassword,
+  Ingredient,
+  Login,
+  Main,
+  Profile,
+  Register,
+  ResetPassword,
+  NotFound,
+  HomePage,
+} from '../../pages';
+import { Routes, Route } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
-import appStyles from './app.module.css';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-
-import { fetchIngredients } from '../../services/actions/ingredients';
+import styles from './app.module.css';
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchIngredients());
-  }, [dispatch]);
-
   return (
     <>
       <AppHeader />
-      <section className={appStyles.app}>
-        <main className={appStyles.container}>
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </DndProvider>
-        </main>
-      </section>
+      <div className={styles.app}>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/ingredients/:id" element={<Ingredient />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
     </>
   );
 }
