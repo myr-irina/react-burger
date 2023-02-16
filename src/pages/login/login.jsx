@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './styles.module.scss';
 import {
@@ -8,9 +8,11 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function Login() {
-  const [value, setValue] = React.useState('');
+  // const [value, setValue] = React.useState('');
+  const [form, setValue] = useState({ email: '', password: '' });
+
   const onChange = e => {
-    setValue(e.target.value);
+    setValue({ ...form, [e.target.name]: e.target.value });
   };
 
   return (
@@ -18,7 +20,7 @@ function Login() {
       <p className="text text_type_main-medium mb-6">Вход</p>
       <EmailInput
         onChange={onChange}
-        value={value}
+        value={form.email}
         name={'email'}
         placeholder="Логин"
         isIcon={true}
@@ -26,7 +28,7 @@ function Login() {
       />
       <PasswordInput
         onChange={onChange}
-        value={value}
+        value={form.password}
         name={'password'}
         extraClass="mb-6"
       />

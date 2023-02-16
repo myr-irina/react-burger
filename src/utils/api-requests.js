@@ -62,16 +62,13 @@ export const createNewPassword = password => {
 };
 
 export const registerUser = userData => {
+  console.log(userData);
   return requestUrl(`${BASE_URL}/auth/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Accept: 'application/json',
+      // Accept: 'application/json',
     },
-    body: JSON.stringify({
-      email: userData.email,
-      password: userData.password,
-      name: userData.name,
-    }),
+    body: JSON.stringify(userData),
   });
 };

@@ -35,7 +35,7 @@ function AppHeader() {
           <Logo />
         </Link>
 
-        <Link to="/" className={headerStyles.link_inactive}>
+        <Link to="/profile" className={headerStyles.link_inactive}>
           <div className={headerStyles.block}>
             <ProfileIcon type="secondary" />
             <p

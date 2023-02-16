@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './styles.module.scss';
 import {
@@ -7,29 +7,48 @@ import {
   Input,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { register } from '../../services/actions/user';
+import { useNavigate } from 'react-router-dom';
 
 function Register() {
-  const [value, setValue] = React.useState('');
-  const [name, setName] = React.useState('');
+  const [form, setValue] = useState({ name: '', email: '', password: '' });
+
   const inputRef = React.useRef(null);
+
+  const onChange = e => {
+    setValue({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { registerRequest } = useSelector(state => state.auth);
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    dispatch(register(form));
+  };
+  useEffect(() => {
+    if (registerRequest) {
+      navigate('/login', { replace: true });
+    }
+  });
 
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0);
     alert('Icon Click Callback');
   };
-  const onChange = e => {
-    setValue(e.target.value);
-  };
 
   return (
-    <section className={styles.container}>
+    <form className={styles.container} onSubmit={handleSubmit}>
       <p className="text text_type_main-medium mb-6">Регистрация</p>
       <Input
         type={'text'}
         placeholder={'Имя'}
-        onChange={e => setName(e.target.value)}
+        onChange={onChange}
         icon={'CurrencyIcon'}
-        value={name}
+        value={form.name}
         name={'name'}
         error={false}
         ref={inputRef}
@@ -41,7 +60,7 @@ function Register() {
 
       <EmailInput
         onChange={onChange}
-        value={value}
+        value={form.email}
         name={'email'}
         placeholder="Логин"
         isIcon={true}
@@ -49,11 +68,11 @@ function Register() {
       />
       <PasswordInput
         onChange={onChange}
-        value={value}
+        value={form.password}
         name={'password'}
         extraClass="mb-6"
       />
-      <Button htmlType="button" type="primary" size="large">
+      <Button htmlType="submit" type="primary" size="large">
         Зарегистрироваться
       </Button>
       <p className="text text_type_main-default text_color_inactive mt-20">
@@ -62,7 +81,7 @@ function Register() {
           Войти
         </Link>
       </p>
-    </section>
+    </form>
   );
 }
 

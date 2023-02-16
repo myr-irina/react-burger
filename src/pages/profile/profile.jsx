@@ -4,13 +4,23 @@ import {
   EmailInput,
   PasswordInput,
   Input,
-  Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { NavLink } from 'react-router-dom';
+
+import ProfileLink from '../../components/profile-link/profile-link';
 
 function Profile() {
   const [value, setValue] = React.useState('');
   const [name, setName] = React.useState('');
   const inputRef = React.useRef(null);
+
+  const PATH_PROFILE = '/profile';
+  const PATH_ORDER_HISTORY = '/profile/orders';
+  const PATH_LOGOUT = '/logout';
+
+  const active = styles.active;
+  const inActive = styles.inActive;
+  const isActive = ({ isActive }) => (isActive ? active : inActive);
 
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0);
@@ -23,21 +33,34 @@ function Profile() {
   return (
     <article className={styles.container}>
       <div className={styles.left}>
-        <ul className={styles.list}>
+        <nav className={styles.list}>
           <li>
-            <p className="text text_type_main-medium pb-6">Профиль</p>
+            <ProfileLink title="Профиль" path={PATH_PROFILE} />
           </li>
           <li>
-            <p className="text text_type_main-medium text_color_inactive pt-4 pb-4">
+            <ProfileLink title="История заказов" path={PATH_ORDER_HISTORY} />
+          </li>
+          <li>
+            <ProfileLink title="Выход" path={PATH_LOGOUT} />
+          </li>
+
+          {/* <li>
+            <NavLink to="/profile" className={isActive}>
+              Профиль
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink to="/" className={isActive}>
               История заказов
-            </p>
+            </NavLink>
           </li>
           <li>
-            <p className="text text_type_main-medium text_color_inactive pt-6">
+            <NavLink to="/2" className={isActive}>
               Выход
-            </p>
-          </li>
-        </ul>
+            </NavLink>
+          </li> */}
+        </nav>
         <p className="text text_type_main-default text_color_inactive">
           В этом разделе вы можете изменить свои персональные данные
         </p>
