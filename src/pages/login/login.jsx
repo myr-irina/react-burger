@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './styles.module.scss';
 import {
@@ -6,17 +6,37 @@ import {
   PasswordInput,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../../services/actions/user';
+import { loginRequest } from '../../utils/api-requests';
 
 function Login() {
-  // const [value, setValue] = React.useState('');
   const [form, setValue] = useState({ email: '', password: '' });
 
   const onChange = e => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
+  const { loginRequest } = useSelector(state => state.auth);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = e => {
+    console.log('click');
+    e.preventDefault();
+    dispatch(login(form));
+  };
+
+  useEffect(() => {
+    if (loginRequest) {
+      navigate('/', { replace: true });
+    }
+  }, [loginRequest, navigate]);
+
   return (
-    <section className={styles.container}>
+    <form className={styles.container} onSubmit={handleSubmit}>
       <p className="text text_type_main-medium mb-6">Вход</p>
       <EmailInput
         onChange={onChange}
@@ -32,7 +52,7 @@ function Login() {
         name={'password'}
         extraClass="mb-6"
       />
-      <Button htmlType="button" type="primary" size="large">
+      <Button htmlType="submit" type="primary" size="large">
         Войти
       </Button>
 
@@ -48,7 +68,7 @@ function Login() {
           Восстановить пароль
         </Link>
       </p>
-    </section>
+    </form>
   );
 }
 

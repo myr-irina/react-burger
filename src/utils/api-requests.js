@@ -1,3 +1,4 @@
+import { getCookie } from './cookies';
 export const BASE_URL = 'https://norma.nomoreparties.space/api';
 
 export const checkReponse = res => {
@@ -62,13 +63,55 @@ export const createNewPassword = password => {
 };
 
 export const registerUser = userData => {
-  console.log(userData);
   return requestUrl(`${BASE_URL}/auth/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      // Accept: 'application/json',
+      Accept: 'application/json',
     },
     body: JSON.stringify(userData),
+  });
+};
+
+export const getUser = () => {
+  return requestUrl(`${BASE_URL}/auth/user`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + getCookie('accessToken'),
+    },
+  });
+};
+
+export const getRefreshToken = () => {
+  return requestUrl(`${BASE_URL}/auth/token`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
+  });
+};
+
+export const loginRequest = form => {
+  return requestUrl(`${BASE_URL}/auth/login`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(form),
+  });
+};
+
+export const logoutRequest = () => {
+  return requestUrl(`${BASE_URL}/auth/logout`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
   });
 };

@@ -23,17 +23,18 @@ function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { registerRequest } = useSelector(state => state.auth);
+  const { registerSuccess } = useSelector(state => state.auth);
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(register(form));
+    dispatch(register(form, { onSuccess: () => navigate('/login') }));
   };
+
   useEffect(() => {
-    if (registerRequest) {
-      navigate('/login', { replace: true });
+    if (registerSuccess) {
+      navigate('/login');
     }
-  });
+  }, [navigate, registerSuccess]);
 
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0);
