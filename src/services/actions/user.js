@@ -1,5 +1,9 @@
-import { loginRequest, registerUser } from '../../utils/api-requests';
-import { setCookie } from '../../utils/cookies';
+import {
+  loginRequest,
+  registerRequest,
+  logoutRequest,
+} from '../../utils/api-requests';
+import { deleteCookie, setCookie } from '../../utils/cookies';
 
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
@@ -9,12 +13,16 @@ export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
 
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_FAILED = 'LOGOUT_FAILED';
+
 export function register(userData) {
   return function (dispatch) {
     dispatch({
       type: REGISTER_REQUEST,
     });
-    registerUser(userData)
+    registerRequest(userData)
       .then(res => {
         let authToken;
 
@@ -70,6 +78,31 @@ export function login(userData) {
       .catch(error => {
         dispatch({
           type: LOGIN_FAILED,
+        });
+      });
+  };
+}
+
+export function logout() {
+  return function (dispatch) {
+    dispatch({
+      type: LOGOUT_REQUEST,
+    });
+    logoutRequest()
+      .then(res => {
+        localStorage.clear();
+        deleteCookie('token');
+
+        if (res.success) {
+          dispatch({
+            type: LOGOUT_SUCCESS,
+            payload: res.user,
+          });
+        }
+      })
+      .catch(error => {
+        dispatch({
+          type: LOGOUT_FAILED,
         });
       });
   };

@@ -18,22 +18,21 @@ function Login() {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
-  const { loginRequest } = useSelector(state => state.auth);
+  const { loginSuccess } = useSelector(state => state.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = e => {
-    console.log('click');
     e.preventDefault();
     dispatch(login(form));
   };
 
   useEffect(() => {
-    if (loginRequest) {
+    if (loginSuccess) {
       navigate('/', { replace: true });
     }
-  }, [loginRequest, navigate]);
+  }, [loginSuccess, navigate]);
 
   return (
     <form className={styles.container} onSubmit={handleSubmit}>

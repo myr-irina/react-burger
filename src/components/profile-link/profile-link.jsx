@@ -1,13 +1,16 @@
 import React from 'react';
-import { NavLink, useMatch } from 'react-router-dom';
+import { NavLink, useMatch, useLocation } from 'react-router-dom';
 import styles from './styles.module.scss';
 
 function ProfileLink({ title, path, onClick }) {
-  const match = useMatch(path || '');
+  const pathname = useLocation().pathname;
+  console.log(pathname);
 
   return path ? (
     <NavLink
-      className={`${match ? styles['link__active'] : styles['link__inActive']}`}
+      className={`${
+        pathname === path ? styles['link__active'] : styles['link__inActive']
+      }`}
       to={path}
     >
       <h3>{title}</h3>

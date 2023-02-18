@@ -1,26 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss';
 import {
   EmailInput,
   PasswordInput,
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { NavLink } from 'react-router-dom';
-
+import { Navigate } from 'react-router-dom';
+import {
+  PATH_LOGOUT,
+  PATH_PROFILE,
+  PATH_ORDER_HISTORY,
+} from '../../utils/constants';
 import ProfileLink from '../../components/profile-link/profile-link';
+import { logout } from '../../services/actions/user';
 
 function Profile() {
   const [value, setValue] = React.useState('');
   const [name, setName] = React.useState('');
   const inputRef = React.useRef(null);
-
-  const PATH_PROFILE = '/profile';
-  const PATH_ORDER_HISTORY = '/profile/orders';
-  const PATH_LOGOUT = '/logout';
-
-  const active = styles.active;
-  const inActive = styles.inActive;
-  const isActive = ({ isActive }) => (isActive ? active : inActive);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { logoutSuccess } = useSelector(state => state.auth);
 
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0);
@@ -30,36 +32,31 @@ function Profile() {
     setValue(e.target.value);
   };
 
+  function handleLogout(e) {
+    console.log('click');
+    e.preventDefault();
+    dispatch(logout());
+  }
+
+  useEffect(() => {
+    if (logoutSuccess) {
+      navigate('/login');
+    }
+  }, [logoutSuccess, navigate]);
+
   return (
     <article className={styles.container}>
       <div className={styles.left}>
         <nav className={styles.list}>
           <li>
-            <ProfileLink title="Профиль" path={PATH_PROFILE} />
+            <ProfileLink title="Профиль" path="/profile" />
           </li>
           <li>
-            <ProfileLink title="История заказов" path={PATH_ORDER_HISTORY} />
+            <ProfileLink title="История заказов" path="/profile/orders" />
           </li>
           <li>
-            <ProfileLink title="Выход" path={PATH_LOGOUT} />
+            <ProfileLink title="Выход" onClick={handleLogout} />
           </li>
-
-          {/* <li>
-            <NavLink to="/profile" className={isActive}>
-              Профиль
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink to="/" className={isActive}>
-              История заказов
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/2" className={isActive}>
-              Выход
-            </NavLink>
-          </li> */}
         </nav>
         <p className="text text_type_main-default text_color_inactive">
           В этом разделе вы можете изменить свои персональные данные

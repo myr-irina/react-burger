@@ -11,3 +11,10 @@
 a:hover {
   cursor: pointer;
 }
+
+.link {
+  composes: text text_type_main-medium text_color_inactive from global;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}

@@ -62,7 +62,7 @@ export const createNewPassword = password => {
   });
 };
 
-export const registerUser = userData => {
+export const registerRequest = userData => {
   return requestUrl(`${BASE_URL}/auth/register`, {
     method: 'POST',
     headers: {
