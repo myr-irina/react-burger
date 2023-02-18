@@ -14,6 +14,12 @@ import {
   CREATE_NEW_PASSWORD_REQUEST,
   CREATE_NEW_PASSWORD_SUCCESS,
   CREATE_NEW_PASSWORD_FAILED,
+  UPDATE_USER_REQUEST,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAILED,
+  GET_USER_REQUEST,
+  GET_USER_SUCCESS,
+  GET_USER_FAILED,
 } from '../actions/user';
 
 const initialState = {
@@ -39,6 +45,14 @@ const initialState = {
   newPasswordRequest: false,
   newPasswordSuccess: false,
   newPasswordFailed: false,
+
+  getUserRequest: false,
+  getUserSuccess: false,
+  getUserFailed: false,
+
+  updateUserRequest: false,
+  updateUserSuccess: false,
+  updateUserFailed: false,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -147,6 +161,53 @@ export const authReducer = (state = initialState, action) => {
         newPassword: null,
         newPasswordFailed: true,
         newPasswordRequest: false,
+      };
+    }
+
+    case GET_USER_REQUEST: {
+      return {
+        ...state,
+        getUserRequest: true,
+        getUserFailed: false,
+      };
+    }
+    case GET_USER_SUCCESS: {
+      return {
+        ...state,
+        user: action.payload,
+        getUserRequest: false,
+        getUserSuccess: true,
+        updateUserFailed: false,
+      };
+    }
+    case GET_USER_FAILED: {
+      return {
+        ...state,
+        getUserRequest: false,
+        getUserFailed: true,
+      };
+    }
+
+    case UPDATE_USER_REQUEST: {
+      return {
+        ...state,
+        updateUserRequest: true,
+        updateUserFailed: false,
+      };
+    }
+    case UPDATE_USER_SUCCESS: {
+      return {
+        ...state,
+        updateUserRequest: false,
+        updateUserSuccess: true,
+        updateUserFailed: false,
+      };
+    }
+    case UPDATE_USER_FAILED: {
+      return {
+        ...state,
+        updateUserRequest: false,
+        updateUserFailed: true,
       };
     }
 

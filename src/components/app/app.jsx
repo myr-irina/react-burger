@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import {
   ForgotPassword,
   Ingredient,
@@ -8,12 +9,22 @@ import {
   ResetPassword,
   NotFound,
   HomePage,
+  OrderHistory,
 } from '../../pages';
 import { Routes, Route } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
 import styles from './app.module.css';
 
+import { useDispatch } from 'react-redux';
+import { getUserData } from '../../services/actions/user';
+
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserData());
+  }, [dispatch]);
+
   return (
     <>
       <AppHeader />
@@ -25,7 +36,8 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/ingredients/:id" element={<Ingredient />} />
+          <Route path="/profile/orders" element={<OrderHistory />} />
+          <Route path="/profile/orders/:id" element={<HomePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

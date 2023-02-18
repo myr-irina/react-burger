@@ -7,6 +7,7 @@ import Register from './register/register';
 import ResetPassword from './reset-password/reset-password';
 import NotFound from './not-found/not-found';
 import HomePage from './homepage/homepage';
+import OrderHistory from './order-history/order-history';
 
 export {
   ForgotPassword,
@@ -18,4 +19,5 @@ export {
   ResetPassword,
   NotFound,
   HomePage,
+  OrderHistory,
 };

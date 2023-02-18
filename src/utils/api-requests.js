@@ -1,13 +1,13 @@
-import { getCookie } from './cookies';
+import { getCookie, setCookie } from './cookies';
 export const BASE_URL = 'https://norma.nomoreparties.space/api';
 
-export const checkReponse = res => {
+export const checkResponse = res => {
   return res.ok ? res.json() : res.json().then(err => Promise.reject(err));
 };
 
 function requestUrl(url, options) {
   return fetch(url, options)
-    .then(checkReponse)
+    .then(checkResponse)
     .then(data => {
       if (data?.success) return data;
       return Promise.reject(data);
@@ -72,24 +72,54 @@ export const registerRequest = userData => {
   });
 };
 
+export const refreshToken = () => {
+  return fetch(`${BASE_URL}/auth/token`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+    body: JSON.stringify({
+      token: localStorage.getItem('refreshToken'),
+    }),
+  }).then(checkResponse);
+};
+
+export const fetchWithRefresh = async (url, options) => {
+  try {
+    const res = await fetch(url, options);
+
+    return await checkResponse(res);
+  } catch (err) {
+    if (err.message === 'jwt expired') {
+      const refreshData = await refreshToken();
+      console.log(refreshData);
+
+      if (!refreshData.success) {
+        return Promise.reject(refreshData);
+      }
+      localStorage.setItem('refreshToken', refreshData.refreshToken);
+      setCookie('token', refreshData.accessToken);
+      options.headers.authorization = refreshData.accessToken;
+      const res = await fetch(url, options);
+      return await checkResponse(res);
+    } else {
+      return Promise.reject(err);
+    }
+  }
+};
+
 export const getUser = () => {
-  return requestUrl(`${BASE_URL}/auth/user`, {
+  return fetchWithRefresh(`${BASE_URL}/auth/user`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + getCookie('accessToken'),
+      Authorization: 'Bearer ' + getCookie('token'),
     },
-  });
-};
-
-export const getRefreshToken = () => {
-  return requestUrl(`${BASE_URL}/auth/token`, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
+  }).then(data => {
+    if (data?.success) {
+      return data;
+    }
+    return Promise.reject(data);
   });
 };
 
@@ -112,5 +142,22 @@ export const logoutRequest = () => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
+  });
+};
+
+export const updateUserRequest = user => {
+  return fetchWithRefresh(`${BASE_URL}/api/auth/user`, {
+    method: 'PATCH',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + getCookie('token'),
+    },
+    body: JSON.stringify(user),
+  }).then(data => {
+    if (data?.success) {
+      return data;
+    }
+    return Promise.reject(data);
   });
 };

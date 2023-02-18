@@ -4,6 +4,8 @@ import {
   logoutRequest,
   resetPasswordRequest,
   createNewPasswordRequest,
+  updateUserRequest,
+  getUser,
 } from '../../utils/api-requests';
 import { deleteCookie, setCookie } from '../../utils/cookies';
 
@@ -26,6 +28,14 @@ export const RESET_PASSWORD_FAILED = 'RESET_PASSWORD_FAILED';
 export const CREATE_NEW_PASSWORD_REQUEST = 'CREATE_NEW_PASSWORD_REQUEST';
 export const CREATE_NEW_PASSWORD_SUCCESS = 'CREATE_NEW_PASSWORD_SUCCESS';
 export const CREATE_NEW_PASSWORD_FAILED = 'CREATE_NEW_PASSWORD_FAILED';
+
+export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST ';
+export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
+export const UPDATE_USER_FAILED = 'UPDATE_USER_FAILED';
+
+export const GET_USER_REQUEST = 'GET_USER_REQUEST';
+export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
+export const GET_USER_FAILED = 'GET_USER_FAILED';
 
 export function register(userData) {
   return function (dispatch) {
@@ -153,6 +163,46 @@ export function createNewPassword(password) {
       .catch(error => {
         dispatch({
           type: CREATE_NEW_PASSWORD_FAILED,
+        });
+      });
+  };
+}
+
+export function getUserData() {
+  return function (dispatch) {
+    dispatch({
+      type: GET_USER_REQUEST,
+    });
+    getUser()
+      .then(res => {
+        dispatch({
+          type: GET_USER_SUCCESS,
+          payload: res.user,
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: GET_USER_FAILED,
+        });
+      });
+  };
+}
+
+export function updateUser(user) {
+  return function (dispatch) {
+    dispatch({
+      type: UPDATE_USER_REQUEST,
+    });
+    updateUserRequest(user)
+      .then(res => {
+        dispatch({
+          type: UPDATE_USER_SUCCESS,
+          payload: res.user,
+        });
+      })
+      .catch(error => {
+        dispatch({
+          type: UPDATE_USER_FAILED,
         });
       });
   };

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss';
@@ -6,43 +6,50 @@ import {
   EmailInput,
   PasswordInput,
   Input,
+  EditIcon,
+  Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Navigate } from 'react-router-dom';
-import {
-  PATH_LOGOUT,
-  PATH_PROFILE,
-  PATH_ORDER_HISTORY,
-} from '../../utils/constants';
+
 import ProfileLink from '../../components/profile-link/profile-link';
-import { logout } from '../../services/actions/user';
+import { logout, updateUser, getUserData } from '../../services/actions/user';
 
 function Profile() {
-  const [value, setValue] = React.useState('');
-  const [name, setName] = React.useState('');
+  const [form, setValue] = useState({ name: '', email: '', password: '' });
+
   const inputRef = React.useRef(null);
+
+  const onChange = e => {
+    setValue({ ...form, [e.target.name]: e.target.value });
+  };
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { logoutSuccess } = useSelector(state => state.auth);
 
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
-    alert('Icon Click Callback');
-  };
-  const onChange = e => {
-    setValue(e.target.value);
-  };
+  const { user, logoutSuccess } = useSelector(state => state.auth);
 
   function handleLogout(e) {
-    console.log('click');
     e.preventDefault();
     dispatch(logout());
   }
+
+  const getUserFromStore = useMemo(() => {
+    return {
+      email: `${user ? user.email : ''}`,
+      password: '',
+      name: `${user ? user.name : ''}`,
+    };
+  }, [user]);
+  console.log(getUserFromStore);
 
   useEffect(() => {
     if (logoutSuccess) {
       navigate('/login');
     }
   }, [logoutSuccess, navigate]);
+
+  useEffect(() => {
+    dispatch(getUserData());
+  }, [dispatch]);
 
   return (
     <article className={styles.container}>
@@ -66,21 +73,20 @@ function Profile() {
         <Input
           type={'text'}
           placeholder={'Имя'}
-          onChange={e => setName(e.target.value)}
-          icon={'CurrencyIcon'}
-          value={name}
+          onChange={e => setValue(e.target.value)}
+          value={getUserFromStore.name}
           name={'name'}
           error={false}
           ref={inputRef}
-          onIconClick={onIconClick}
           errorText={'Ошибка'}
           size={'default'}
           extraClass="mb-6"
+          icon={'EditIcon'}
         />
 
         <EmailInput
           onChange={onChange}
-          value={value}
+          value={getUserFromStore.email}
           name={'email'}
           placeholder="Логин"
           isIcon={true}
@@ -88,10 +94,28 @@ function Profile() {
         />
         <PasswordInput
           onChange={onChange}
-          value={value}
+          value={getUserFromStore.password}
           name={'password'}
           extraClass="mb-6"
         />
+        <div className={styles.wrapper}>
+          <Button
+            htmlType="button"
+            type="secondary"
+            size="large"
+            extraClass="mb-30"
+          >
+            Отмена
+          </Button>
+          <Button
+            htmlType="submit"
+            type="primary"
+            size="medium"
+            extraClass="mb-30"
+          >
+            Сохранить
+          </Button>
+        </div>
       </form>
     </article>
   );

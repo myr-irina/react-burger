@@ -4,7 +4,6 @@ import styles from './styles.module.scss';
 
 function ProfileLink({ title, path, onClick }) {
   const pathname = useLocation().pathname;
-  console.log(pathname);
 
   return path ? (
     <NavLink
