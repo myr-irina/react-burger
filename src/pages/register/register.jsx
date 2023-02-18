@@ -73,7 +73,7 @@ function Register() {
         name={'password'}
         extraClass="mb-6"
       />
-      <Button htmlType="submit" type="primary" size="large">
+      <Button htmlType="submit" type="primary" size="large" disabled={!form}>
         Зарегистрироваться
       </Button>
       <p className="text text_type_main-default text_color_inactive mt-20">

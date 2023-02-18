@@ -36,20 +36,18 @@ export const createOrder = ingredients => {
   });
 };
 
-export const resetPassword = email => {
+export const resetPasswordRequest = email => {
   return requestUrl(`${BASE_URL}/password-reset`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
       Accept: 'application/json',
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      email: email,
-    }),
+    body: JSON.stringify({ email: email }),
   });
 };
 
-export const createNewPassword = password => {
+export const createNewPasswordRequest = formData => {
   return requestUrl(`${BASE_URL}/password-reset/reset`, {
     method: 'POST',
     headers: {
@@ -57,7 +55,8 @@ export const createNewPassword = password => {
       Accept: 'application/json',
     },
     body: JSON.stringify({
-      password: password,
+      password: formData.password,
+      token: formData.token,
     }),
   });
 };

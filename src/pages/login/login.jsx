@@ -9,7 +9,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../services/actions/user';
-import { loginRequest } from '../../utils/api-requests';
 
 function Login() {
   const [form, setValue] = useState({ email: '', password: '' });
@@ -51,7 +50,7 @@ function Login() {
         name={'password'}
         extraClass="mb-6"
       />
-      <Button htmlType="submit" type="primary" size="large">
+      <Button htmlType="submit" type="primary" size="large" disabled={!form}>
         Войти
       </Button>
 

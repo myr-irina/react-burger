@@ -8,6 +8,12 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_FAILED,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAILED,
+  CREATE_NEW_PASSWORD_REQUEST,
+  CREATE_NEW_PASSWORD_SUCCESS,
+  CREATE_NEW_PASSWORD_FAILED,
 } from '../actions/user';
 
 const initialState = {
@@ -15,12 +21,24 @@ const initialState = {
   registerRequest: false,
   registerSuccess: false,
   registerFailed: false,
+
   loginRequest: false,
   loginSuccess: false,
   loginFailed: false,
+
   logoutRequest: false,
   logoutSuccess: false,
   logoutFailed: false,
+
+  passwordStatus: null,
+  resetPasswordRequest: false,
+  resetPasswordSuccess: false,
+  resetPasswordFailed: false,
+
+  newPassword: null,
+  newPasswordRequest: false,
+  newPasswordSuccess: false,
+  newPasswordFailed: false,
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -81,6 +99,55 @@ export const authReducer = (state = initialState, action) => {
     }
     case LOGOUT_FAILED: {
       return { ...state, logoutFailed: true, logoutRequest: false };
+    }
+
+    case RESET_PASSWORD_REQUEST: {
+      return {
+        ...state,
+        resetPasswordRequest: true,
+      };
+    }
+    case RESET_PASSWORD_SUCCESS: {
+      return {
+        ...state,
+        passwordStatus: action.payload,
+        resetPasswordRequest: false,
+        resetPasswordSuccess: true,
+        resetPasswordFailed: false,
+      };
+    }
+    case RESET_PASSWORD_FAILED: {
+      return {
+        ...state,
+        passwordStatus: null,
+        resetPasswordFailed: true,
+        resetPasswordRequest: false,
+      };
+    }
+
+    case CREATE_NEW_PASSWORD_REQUEST: {
+      return {
+        ...state,
+        newPasswordRequest: true,
+        newPasswordFailed: false,
+      };
+    }
+    case CREATE_NEW_PASSWORD_SUCCESS: {
+      return {
+        ...state,
+        newPassword: action.payload,
+        newPasswordRequest: false,
+        newPasswordSuccess: true,
+        newPasswordFailed: false,
+      };
+    }
+    case CREATE_NEW_PASSWORD_FAILED: {
+      return {
+        ...state,
+        newPassword: null,
+        newPasswordFailed: true,
+        newPasswordRequest: false,
+      };
     }
 
     default: {

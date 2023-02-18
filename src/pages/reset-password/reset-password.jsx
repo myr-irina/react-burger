@@ -1,31 +1,59 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './styles.module.scss';
 import {
   EmailInput,
+  PasswordInput,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { createNewPassword } from '../../services/actions/user';
 
 function ResetPassword() {
-  const [value, setValue] = React.useState('');
+  const [form, setValue] = useState({ password: '', token: '' });
+  const { newPasswordSuccess } = useSelector(state => state.auth);
+
   const onChange = e => {
-    setValue(e.target.value);
+    setValue({ ...form, [e.target.name]: e.target.value });
   };
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    dispatch(createNewPassword(form));
+  }
+
+  useEffect(() => {
+    if (newPasswordSuccess) {
+      navigate('/');
+    }
+  }, [navigate, newPasswordSuccess]);
+
   return (
-    <section className={styles.container}>
+    <form className={styles.container} onSubmit={handleSubmit}>
       <p className="text text_type_main-medium mb-6">Восстановление пароля</p>
+      <PasswordInput
+        onChange={onChange}
+        value={form.password}
+        name={'password'}
+        placeholder={'Введите новый пароль'}
+        extraClass="mb-6"
+      />
       <EmailInput
         onChange={onChange}
-        value={value}
-        name={'email'}
-        placeholder={'Укажите e-mail'}
+        value={form.token}
+        name={'token'}
+        placeholder={'Введите код из письма'}
         isIcon={true}
-        extraClass="mb-20"
+        extraClass="mb-6"
       />
 
-      <Button htmlType="button" type="primary" size="large">
-        Восстановить
+      <Button htmlType="submit" type="primary" size="large">
+        Сохранить
       </Button>
 
       <p className="text text_type_main-default text_color_inactive mt-20">
@@ -34,7 +62,7 @@ function ResetPassword() {
           Войти
         </Link>
       </p>
-    </section>
+    </form>
   );
 }
 
