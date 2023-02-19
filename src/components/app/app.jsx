@@ -35,10 +35,38 @@ function App() {
       <div className={styles.app}>
         <Routes>
           <Route index path="/" element={<Main />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route
+            path="/login"
+            element={
+              <ProtectedRoute onlyUnAuth={true}>
+                <Login />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <ProtectedRoute onlyUnAuth={true}>
+                <Register />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/forgot-password"
+            element={
+              <ProtectedRoute onlyUnAuth={true}>
+                <ForgotPassword />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/reset-password"
+            element={
+              <ProtectedRoute onlyUnAuth={true}>
+                <ResetPassword />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/profile"
             element={
@@ -47,8 +75,11 @@ function App() {
               </ProtectedRoute>
             }
           />
-          {/* <Route path="/profile/orders" element={<OrderHistory />} />
-          <Route path="/profile/orders/:id" element={<HomePage />} /> */}
+          <Route
+            exact
+            path="/ingredients/:ingredientId"
+            element={<Ingredient />}
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

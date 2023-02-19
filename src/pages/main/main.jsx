@@ -11,12 +11,6 @@ import BurgerIngredients from '../../components/burger-ingredients/burger-ingred
 import { fetchIngredients } from '../../services/actions/ingredients';
 
 function Main() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchIngredients());
-  }, [dispatch]);
-
   return (
     <main className={styles.container}>
       <DndProvider backend={HTML5Backend}>

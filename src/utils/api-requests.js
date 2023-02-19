@@ -105,7 +105,7 @@ export const fetchWithRefresh = async (url, options) => {
       }
 
       if (authToken) {
-        setCookie('token', authToken);
+        setCookie('accessToken', authToken);
         console.log(authToken, 'token засетился в куках');
       }
 
@@ -121,12 +121,12 @@ export const fetchWithRefresh = async (url, options) => {
 };
 
 export const getUser = () => {
-  console.log(getCookie('token'));
+  console.log(getCookie('accessToken'));
   return fetchWithRefresh(`${BASE_URL}/auth/user`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + getCookie('token'),
+      Authorization: 'Bearer ' + getCookie('accessToken'),
     },
   }).then(data => {
     if (data?.success) {
@@ -164,7 +164,7 @@ export const updateUserRequest = user => {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + getCookie('token'),
+      Authorization: 'Bearer ' + getCookie('accessToken'),
     },
     body: JSON.stringify(user),
   }).then(data => {

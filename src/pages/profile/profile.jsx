@@ -12,21 +12,13 @@ import {
 
 import ProfileLink from '../../components/profile-link/profile-link';
 import { logout, updateUser, getUserData } from '../../services/actions/user';
-import { refreshToken } from '../../utils/api-requests';
 
 function Profile() {
   const { user, logoutSuccess } = useSelector(state => state.auth);
-  console.log(user);
-
-  // const [form, setValue] = useState({
-  //   name: user.name,
-  //   email: user.email,
-  //   password: '******',
-  // });
 
   const [form, setValue] = useState({
-    name: '',
-    email: '',
+    name: user.name,
+    email: user.email,
     password: '******',
   });
 
@@ -50,10 +42,6 @@ function Profile() {
     e.preventDefault();
     dispatch(logout());
   }
-
-  useEffect(() => {
-    dispatch(getUserData());
-  }, [dispatch]);
 
   useEffect(() => {
     if (logoutSuccess) {
