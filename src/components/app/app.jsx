@@ -38,9 +38,9 @@ function App() {
           <Route
             path="/login"
             element={
-              <ProtectedRoute onlyUnAuth={true}>
-                <Login />
-              </ProtectedRoute>
+              // <ProtectedRoute onlyUnAuth={true}>
+              <Login />
+              // </ProtectedRoute>
             }
           />
           <Route
@@ -70,7 +70,7 @@ function App() {
           <Route
             path="/profile"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute onlyUnAuth={false}>
                 <Profile />
               </ProtectedRoute>
             }

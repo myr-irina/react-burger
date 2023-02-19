@@ -91,6 +91,7 @@ export const fetchWithRefresh = async (url, options) => {
     return await checkResponse(res);
   } catch (err) {
     if (err.message === 'jwt expired') {
+      console.log(getCookie('accessToken'), 'что лежит в куках перед рефрешем');
       const refreshData = await refreshToken();
       console.log(refreshData, 'jwt expired, refreshData received');
 
