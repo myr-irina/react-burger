@@ -20,10 +20,14 @@ import {
   GET_USER_REQUEST,
   GET_USER_SUCCESS,
   GET_USER_FAILED,
+  AUTH_CHECK,
 } from '../actions/user';
 
 const initialState = {
   user: null,
+
+  isAuthChecked: false,
+
   registerRequest: false,
   registerSuccess: false,
   registerFailed: false,
@@ -87,6 +91,7 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+
         loginRequest: false,
         loginSuccess: true,
         loginFailed: false,
@@ -163,7 +168,12 @@ export const authReducer = (state = initialState, action) => {
         newPasswordRequest: false,
       };
     }
-
+    case AUTH_CHECK: {
+      return {
+        ...state,
+        isAuthChecked: true,
+      };
+    }
     case GET_USER_REQUEST: {
       return {
         ...state,
@@ -198,6 +208,7 @@ export const authReducer = (state = initialState, action) => {
     case UPDATE_USER_SUCCESS: {
       return {
         ...state,
+        user: action.payload,
         updateUserRequest: false,
         updateUserSuccess: true,
         updateUserFailed: false,

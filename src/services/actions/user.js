@@ -7,7 +7,7 @@ import {
   updateUserRequest,
   getUser,
 } from '../../utils/api-requests';
-import { deleteCookie, setCookie } from '../../utils/cookies';
+import { deleteCookie, setCookie, getCookie } from '../../utils/cookies';
 
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
@@ -36,6 +36,8 @@ export const UPDATE_USER_FAILED = 'UPDATE_USER_FAILED';
 export const GET_USER_REQUEST = 'GET_USER_REQUEST';
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
 export const GET_USER_FAILED = 'GET_USER_FAILED';
+
+export const AUTH_CHECK = 'AUTH_CHECK';
 
 export function register(userData) {
   return function (dispatch) {
@@ -110,10 +112,10 @@ export function logout() {
     });
     logoutRequest()
       .then(res => {
-        localStorage.clear();
-        deleteCookie('token');
-
         if (res.success) {
+          localStorage.clear();
+          deleteCookie('token');
+
           dispatch({
             type: LOGOUT_SUCCESS,
             payload: res.user,
@@ -167,14 +169,27 @@ export function createNewPassword(password) {
       });
   };
 }
+export const checkUserAuth = () => dispatch => {
+  if (getCookie('token')) {
+    dispatch(
+      getUserData(() => {
+        dispatch({ type: AUTH_CHECK });
+      })
+    );
+  } else {
+    dispatch({ type: AUTH_CHECK });
+  }
+};
 
 export function getUserData() {
   return function (dispatch) {
+    console.log('get user action');
     dispatch({
       type: GET_USER_REQUEST,
     });
     getUser()
       .then(res => {
+        console.log('get user success action', res);
         dispatch({
           type: GET_USER_SUCCESS,
           payload: res.user,
@@ -187,6 +202,30 @@ export function getUserData() {
       });
   };
 }
+
+// export const getUserData = afterCallback => dispatch => {
+//   console.log('get user action');
+//   dispatch({
+//     type: GET_USER_REQUEST,
+//   });
+//   getUser()
+//     .then(res => {
+//       console.log('get user success action', res);
+//       dispatch({
+//         type: GET_USER_SUCCESS,
+//         payload: res.user,
+//       });
+//     })
+//     .catch(err => {
+//       dispatch({
+//         type: GET_USER_FAILED,
+//         payload: err.message,
+//       });
+//     })
+//     .finally(() => {
+//       afterCallback();
+//     });
+// };
 
 export function updateUser(user) {
   return function (dispatch) {

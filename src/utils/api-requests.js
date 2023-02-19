@@ -92,15 +92,27 @@ export const fetchWithRefresh = async (url, options) => {
   } catch (err) {
     if (err.message === 'jwt expired') {
       const refreshData = await refreshToken();
-      console.log(refreshData);
+      console.log(refreshData, 'jwt expired, refreshData received');
 
       if (!refreshData.success) {
         return Promise.reject(refreshData);
       }
       localStorage.setItem('refreshToken', refreshData.refreshToken);
-      setCookie('token', refreshData.accessToken);
-      options.headers.authorization = refreshData.accessToken;
+      let authToken;
+
+      if (refreshData.accessToken.indexOf('Bearer') === 0) {
+        authToken = refreshData.accessToken.split('Bearer ')[1];
+      }
+
+      if (authToken) {
+        setCookie('token', authToken);
+        console.log(authToken, 'token засетился в куках');
+      }
+
+      options.headers.authorization = 'Bearer ' + authToken;
+
       const res = await fetch(url, options);
+      console.log(res, 'res после повторного запроса');
       return await checkResponse(res);
     } else {
       return Promise.reject(err);
@@ -109,6 +121,7 @@ export const fetchWithRefresh = async (url, options) => {
 };
 
 export const getUser = () => {
+  console.log(getCookie('token'));
   return fetchWithRefresh(`${BASE_URL}/auth/user`, {
     method: 'GET',
     headers: {

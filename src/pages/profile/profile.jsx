@@ -12,11 +12,23 @@ import {
 
 import ProfileLink from '../../components/profile-link/profile-link';
 import { logout, updateUser, getUserData } from '../../services/actions/user';
+import { refreshToken } from '../../utils/api-requests';
 
 function Profile() {
-  const [form, setValue] = useState({ name: '', email: '', password: '' });
+  const { user, logoutSuccess } = useSelector(state => state.auth);
+  console.log(user);
 
-  const inputRef = React.useRef(null);
+  // const [form, setValue] = useState({
+  //   name: user.name,
+  //   email: user.email,
+  //   password: '******',
+  // });
+
+  const [form, setValue] = useState({
+    name: '',
+    email: '',
+    password: '******',
+  });
 
   const onChange = e => {
     setValue({ ...form, [e.target.name]: e.target.value });
@@ -25,31 +37,29 @@ function Profile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { user, logoutSuccess } = useSelector(state => state.auth);
+  function saveChanges(e) {
+    e.preventDefault();
+
+    const updateFields = { name: form.name, email: form.email };
+
+    if (form.password && form.password.indexOf('*') < 0) {
+    }
+  }
 
   function handleLogout(e) {
     e.preventDefault();
     dispatch(logout());
   }
 
-  const getUserFromStore = useMemo(() => {
-    return {
-      email: `${user ? user.email : ''}`,
-      password: '',
-      name: `${user ? user.name : ''}`,
-    };
-  }, [user]);
-  console.log(getUserFromStore);
+  useEffect(() => {
+    dispatch(getUserData());
+  }, [dispatch]);
 
   useEffect(() => {
     if (logoutSuccess) {
       navigate('/login');
     }
   }, [logoutSuccess, navigate]);
-
-  useEffect(() => {
-    dispatch(getUserData());
-  }, [dispatch]);
 
   return (
     <article className={styles.container}>
@@ -73,11 +83,10 @@ function Profile() {
         <Input
           type={'text'}
           placeholder={'Имя'}
-          onChange={e => setValue(e.target.value)}
-          value={getUserFromStore.name}
+          onChange={onChange}
+          value={form.name}
           name={'name'}
           error={false}
-          ref={inputRef}
           errorText={'Ошибка'}
           size={'default'}
           extraClass="mb-6"
@@ -86,17 +95,19 @@ function Profile() {
 
         <EmailInput
           onChange={onChange}
-          value={getUserFromStore.email}
+          value={form.email}
           name={'email'}
           placeholder="Логин"
           isIcon={true}
           extraClass="mb-6"
+          icon={'EditIcon'}
         />
         <PasswordInput
           onChange={onChange}
-          value={getUserFromStore.password}
+          value={form.password}
           name={'password'}
           extraClass="mb-6"
+          icon={'EditIcon'}
         />
         <div className={styles.wrapper}>
           <Button
