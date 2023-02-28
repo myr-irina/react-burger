@@ -91,9 +91,7 @@ export const fetchWithRefresh = async (url, options) => {
     return await checkResponse(res);
   } catch (err) {
     if (err.message === 'jwt expired') {
-      console.log(getCookie('accessToken'), 'что лежит в куках перед рефрешем');
       const refreshData = await refreshToken();
-      console.log(refreshData, 'jwt expired, refreshData received');
 
       if (!refreshData.success) {
         return Promise.reject(refreshData);
@@ -107,13 +105,12 @@ export const fetchWithRefresh = async (url, options) => {
 
       if (authToken) {
         setCookie('accessToken', authToken);
-        console.log(authToken, 'token засетился в куках');
       }
 
-      options.headers.authorization = 'Bearer ' + authToken;
+      options.headers.Authorization = 'Bearer ' + authToken;
 
       const res = await fetch(url, options);
-      console.log(res, 'res после повторного запроса');
+
       return await checkResponse(res);
     } else {
       return Promise.reject(err);
@@ -122,7 +119,6 @@ export const fetchWithRefresh = async (url, options) => {
 };
 
 export const getUser = () => {
-  console.log(getCookie('accessToken'));
   return fetchWithRefresh(`${BASE_URL}/auth/user`, {
     method: 'GET',
     headers: {
@@ -159,15 +155,15 @@ export const logoutRequest = () => {
   });
 };
 
-export const updateUserRequest = user => {
-  return fetchWithRefresh(`${BASE_URL}/api/auth/user`, {
+export const updateUserRequest = ({ email, name }) => {
+  return fetchWithRefresh(`${BASE_URL}/auth/user`, {
     method: 'PATCH',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + getCookie('accessToken'),
     },
-    body: JSON.stringify(user),
+    body: JSON.stringify({ email, name }),
   }).then(data => {
     if (data?.success) {
       return data;

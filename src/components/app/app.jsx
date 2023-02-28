@@ -16,7 +16,6 @@ import AppHeader from '../app-header/app-header';
 import styles from './app.module.css';
 
 import { useDispatch } from 'react-redux';
-import { getUserData } from '../../services/actions/user';
 import { ProtectedRoute } from '../protected-routes/protected-routes';
 import { fetchIngredients } from '../../services/actions/ingredients';
 import { checkUserAuth } from '../../services/actions/user';
@@ -38,9 +37,9 @@ function App() {
           <Route
             path="/login"
             element={
-              // <ProtectedRoute onlyUnAuth={true}>
-              <Login />
-              // </ProtectedRoute>
+              <ProtectedRoute onlyUnAuth={true}>
+                <Login />
+              </ProtectedRoute>
             }
           />
           <Route

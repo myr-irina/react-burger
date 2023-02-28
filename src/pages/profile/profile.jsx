@@ -11,32 +11,47 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import ProfileLink from '../../components/profile-link/profile-link';
-import { logout, updateUser, getUserData } from '../../services/actions/user';
+import { logout, updateUser } from '../../services/actions/user';
+
+const PASSWORD_PLACEHOLDER = '******';
 
 function Profile() {
-  const { user, logoutSuccess } = useSelector(state => state.auth);
+  const { logoutSuccess } = useSelector(state => state.auth);
+  const { name, email } = useSelector(state => state.auth.user);
 
-  const [form, setValue] = useState({
-    name: user.name,
-    email: user.email,
-    password: '******',
+  const [user, setUser] = useState({
+    name: name,
+    email: email,
+    password: PASSWORD_PLACEHOLDER,
   });
 
-  const onChange = e => {
-    setValue({ ...form, [e.target.name]: e.target.value });
+  const onUpdateField = e => {
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  function saveChanges(e) {
+  function onSaveChanges(e) {
     e.preventDefault();
 
-    const updateFields = { name: form.name, email: form.email };
+    const updatedFields = {
+      email: user.email,
+      name: user.name,
+    };
 
-    if (form.password && form.password.indexOf('*') < 0) {
+    if (user.password && user.password.indexOf('*') === -1) {
+      updatedFields.password = user.password;
     }
+
+    dispatch(updateUser(updatedFields));
+    setUser(prevState => ({ ...prevState, password: PASSWORD_PLACEHOLDER }));
   }
+
+  const onCancelChanges = e => {
+    e.preventDefault();
+    setUser({ name: name, email: email, password: PASSWORD_PLACEHOLDER });
+  };
 
   function handleLogout(e) {
     e.preventDefault();
@@ -71,8 +86,8 @@ function Profile() {
         <Input
           type={'text'}
           placeholder={'Имя'}
-          onChange={onChange}
-          value={form.name}
+          onChange={onUpdateField}
+          value={user.name}
           name={'name'}
           error={false}
           errorText={'Ошибка'}
@@ -82,8 +97,8 @@ function Profile() {
         />
 
         <EmailInput
-          onChange={onChange}
-          value={form.email}
+          onChange={onUpdateField}
+          value={user.email}
           name={'email'}
           placeholder="Логин"
           isIcon={true}
@@ -91,8 +106,8 @@ function Profile() {
           icon={'EditIcon'}
         />
         <PasswordInput
-          onChange={onChange}
-          value={form.password}
+          onChange={onUpdateField}
+          value={user.password}
           name={'password'}
           extraClass="mb-6"
           icon={'EditIcon'}
@@ -103,6 +118,7 @@ function Profile() {
             type="secondary"
             size="large"
             extraClass="mb-30"
+            onClick={onCancelChanges}
           >
             Отмена
           </Button>
@@ -111,6 +127,7 @@ function Profile() {
             type="primary"
             size="medium"
             extraClass="mb-30"
+            onClick={onSaveChanges}
           >
             Сохранить
           </Button>

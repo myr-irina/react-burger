@@ -79,7 +79,6 @@ export function login(userData) {
     });
     loginRequest(userData)
       .then(res => {
-        console.log(res, 'check data after login');
         let authToken;
 
         if (res.accessToken.indexOf('Bearer') === 0) {
@@ -90,11 +89,6 @@ export function login(userData) {
           setCookie('accessToken', authToken);
         }
         localStorage.setItem('refreshToken', res.refreshToken);
-        console.log(
-          localStorage.getItem('refreshToken'),
-          getCookie('accessToken'),
-          'check refreshtoken and acce3ssToken after login'
-        );
 
         if (res.success) {
           dispatch({
@@ -121,12 +115,6 @@ export function logout() {
         if (res.success) {
           localStorage.clear();
           deleteCookie('accessToken');
-
-          console.log('token when logout', getCookie('accessToken'));
-          console.log(
-            'refreshToken when logout',
-            localStorage.getItem('refreshToken')
-          );
 
           dispatch({
             type: LOGOUT_SUCCESS,
@@ -182,23 +170,19 @@ export function createNewPassword(password) {
   };
 }
 export const checkUserAuth = () => dispatch => {
-  console.log('checkuserAuth', getCookie('accessToken'));
   if (getCookie('accessToken')) {
-    console.log('has token');
     dispatch(
       getUserData(() => {
         dispatch({ type: AUTH_CHECK });
       })
     );
   } else {
-    console.log('no token');
     dispatch({ type: AUTH_CHECK });
   }
 };
 
 export const getUserData = afterCallback => {
   return function (dispatch) {
-    console.log('get user action');
     dispatch({
       type: GET_USER_REQUEST,
     });
