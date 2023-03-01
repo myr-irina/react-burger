@@ -155,7 +155,7 @@ export const logoutRequest = () => {
   });
 };
 
-export const updateUserRequest = ({ email, name }) => {
+export const updateUserRequest = ({ email, name, password }) => {
   return fetchWithRefresh(`${BASE_URL}/auth/user`, {
     method: 'PATCH',
     headers: {
@@ -163,9 +163,10 @@ export const updateUserRequest = ({ email, name }) => {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + getCookie('accessToken'),
     },
-    body: JSON.stringify({ email, name }),
+    body: JSON.stringify({ email, name, password }),
   }).then(data => {
     if (data?.success) {
+      console.log(data);
       return data;
     }
     return Promise.reject(data);

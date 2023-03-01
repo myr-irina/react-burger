@@ -6,14 +6,12 @@ import {
   EmailInput,
   PasswordInput,
   Input,
-  EditIcon,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import ProfileLink from '../../components/profile-link/profile-link';
 import { logout, updateUser } from '../../services/actions/user';
-
-const PASSWORD_PLACEHOLDER = '******';
+import { PASSWORD_PLACEHOLDER } from '../../utils/constants';
 
 function Profile() {
   const { logoutSuccess } = useSelector(state => state.auth);
@@ -40,7 +38,7 @@ function Profile() {
       name: user.name,
     };
 
-    if (user.password && user.password.indexOf('*') === -1) {
+    if (user.password.length !== 0 || user.password.indexOf('*') === -1) {
       updatedFields.password = user.password;
     }
 

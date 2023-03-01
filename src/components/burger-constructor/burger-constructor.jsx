@@ -16,12 +16,14 @@ import { createOrderId, ORDER_RESET } from '../../services/actions/order';
 import { addBurgerIngredient } from '../../services/actions/burger-constructor';
 import { RESET_BURGER_INGREDIENTS } from '../../services/actions/burger-constructor';
 import IngredientBox from '../ingredient-box/ingredient-box';
+import { getPrice } from '../../services/selectors/burger-constructor';
 
 function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
   const { bun, fillings } = useSelector(store => store.burgerConstructor);
 
   const dispatch = useDispatch();
+  const totalPrice = useSelector(getPrice);
 
   function handleOpenModal() {
     setIsOpen(true);
@@ -41,22 +43,6 @@ function BurgerConstructor() {
       }),
     ];
   }, [fillings, bun]);
-
-  const totalSum = useMemo(() => {
-    if (bun.length === 0) return;
-    if (bun.length !== 0 || fillings.length !== 0) {
-      let bunSum = 0;
-      if (bun) {
-        bunSum += bun.price * 2;
-      }
-
-      const fillingsSum = fillings.reduce((acc, curr) => {
-        return acc + curr.price;
-      }, 0);
-
-      return bunSum + fillingsSum;
-    }
-  }, [bun, fillings]);
 
   function sendOrder() {
     dispatch(createOrderId(ids));
@@ -124,7 +110,7 @@ function BurgerConstructor() {
         )}
 
         <section className={styles.container__info}>
-          <p className={styles.container__info_text}>{totalSum}</p>
+          <p className={styles.container__info_text}>{totalPrice}</p>
           <CurrencyIcon />
           <Button
             onClick={() => {
