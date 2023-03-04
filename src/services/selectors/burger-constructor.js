@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
-const getBun = store => store.burgerConstructor.bun;
-const getFillings = store => store.burgerConstructor.fillings;
+export const getBun = store => store.burgerConstructor.bun;
+export const getFillings = store => store.burgerConstructor.fillings;
 
 export const getPrice = createSelector(getBun, getFillings, (bun, fillings) => {
   if (bun.length === 0) return;

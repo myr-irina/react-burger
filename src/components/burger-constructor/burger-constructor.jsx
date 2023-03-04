@@ -16,11 +16,16 @@ import { createOrderId, ORDER_RESET } from '../../services/actions/order';
 import { addBurgerIngredient } from '../../services/actions/burger-constructor';
 import { RESET_BURGER_INGREDIENTS } from '../../services/actions/burger-constructor';
 import IngredientBox from '../ingredient-box/ingredient-box';
-import { getPrice } from '../../services/selectors/burger-constructor';
+import {
+  getPrice,
+  getBun,
+  getFillings,
+} from '../../services/selectors/burger-constructor';
 
 function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
-  const { bun, fillings } = useSelector(store => store.burgerConstructor);
+  const bun = useSelector(getBun);
+  const fillings = useSelector(getFillings);
 
   const dispatch = useDispatch();
   const totalPrice = useSelector(getPrice);
