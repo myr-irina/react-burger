@@ -79,7 +79,7 @@ function App() {
           <Route
             path="/profile"
             element={
-              <ProtectedRoute onlyUnAuth={false}>
+              <ProtectedRoute>
                 <Profile />
               </ProtectedRoute>
             }
