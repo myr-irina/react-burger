@@ -148,11 +148,11 @@ function BurgerIngredients() {
         </div>
       </main>
 
-      {isOpen && (
+      {/* {isOpen && (
         <Modal title="Детали ингредиента" handleClose={handleCloseModal}>
           <IngredientDetails content={ingredientData} />
         </Modal>
-      )}
+      )} */}
     </>
   );
 }

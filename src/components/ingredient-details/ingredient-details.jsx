@@ -1,17 +1,37 @@
-import React from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import styles from './ingredient-details.module.scss';
+import { useParams } from 'react-router-dom';
 import { ingredientPropTypes } from '../../utils/prop-types';
+import { useSelector } from 'react-redux';
 
-function IngredientDetails({ content }) {
+function IngredientDetails() {
+  const ingredientsArray = useSelector(store => store.ingredients.ingredients);
+  console.log({ ingredientsArray });
+
+  const { id } = useParams();
+
+  const [ingredient, setIngredient] = useState(null);
+
+  useEffect(() => {
+    const ingredient = ingredientsArray.find(elem => elem._id === id);
+    setIngredient(ingredient);
+  }, [id, ingredientsArray]);
+
+  if (!ingredient) {
+    return null;
+  }
+
+  console.log(ingredient, 'filtered ingredient');
+
   return (
     <>
       <img
         className={styles.image}
-        src={content.image}
-        alt={`изображение ${content.name}`}
+        src={ingredient.image_large}
+        alt={`изображение ${ingredient.name}`}
       />
       <p className={`${'text text_type_main-medium'} mt-4 mb-8`}>
-        {content.name}
+        {ingredient.name}
       </p>
       <ul className={styles.list}>
         <li className={styles.list_item}>
@@ -21,7 +41,7 @@ function IngredientDetails({ content }) {
             Калории, ккал
           </p>
           <p className={`${'text text_type_main-default text_color_inactive'}`}>
-            {content.calories}
+            {ingredient.calories}
           </p>
         </li>
         <li className={styles.list_item}>
@@ -31,7 +51,7 @@ function IngredientDetails({ content }) {
             Белки, г
           </p>
           <p className={`${'text text_type_main-default text_color_inactive'}`}>
-            {content.proteins}
+            {ingredient.proteins}
           </p>
         </li>
         <li className={styles.list_item}>
@@ -41,7 +61,7 @@ function IngredientDetails({ content }) {
             Жиры, г
           </p>
           <p className={`${'text text_type_main-default text_color_inactive'}`}>
-            {content.fat}
+            {ingredient.fat}
           </p>
         </li>
         <li className={styles.list_item}>
@@ -51,7 +71,7 @@ function IngredientDetails({ content }) {
             Углеводы, г
           </p>
           <p className={`${'text text_type_main-default text_color_inactive'}`}>
-            {content.carbohydrates}
+            {ingredient.carbohydrates}
           </p>
         </li>
       </ul>

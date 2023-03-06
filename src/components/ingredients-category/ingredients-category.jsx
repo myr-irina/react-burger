@@ -6,10 +6,12 @@ import styles from './styles.module.scss';
 import PropTypes from 'prop-types';
 import { ingredientPropTypes } from '../../utils/prop-types';
 import { getIngredientsCount } from '../../services/selectors/burger-constructor';
+import { Link, useLocation } from 'react-router-dom';
 
 const IngredientsCategory = React.forwardRef(
   ({ title, titleId, ingredients, onOpen, onCardClick }, ref) => {
     const counters = useSelector(getIngredientsCount);
+    const location = useLocation();
 
     return (
       <>
@@ -20,13 +22,19 @@ const IngredientsCategory = React.forwardRef(
         <div ref={ref} className={styles.main}>
           {ingredients.map(ingredient => {
             return (
-              <BurgerIngredient
-                ingredientData={ingredient}
+              <Link
                 key={ingredient._id}
-                count={counters[ingredient._id]}
-                onOpen={onOpen}
-                onCardClick={onCardClick}
-              />
+                to={`/ingredients/${ingredient._id}`}
+                state={{ background: location }}
+              >
+                <BurgerIngredient
+                  ingredientData={ingredient}
+                  key={ingredient._id}
+                  count={counters[ingredient._id]}
+                  onOpen={onOpen}
+                  onCardClick={onCardClick}
+                />
+              </Link>
             );
           })}
         </div>
