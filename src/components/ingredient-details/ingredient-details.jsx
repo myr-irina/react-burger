@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 
 function IngredientDetails() {
   const ingredientsArray = useSelector(store => store.ingredients.ingredients);
-  console.log({ ingredientsArray });
 
   const { id } = useParams();
 
@@ -20,8 +19,6 @@ function IngredientDetails() {
   if (!ingredient) {
     return null;
   }
-
-  console.log(ingredient, 'filtered ingredient');
 
   return (
     <>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import styles from './styles.module.scss';
 import {
   EmailInput,
@@ -7,12 +7,14 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { createNewPassword } from '../../services/actions/user';
 
 function ResetPassword() {
   const [form, setValue] = useState({ password: '', token: '' });
   const { newPasswordSuccess } = useSelector(state => state.auth);
+
+  const location = useLocation();
 
   const onChange = e => {
     setValue({ ...form, [e.target.name]: e.target.value });
@@ -31,7 +33,11 @@ function ResetPassword() {
     if (newPasswordSuccess) {
       navigate('/');
     }
-  }, [navigate, newPasswordSuccess]);
+
+    if (location.state === null) {
+      navigate(-1);
+    }
+  }, [location.state, navigate, newPasswordSuccess]);
 
   return (
     <form className={styles.container} onSubmit={handleSubmit}>

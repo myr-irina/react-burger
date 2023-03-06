@@ -7,12 +7,13 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetPassword } from '../../services/actions/user';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function ForgotPssword() {
   const [email, setEmail] = React.useState('');
   const dispatch = useDispatch();
   const { resetPasswordSuccess } = useSelector(state => state.auth);
+  const location = useLocation();
 
   const onChange = e => {
     setEmail(e.target.value);
@@ -26,7 +27,7 @@ function ForgotPssword() {
 
   useEffect(() => {
     if (resetPasswordSuccess) {
-      navigate('/reset-password', { replace: true });
+      navigate('/reset-password', { state: { from: location.pathname } });
     }
   }, [resetPasswordSuccess, navigate]);
 
