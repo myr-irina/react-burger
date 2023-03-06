@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './burger-constructor.module.scss';
 import {
@@ -26,9 +27,11 @@ function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
   const bun = useSelector(getBun);
   const fillings = useSelector(getFillings);
+  const totalPrice = useSelector(getPrice);
+  const { user } = useSelector(store => store.auth);
 
   const dispatch = useDispatch();
-  const totalPrice = useSelector(getPrice);
+  const navigate = useNavigate();
 
   function handleOpenModal() {
     setIsOpen(true);
@@ -52,6 +55,15 @@ function BurgerConstructor() {
   function sendOrder() {
     dispatch(createOrderId(ids));
   }
+
+  const handleClick = () => {
+    if (user) {
+      sendOrder();
+      handleOpenModal();
+    } else {
+      navigate('/login');
+    }
+  };
 
   const [{ isHover }, dropTarget] = useDrop({
     accept: 'fillingsItem',
@@ -118,10 +130,7 @@ function BurgerConstructor() {
           <p className={styles.container__info_text}>{totalPrice}</p>
           <CurrencyIcon />
           <Button
-            onClick={() => {
-              sendOrder();
-              handleOpenModal();
-            }}
+            onClick={handleClick}
             htmlType="button"
             type="primary"
             size="medium"
