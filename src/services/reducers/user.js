@@ -98,7 +98,7 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         user: action.payload,
 
-        isAuthCheked: true,
+        isAuthChecked: true,
         loginRequest: false,
         loginSuccess: true,
         loginFailed: false,

@@ -11,13 +11,13 @@ export const ProtectedRoute = ({ onlyUnAuth = false, children }) => {
     return <Preloader />;
   }
 
-  if (isAuthChecked && !user && !onlyUnAuth) {
-    return <Navigate to="/login" state={{ from: location }} />;
-  } else if (user && onlyUnAuth) {
+  if (onlyUnAuth && user) {
     return <Navigate to={location?.state?.from || '/'} />;
-  } else if (!onlyUnAuth && !user) {
-    return <Navigate to="/login" state={{ from: location }} />;
-  } else {
-    return children;
   }
+
+  if (!onlyUnAuth && !user) {
+    return <Navigate to="/login" state={{ from: location }} />;
+  }
+
+  return children;
 };

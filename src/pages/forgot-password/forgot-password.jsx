@@ -29,7 +29,7 @@ function ForgotPssword() {
     if (resetPasswordSuccess) {
       navigate('/reset-password', { state: { from: location.pathname } });
     }
-  }, [resetPasswordSuccess, navigate]);
+  }, [resetPasswordSuccess, navigate, location.pathname]);
 
   return (
     <form className={styles.container} onSubmit={handleSubmit}>

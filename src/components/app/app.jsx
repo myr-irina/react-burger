@@ -8,8 +8,6 @@ import {
   Register,
   ResetPassword,
   NotFound,
-  HomePage,
-  OrderHistory,
 } from '../../pages';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
@@ -79,7 +77,7 @@ function App() {
           <Route
             path="/profile"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute onlyUnAuth={false}>
                 <Profile />
               </ProtectedRoute>
             }
