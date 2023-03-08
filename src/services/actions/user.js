@@ -95,6 +95,10 @@ export function login(userData) {
             type: LOGIN_SUCCESS,
             payload: res.user,
           });
+        } else {
+          dispatch({
+            type: LOGIN_FAILED,
+          });
         }
       })
       .catch(error => {

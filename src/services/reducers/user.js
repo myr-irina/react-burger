@@ -108,8 +108,6 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         loginFailed: true,
         loginRequest: false,
-
-        isAuthChecked: false,
       };
     }
 

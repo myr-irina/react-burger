@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import styles from './styles.module.scss';
 import {
   EmailInput,
@@ -9,6 +9,7 @@ import {
 import { useDispatch } from 'react-redux';
 
 import { login } from '../../services/actions/user';
+import { useSelector } from 'react-redux';
 
 function Login() {
   const [form, setValue] = useState({ email: '', password: '' });
@@ -16,6 +17,7 @@ function Login() {
   const onChange = e => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
+  const { loginFailed } = useSelector(store => store.auth);
 
   const dispatch = useDispatch();
 
@@ -27,6 +29,13 @@ function Login() {
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
       <p className="text text_type_main-medium mb-6">Вход</p>
+
+      {loginFailed && (
+        <span className={`${styles.messagerror} text text_type_main-default`}>
+          Ошибка! Не верно указаны логин или пароль.
+        </span>
+      )}
+
       <EmailInput
         onChange={onChange}
         value={form.email}

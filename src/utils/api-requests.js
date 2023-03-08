@@ -6,12 +6,7 @@ export const checkResponse = res => {
 };
 
 function requestUrl(url, options) {
-  return fetch(url, options)
-    .then(checkResponse)
-    .then(data => {
-      if (data?.success) return data;
-      return Promise.reject(data);
-    });
+  return fetch(url, options).then(checkResponse);
 }
 
 export const getIngredients = () => {
@@ -166,7 +161,6 @@ export const updateUserRequest = ({ email, name, password }) => {
     body: JSON.stringify({ email, name, password }),
   }).then(data => {
     if (data?.success) {
-      console.log(data);
       return data;
     }
     return Promise.reject(data);
