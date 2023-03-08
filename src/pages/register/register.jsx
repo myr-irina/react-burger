@@ -27,7 +27,7 @@ function Register() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(register(form, { onSuccess: () => navigate('/login') }));
+    dispatch(register(form));
   };
 
   useEffect(() => {

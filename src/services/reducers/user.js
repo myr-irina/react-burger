@@ -65,17 +65,16 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         registerRequest: true,
-        registerFailed: false,
       };
     }
     case REGISTER_SUCCESS: {
       return {
         ...state,
-        user: action.payload,
-        isAuthChecked: true,
         registerRequest: false,
         registerSuccess: true,
-        registerFailed: false,
+
+        user: action.payload,
+        isAuthChecked: true,
       };
     }
     case REGISTER_FAILED: {
@@ -83,6 +82,7 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         registerFailed: true,
         registerRequest: false,
+
         isAuthChecked: false,
       };
     }
@@ -90,18 +90,17 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         loginRequest: true,
-        loginFailed: false,
+        logoutSuccess: false,
       };
     }
     case LOGIN_SUCCESS: {
       return {
         ...state,
-        user: action.payload,
-
-        isAuthChecked: true,
         loginRequest: false,
         loginSuccess: true,
-        loginFailed: false,
+
+        user: action.payload,
+        isAuthChecked: true,
       };
     }
     case LOGIN_FAILED: {
@@ -109,6 +108,7 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         loginFailed: true,
         loginRequest: false,
+
         isAuthChecked: false,
       };
     }
@@ -122,10 +122,11 @@ export const authReducer = (state = initialState, action) => {
     case LOGOUT_SUCCESS: {
       return {
         ...state,
-        user: null,
         logoutRequest: false,
         logoutSuccess: true,
-        logoutFailed: false,
+        loginSuccess: false,
+
+        user: null,
       };
     }
     case LOGOUT_FAILED: {

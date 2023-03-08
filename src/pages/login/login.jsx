@@ -27,12 +27,6 @@ function Login() {
     dispatch(login(form));
   };
 
-  useEffect(() => {
-    if (loginSuccess) {
-      navigate('/', { replace: true });
-    }
-  }, [loginSuccess, navigate]);
-
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
       <p className="text text_type_main-medium mb-6">Вход</p>
