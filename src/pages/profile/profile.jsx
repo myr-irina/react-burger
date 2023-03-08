@@ -16,6 +16,7 @@ import { PASSWORD_PLACEHOLDER } from '../../utils/constants';
 function Profile() {
   const { logoutSuccess } = useSelector(state => state.auth);
   const { name, email } = useSelector(state => state.auth.user);
+  const [isEditMode, setIsEditMode] = useState(false);
 
   const [user, setUser] = useState({
     name: name,
@@ -44,16 +45,22 @@ function Profile() {
 
     dispatch(updateUser(updatedFields));
     setUser(prevState => ({ ...prevState, password: PASSWORD_PLACEHOLDER }));
+    setIsEditMode(false);
   }
 
   const onCancelChanges = e => {
     e.preventDefault();
     setUser({ name: name, email: email, password: PASSWORD_PLACEHOLDER });
+    setIsEditMode(false);
   };
 
   function handleLogout(e) {
     e.preventDefault();
     dispatch(logout());
+  }
+
+  function handleEditing() {
+    setIsEditMode(true);
   }
 
   useEffect(() => {
@@ -92,6 +99,8 @@ function Profile() {
           size={'default'}
           extraClass="mb-6"
           icon={'EditIcon'}
+          disabled={!isEditMode}
+          onIconClick={handleEditing}
         />
 
         <EmailInput
@@ -102,6 +111,8 @@ function Profile() {
           isIcon={true}
           extraClass="mb-6"
           icon={'EditIcon'}
+          disabled={!isEditMode}
+          onIconClick={handleEditing}
         />
         <PasswordInput
           onChange={onUpdateField}
@@ -109,27 +120,33 @@ function Profile() {
           name={'password'}
           extraClass="mb-6"
           icon={'EditIcon'}
+          disabled={!isEditMode}
+          onIconClick={handleEditing}
         />
-        <div className={styles.wrapper}>
-          <Button
-            htmlType="button"
-            type="secondary"
-            size="large"
-            extraClass="mb-30"
-            onClick={onCancelChanges}
-          >
-            Отмена
-          </Button>
-          <Button
-            htmlType="submit"
-            type="primary"
-            size="medium"
-            extraClass="mb-30"
-            onClick={onSaveChanges}
-          >
-            Сохранить
-          </Button>
-        </div>
+        {isEditMode && (
+          <div className={styles.wrapper}>
+            <Button
+              htmlType="button"
+              type="secondary"
+              size="large"
+              extraClass="mb-30"
+              onClick={onCancelChanges}
+              disabled={!isEditMode}
+            >
+              Отмена
+            </Button>
+            <Button
+              htmlType="submit"
+              type="primary"
+              size="medium"
+              extraClass="mb-30"
+              onClick={onSaveChanges}
+              disabled={!isEditMode}
+            >
+              Сохранить
+            </Button>
+          </div>
+        )}
       </form>
     </article>
   );

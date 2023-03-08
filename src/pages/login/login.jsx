@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './styles.module.scss';
 import {
@@ -6,8 +6,8 @@ import {
   PasswordInput,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
 import { login } from '../../services/actions/user';
 
 function Login() {
@@ -17,10 +17,7 @@ function Login() {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
-  const { loginSuccess } = useSelector(state => state.auth);
-
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleSubmit = e => {
     e.preventDefault();
