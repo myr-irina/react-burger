@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './burger-constructor.module.scss';
 import {
@@ -16,12 +17,21 @@ import { createOrderId, ORDER_RESET } from '../../services/actions/order';
 import { addBurgerIngredient } from '../../services/actions/burger-constructor';
 import { RESET_BURGER_INGREDIENTS } from '../../services/actions/burger-constructor';
 import IngredientBox from '../ingredient-box/ingredient-box';
+import {
+  getPrice,
+  getBun,
+  getFillings,
+} from '../../services/selectors/burger-constructor';
 
 function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
-  const { bun, fillings } = useSelector(store => store.burgerConstructor);
+  const bun = useSelector(getBun);
+  const fillings = useSelector(getFillings);
+  const totalPrice = useSelector(getPrice);
+  const { user } = useSelector(store => store.auth);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function handleOpenModal() {
     setIsOpen(true);
@@ -42,25 +52,18 @@ function BurgerConstructor() {
     ];
   }, [fillings, bun]);
 
-  const totalSum = useMemo(() => {
-    if (bun.length === 0) return;
-    if (bun.length !== 0 || fillings.length !== 0) {
-      let bunSum = 0;
-      if (bun) {
-        bunSum += bun.price * 2;
-      }
-
-      const fillingsSum = fillings.reduce((acc, curr) => {
-        return acc + curr.price;
-      }, 0);
-
-      return bunSum + fillingsSum;
-    }
-  }, [bun, fillings]);
-
   function sendOrder() {
     dispatch(createOrderId(ids));
   }
+
+  const handleClick = () => {
+    if (user) {
+      sendOrder();
+      handleOpenModal();
+    } else {
+      navigate('/login');
+    }
+  };
 
   const [{ isHover }, dropTarget] = useDrop({
     accept: 'fillingsItem',
@@ -124,13 +127,10 @@ function BurgerConstructor() {
         )}
 
         <section className={styles.container__info}>
-          <p className={styles.container__info_text}>{totalSum}</p>
+          <p className={styles.container__info_text}>{totalPrice}</p>
           <CurrencyIcon />
           <Button
-            onClick={() => {
-              sendOrder();
-              handleOpenModal();
-            }}
+            onClick={handleClick}
             htmlType="button"
             type="primary"
             size="medium"
