@@ -16,16 +16,16 @@ function Register() {
 
   const inputRef = React.useRef(null);
 
-  const onChange = e => {
+  const onChange = (e) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { registerSuccess } = useSelector(state => state.auth);
+  const { registerSuccess } = useSelector((state) => state.auth);
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(register(form));
   };
@@ -43,7 +43,7 @@ function Register() {
 
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
-      <p className="text text_type_main-medium mb-6">Регистрация</p>
+      <p className='text text_type_main-medium mb-6'>Регистрация</p>
       <Input
         type={'text'}
         placeholder={'Имя'}
@@ -56,29 +56,29 @@ function Register() {
         onIconClick={onIconClick}
         errorText={'Ошибка'}
         size={'default'}
-        extraClass="mb-6"
+        extraClass='mb-6'
       />
 
       <EmailInput
         onChange={onChange}
         value={form.email}
         name={'email'}
-        placeholder="Логин"
+        placeholder='Логин'
         isIcon={true}
-        extraClass="mb-6"
+        extraClass='mb-6'
       />
       <PasswordInput
         onChange={onChange}
         value={form.password}
         name={'password'}
-        extraClass="mb-6"
+        extraClass='mb-6'
       />
-      <Button htmlType="submit" type="primary" size="large" disabled={!form}>
+      <Button htmlType='submit' type='primary' size='large' disabled={!form}>
         Зарегистрироваться
       </Button>
-      <p className="text text_type_main-default text_color_inactive mt-20">
+      <p className='text text_type_main-default text_color_inactive mt-20'>
         Уже зарегистрированы?{' '}
-        <Link className={styles.link} to="/login">
+        <Link className={styles.link} to='/login'>
           Войти
         </Link>
       </p>

@@ -1,11 +1,18 @@
 import { getCookie, setCookie } from './cookies';
+import {
+  FormData,
+  LoginRequest,
+  TResponse,
+  UserData,
+} from '../types/types-api';
+
 export const BASE_URL = 'https://norma.nomoreparties.space/api';
 
-export const checkResponse = res => {
-  return res.ok ? res.json() : res.json().then(err => Promise.reject(err));
+export const checkResponse = <T>(res: TResponse<T>): Promise<T> => {
+  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
-function requestUrl(url, options) {
+function requestUrl(url: string, options: RequestInit) {
   return fetch(url, options).then(checkResponse);
 }
 
@@ -18,7 +25,7 @@ export const getIngredients = () => {
   });
 };
 
-export const createOrder = ingredients => {
+export const createOrder = (ingredients: [string]) => {
   return requestUrl(`${BASE_URL}/orders`, {
     method: 'POST',
     headers: {
@@ -31,7 +38,7 @@ export const createOrder = ingredients => {
   });
 };
 
-export const resetPasswordRequest = email => {
+export const resetPasswordRequest = (email: string) => {
   return requestUrl(`${BASE_URL}/password-reset`, {
     method: 'POST',
     headers: {
@@ -42,7 +49,7 @@ export const resetPasswordRequest = email => {
   });
 };
 
-export const createNewPasswordRequest = formData => {
+export const createNewPasswordRequest = (formData: FormData) => {
   return requestUrl(`${BASE_URL}/password-reset/reset`, {
     method: 'POST',
     headers: {
@@ -56,7 +63,7 @@ export const createNewPasswordRequest = formData => {
   });
 };
 
-export const registerRequest = userData => {
+export const registerRequest = (userData: UserData) => {
   return requestUrl(`${BASE_URL}/auth/register`, {
     method: 'POST',
     headers: {
@@ -79,34 +86,37 @@ export const refreshToken = () => {
   }).then(checkResponse);
 };
 
-export const fetchWithRefresh = async (url, options) => {
+export const fetchWithRefresh = async (url: string, options: RequestInit) => {
   try {
     const res = await fetch(url, options);
 
     return await checkResponse(res);
   } catch (err) {
-    if (err.message === 'jwt expired') {
-      const refreshData = await refreshToken();
+    if (err instanceof Error) {
+      if (err.message === 'jwt expired') {
+        const refreshData = await refreshToken();
 
-      if (!refreshData.success) {
-        return Promise.reject(refreshData);
+        if (!refreshData.success) {
+          return Promise.reject(refreshData);
+        }
+        localStorage.setItem('refreshToken', refreshData.refreshToken);
+        let authToken;
+
+        if (refreshData.accessToken.indexOf('Bearer') === 0) {
+          authToken = refreshData.accessToken.split('Bearer ')[1];
+        }
+
+        if (authToken) {
+          setCookie('accessToken', authToken);
+        }
+
+        const headersInit: HeadersInit = {};
+        options.headers = headersInit;
+
+        options.headers.Authorization = 'Bearer ' + authToken;
+        const res = await fetch(url, options);
+        return await checkResponse(res);
       }
-      localStorage.setItem('refreshToken', refreshData.refreshToken);
-      let authToken;
-
-      if (refreshData.accessToken.indexOf('Bearer') === 0) {
-        authToken = refreshData.accessToken.split('Bearer ')[1];
-      }
-
-      if (authToken) {
-        setCookie('accessToken', authToken);
-      }
-
-      options.headers.Authorization = 'Bearer ' + authToken;
-
-      const res = await fetch(url, options);
-
-      return await checkResponse(res);
     } else {
       return Promise.reject(err);
     }
@@ -120,7 +130,7 @@ export const getUser = () => {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + getCookie('accessToken'),
     },
-  }).then(data => {
+  }).then((data) => {
     if (data?.success) {
       return data;
     }
@@ -128,7 +138,7 @@ export const getUser = () => {
   });
 };
 
-export const loginRequest = form => {
+export const loginRequest = (form: LoginRequest) => {
   return requestUrl(`${BASE_URL}/auth/login`, {
     method: 'POST',
     headers: {
@@ -150,7 +160,7 @@ export const logoutRequest = () => {
   });
 };
 
-export const updateUserRequest = ({ email, name, password }) => {
+export const updateUserRequest = ({ email, name, password }: UserData) => {
   return fetchWithRefresh(`${BASE_URL}/auth/user`, {
     method: 'PATCH',
     headers: {
@@ -159,7 +169,7 @@ export const updateUserRequest = ({ email, name, password }) => {
       Authorization: 'Bearer ' + getCookie('accessToken'),
     },
     body: JSON.stringify({ email, name, password }),
-  }).then(data => {
+  }).then((data) => {
     if (data?.success) {
       return data;
     }

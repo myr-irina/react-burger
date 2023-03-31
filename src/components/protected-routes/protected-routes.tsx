@@ -3,8 +3,12 @@ import { useLocation, Navigate } from 'react-router-dom';
 import Preloader from '../preloader/preloader';
 
 export const ProtectedRoute = ({ onlyUnAuth = false, children }) => {
-  const isAuthChecked = useSelector(state => state.auth.isAuthChecked);
-  const user = useSelector(state => state.auth.user);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const isAuthChecked = useSelector((state) => state.auth.isAuthChecked);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const user = useSelector((state) => state.auth.user);
   const location = useLocation();
 
   if (!isAuthChecked) {
@@ -16,7 +20,7 @@ export const ProtectedRoute = ({ onlyUnAuth = false, children }) => {
   }
 
   if (!onlyUnAuth && !user) {
-    return <Navigate to="/login" state={{ from: location }} />;
+    return <Navigate to='/login' state={{ from: location }} />;
   }
 
   return children;

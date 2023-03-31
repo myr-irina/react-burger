@@ -8,8 +8,16 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import PropTypes from 'prop-types';
 import { ingredientPropTypes } from '../../utils/prop-types';
+import { Ingredient } from '../../types/types-burger';
 
-function BurgerIngredient(props) {
+type BurgerIngredientProps = {
+  ingredientData: Ingredient;
+  onCardClick: (obj: object) => void;
+  onOpen: () => void;
+  count: number;
+};
+
+function BurgerIngredient(props: BurgerIngredientProps) {
   const { ingredientData, onCardClick, onOpen, count } = props;
 
   function handleClick() {
@@ -20,7 +28,7 @@ function BurgerIngredient(props) {
   const [{ opacity }, ref] = useDrag({
     type: 'fillingsItem',
     item: { ingredientData },
-    collect: monitor => ({
+    collect: (monitor) => ({
       opacity: monitor.isDragging() ? 0.5 : 1,
     }),
   });
@@ -32,7 +40,7 @@ function BurgerIngredient(props) {
       style={{ opacity }}
       ref={ref}
     >
-      {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
+      {count > 0 && <Counter count={count} size='default' extraClass='m-1' />}
       <img
         src={ingredientData.image}
         alt={`изображение ${ingredientData.name}`}
@@ -41,9 +49,9 @@ function BurgerIngredient(props) {
         <p className={burgerStyles.container__wrapper_desc}>
           {ingredientData.price}
         </p>
-        <CurrencyIcon type="primary" />
+        <CurrencyIcon type='primary' />
       </div>
-      <p className="text text_type_main-default">{ingredientData.name}</p>
+      <p className='text text_type_main-default'>{ingredientData.name}</p>
     </div>
   );
 }

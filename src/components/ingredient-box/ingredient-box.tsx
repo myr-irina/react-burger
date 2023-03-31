@@ -15,7 +15,7 @@ import {
 
 function IngredientsBox({ element, index }) {
   const dispatch = useDispatch();
-  const ref = useRef(null);
+  const ref = React.useRef<HTMLInputElement>(null);
 
   const [{ handlerId }, drop] = useDrop({
     accept: ['sort'],
@@ -63,7 +63,7 @@ function IngredientsBox({ element, index }) {
   const [{ isDragging }, drag] = useDrag({
     type: 'sort',
     item: () => ({ index }),
-    collect: monitor => ({
+    collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
   });

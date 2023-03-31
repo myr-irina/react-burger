@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useCallback, useEffect } from 'react';
 import {
   ForgotPassword,
@@ -41,9 +42,9 @@ function App() {
       <AppHeader />
       <div className={styles.app}>
         <Routes location={background || location}>
-          <Route path="/" element={<Main />} />
+          <Route path='/' element={<Main />} />
           <Route
-            path="/login"
+            path='/login'
             element={
               <ProtectedRoute onlyUnAuth={true}>
                 <Login />
@@ -51,7 +52,7 @@ function App() {
             }
           />
           <Route
-            path="/register"
+            path='/register'
             element={
               <ProtectedRoute onlyUnAuth={true}>
                 <Register />
@@ -59,7 +60,7 @@ function App() {
             }
           />
           <Route
-            path="/forgot-password"
+            path='/forgot-password'
             element={
               <ProtectedRoute onlyUnAuth={true}>
                 <ForgotPassword />
@@ -67,7 +68,7 @@ function App() {
             }
           />
           <Route
-            path="/reset-password"
+            path='/reset-password'
             element={
               <ProtectedRoute onlyUnAuth={true}>
                 <ResetPassword />
@@ -75,7 +76,7 @@ function App() {
             }
           />
           <Route
-            path="/profile"
+            path='/profile'
             element={
               <ProtectedRoute onlyUnAuth={false}>
                 <Profile />
@@ -83,17 +84,17 @@ function App() {
             }
           />
 
-          <Route path="/ingredients/:id" element={<Ingredient />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path='/ingredients/:id' element={<Ingredient />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
 
         {background && (
           <Routes>
             <Route
-              path="/ingredients/:id"
+              path='/ingredients/:id'
               element={
                 <Modal
-                  title="Детали ингредиента"
+                  title='Детали ингредиента'
                   handleClose={handleCloseModal}
                 >
                   <IngredientDetails />

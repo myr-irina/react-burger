@@ -7,20 +7,42 @@ import PropTypes from 'prop-types';
 import { ingredientPropTypes } from '../../utils/prop-types';
 import { getIngredientsCount } from '../../services/selectors/burger-constructor';
 import { Link, useLocation } from 'react-router-dom';
+import { Ingredient } from '../../types/types-burger';
+
+type IngredientsCategoryProps = {
+  title: string;
+  titleId: string;
+  ingredients: Ingredient[];
+  onOpen: (obj: object) => void;
+  onCardClick: (obj: object) => void;
+};
+
+interface RefObject<T> {
+  readonly current: T | null | undefined;
+}
 
 const IngredientsCategory = React.forwardRef(
-  ({ title, titleId, ingredients, onOpen, onCardClick }, ref) => {
+  (
+    {
+      title,
+      titleId,
+      ingredients,
+      onOpen,
+      onCardClick,
+    }: IngredientsCategoryProps,
+    ref
+  ) => {
     const counters = useSelector(getIngredientsCount);
     const location = useLocation();
 
     return (
       <>
-        <h3 className="text text_type_main-medium mt-10 mb-6" id={titleId}>
+        <h3 className='text text_type_main-medium mt-10 mb-6' id={titleId}>
           {title}
         </h3>
 
         <div ref={ref} className={styles.main}>
-          {ingredients.map(ingredient => {
+          {ingredients.map((ingredient) => {
             return (
               <Link
                 key={ingredient._id}
@@ -42,13 +64,5 @@ const IngredientsCategory = React.forwardRef(
     );
   }
 );
-
-IngredientsCategory.propTypes = {
-  title: PropTypes.string.isRequired,
-  titleId: PropTypes.string.isRequired,
-  ingredients: PropTypes.arrayOf(ingredientPropTypes).isRequired,
-  onOpen: PropTypes.func.isRequired,
-  onCardClick: PropTypes.func.isRequired,
-};
 
 export default React.memo(IngredientsCategory);

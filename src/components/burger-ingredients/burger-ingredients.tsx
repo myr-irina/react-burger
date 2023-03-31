@@ -4,37 +4,35 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useInView } from 'react-intersection-observer';
 
 import styles from './burger-ingredients.module.scss';
-import IngredientDetails from '../ingredient-details/ingredient-details';
-import Modal from '../modal/modal';
+
 import IngredientsCategory from '../ingredients-category/ingredients-category';
 import Preloader from '../preloader/preloader';
 
-import {
-  SET_INGREDIENT_DATA,
-  RESET_INGREDIENT_DATA,
-} from '../../services/actions/ingredient-details';
+import { SET_INGREDIENT_DATA } from '../../services/actions/ingredient-details';
+import { Ingredient } from '../../types/types-burger';
 
 function BurgerIngredients() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentTab, setCurrentTab] = useState('buns');
 
   const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
-    store => store.ingredients
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    (store) => store.ingredients
   );
-  const { ingredientData } = useSelector(store => store.ingredientDetails);
 
   const buns = useMemo(
-    () => ingredients.filter(item => item.type === 'bun'),
+    () => ingredients.filter((item: Ingredient) => item.type === 'bun'),
     [ingredients]
   );
 
   const fillings = useMemo(
-    () => ingredients.filter(item => item.type === 'main'),
+    () => ingredients.filter((item: Ingredient) => item.type === 'main'),
     [ingredients]
   );
 
   const sauces = useMemo(
-    () => ingredients.filter(item => item.type === 'sauce'),
+    () => ingredients.filter((item: Ingredient) => item.type === 'sauce'),
     [ingredients]
   );
 
@@ -54,7 +52,7 @@ function BurgerIngredients() {
     }
   }, [fillings, inViewBunsRef, inViewFillingsRef, inViewSaucesRef]);
 
-  function handleCardClick(ingredient) {
+  function handleCardClick(ingredient: Ingredient) {
     dispatch({ type: SET_INGREDIENT_DATA, payload: ingredient });
   }
 
@@ -62,12 +60,7 @@ function BurgerIngredients() {
     setIsOpen(true);
   }
 
-  function handleCloseModal() {
-    setIsOpen(false);
-    dispatch({ type: RESET_INGREDIENT_DATA });
-  }
-
-  function onTabClick(tab) {
+  function onTabClick(tab: string) {
     setCurrentTab(tab);
     const element = document.getElementById(tab);
 
@@ -85,21 +78,21 @@ function BurgerIngredients() {
         <nav>
           <ul className={styles.container__menu}>
             <Tab
-              value="buns"
+              value='buns'
               active={currentTab === 'buns'}
               onClick={onTabClick}
             >
               Булки
             </Tab>
             <Tab
-              value="sauces"
+              value='sauces'
               active={currentTab === 'sauces'}
               onClick={onTabClick}
             >
               Соусы
             </Tab>
             <Tab
-              value="fillings"
+              value='fillings'
               active={currentTab === 'fillings'}
               onClick={onTabClick}
             >
@@ -115,8 +108,8 @@ function BurgerIngredients() {
             <>
               <section>
                 <IngredientsCategory
-                  title="Булки"
-                  titleId="buns"
+                  title='Булки'
+                  titleId='buns'
                   ingredients={buns}
                   onOpen={handleOpenModal}
                   onCardClick={handleCardClick}
@@ -125,8 +118,8 @@ function BurgerIngredients() {
               </section>
               <section className={`${styles.container__section} mt-10`}>
                 <IngredientsCategory
-                  title="Соусы"
-                  titleId="sauces"
+                  title='Соусы'
+                  titleId='sauces'
                   ingredients={sauces}
                   onOpen={handleOpenModal}
                   onCardClick={handleCardClick}
@@ -135,8 +128,8 @@ function BurgerIngredients() {
               </section>
               <section className={`${styles.container__section} mt-10`}>
                 <IngredientsCategory
-                  title="Начинки"
-                  titleId="fillings"
+                  title='Начинки'
+                  titleId='fillings'
                   ingredients={fillings}
                   onOpen={handleOpenModal}
                   onCardClick={handleCardClick}
@@ -147,12 +140,6 @@ function BurgerIngredients() {
           )}
         </div>
       </main>
-
-      {/* {isOpen && (
-        <Modal title="Детали ингредиента" handleClose={handleCloseModal}>
-          <IngredientDetails content={ingredientData} />
-        </Modal>
-      )} */}
     </>
   );
 }
