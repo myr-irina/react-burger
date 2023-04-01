@@ -39,11 +39,6 @@ function Register() {
     }
   }, [navigate, registerSuccess]);
 
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current?.focus(), 0);
-    alert('Icon Click Callback');
-  };
-
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
       <p className='text text_type_main-medium mb-6'>Регистрация</p>
@@ -56,7 +51,6 @@ function Register() {
         name={'name'}
         error={false}
         ref={inputRef}
-        onIconClick={onIconClick}
         errorText={'Ошибка'}
         size={'default'}
         extraClass='mb-6'
