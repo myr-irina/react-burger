@@ -6,13 +6,11 @@ import {
   Counter,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import PropTypes from 'prop-types';
-import { ingredientPropTypes } from '../../utils/prop-types';
 import { Ingredient } from '../../types/types-burger';
 
 type BurgerIngredientProps = {
   ingredientData: Ingredient;
-  onCardClick: (obj: object) => void;
+  onCardClick: (obj: Ingredient) => void;
   onOpen: () => void;
   count: number;
 };
@@ -55,11 +53,5 @@ function BurgerIngredient(props: BurgerIngredientProps) {
     </div>
   );
 }
-
-BurgerIngredient.propTypes = {
-  ingredientData: ingredientPropTypes.isRequired,
-  onCardClick: PropTypes.func.isRequired,
-  onOpen: PropTypes.func.isRequired,
-};
 
 export default React.memo(BurgerIngredient);

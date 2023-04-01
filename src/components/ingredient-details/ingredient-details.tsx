@@ -1,18 +1,19 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import styles from './ingredient-details.module.scss';
 import { useParams } from 'react-router-dom';
-import { ingredientPropTypes } from '../../utils/prop-types';
 import { useSelector } from 'react-redux';
 
 function IngredientDetails() {
-  const ingredientsArray = useSelector(store => store.ingredients.ingredients);
+  const ingredientsArray = useSelector(
+    (store) => store.ingredients.ingredients
+  );
 
   const { id } = useParams();
 
   const [ingredient, setIngredient] = useState(null);
 
   useEffect(() => {
-    const ingredient = ingredientsArray.find(elem => elem._id === id);
+    const ingredient = ingredientsArray.find((elem) => elem._id === id);
     setIngredient(ingredient);
   }, [id, ingredientsArray]);
 
@@ -75,9 +76,5 @@ function IngredientDetails() {
     </>
   );
 }
-
-// IngredientDetails.propTypes = {
-//   content: ingredientPropTypes.isRequired,
-// };
 
 export default IngredientDetails;

@@ -14,19 +14,22 @@ import { useNavigate } from 'react-router-dom';
 function Register() {
   const [form, setValue] = useState({ name: '', email: '', password: '' });
 
-  const inputRef = React.useRef(null);
+  const inputRef = React.useRef<HTMLIFrameElement>(null);
 
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const { registerSuccess } = useSelector((state) => state.auth);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     dispatch(register(form));
   };
 
@@ -37,8 +40,7 @@ function Register() {
   }, [navigate, registerSuccess]);
 
   const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
-    alert('Icon Click Callback');
+    setTimeout(() => inputRef.current?.focus(), 0);
   };
 
   return (

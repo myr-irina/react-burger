@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss';
@@ -13,9 +13,19 @@ import ProfileLink from '../../components/profile-link/profile-link';
 import { logout, updateUser } from '../../services/actions/user';
 import { PASSWORD_PLACEHOLDER } from '../../utils/constants';
 
+type UpdatedFields = {
+  email: string;
+  name: string;
+  password?: string;
+};
+
 function Profile() {
-  const { logoutSuccess } = useSelector(state => state.auth);
-  const { name, email } = useSelector(state => state.auth.user);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const { logoutSuccess } = useSelector((state) => state.auth);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const { name, email } = useSelector((state) => state.auth.user);
   const [isEditMode, setIsEditMode] = useState(false);
 
   const [user, setUser] = useState({
@@ -24,17 +34,17 @@ function Profile() {
     password: PASSWORD_PLACEHOLDER,
   });
 
-  const onUpdateField = e => {
+  const onUpdateField = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  function onSaveChanges(e) {
+  function onSaveChanges(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
 
-    const updatedFields = {
+    const updatedFields: UpdatedFields = {
       email: user.email,
       name: user.name,
     };
@@ -42,20 +52,23 @@ function Profile() {
     if (user.password.length !== 0 || user.password.indexOf('*') === -1) {
       updatedFields.password = user.password;
     }
-
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     dispatch(updateUser(updatedFields));
-    setUser(prevState => ({ ...prevState, password: PASSWORD_PLACEHOLDER }));
+    setUser((prevState) => ({ ...prevState, password: PASSWORD_PLACEHOLDER }));
     setIsEditMode(false);
   }
 
-  const onCancelChanges = e => {
+  const onCancelChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setUser({ name: name, email: email, password: PASSWORD_PLACEHOLDER });
     setIsEditMode(false);
   };
 
-  function handleLogout(e) {
+  function handleLogout(e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     dispatch(logout());
   }
 
@@ -74,16 +87,20 @@ function Profile() {
       <div className={styles.left}>
         <nav className={styles.list}>
           <li>
-            <ProfileLink title="Профиль" path="/profile" />
+            <ProfileLink title='Профиль' path='/profile' onClick />
           </li>
           <li>
-            <ProfileLink title="История заказов" path="/profile/orders" />
+            <ProfileLink
+              title='История заказов'
+              path='/profile/orders'
+              onClick
+            />
           </li>
           <li>
-            <ProfileLink title="Выход" onClick={handleLogout} />
+            <ProfileLink title='Выход' onClick={handleLogout} path />
           </li>
         </nav>
-        <p className="text text_type_main-default text_color_inactive">
+        <p className='text text_type_main-default text_color_inactive'>
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </div>
@@ -97,7 +114,7 @@ function Profile() {
           error={false}
           errorText={'Ошибка'}
           size={'default'}
-          extraClass="mb-6"
+          extraClass='mb-6'
           icon={'EditIcon'}
           disabled={!isEditMode}
           onIconClick={handleEditing}
@@ -107,10 +124,10 @@ function Profile() {
           onChange={onUpdateField}
           value={user.email}
           name={'email'}
-          placeholder="Логин"
+          placeholder='Логин'
           isIcon={true}
-          extraClass="mb-6"
-          icon={'EditIcon'}
+          extraClass='mb-6'
+          icon='EditIcon'
           disabled={!isEditMode}
           onIconClick={handleEditing}
         />
@@ -118,7 +135,7 @@ function Profile() {
           onChange={onUpdateField}
           value={user.password}
           name={'password'}
-          extraClass="mb-6"
+          extraClass='mb-6'
           icon={'EditIcon'}
           disabled={!isEditMode}
           onIconClick={handleEditing}
@@ -126,20 +143,20 @@ function Profile() {
         {isEditMode && (
           <div className={styles.wrapper}>
             <Button
-              htmlType="button"
-              type="secondary"
-              size="large"
-              extraClass="mb-30"
+              htmlType='button'
+              type='secondary'
+              size='large'
+              extraClass='mb-30'
               onClick={onCancelChanges}
               disabled={!isEditMode}
             >
               Отмена
             </Button>
             <Button
-              htmlType="submit"
-              type="primary"
-              size="medium"
-              extraClass="mb-30"
+              htmlType='submit'
+              type='primary'
+              size='medium'
+              extraClass='mb-30'
               onClick={onSaveChanges}
               disabled={!isEditMode}
             >
