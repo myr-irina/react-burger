@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, SyntheticEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss';
@@ -41,7 +41,7 @@ function Profile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  function onSaveChanges(e: React.ChangeEvent<HTMLInputElement>) {
+  function onSaveChanges(e: SyntheticEvent<Element, Event>) {
     e.preventDefault();
 
     const updatedFields: UpdatedFields = {
@@ -59,13 +59,13 @@ function Profile() {
     setIsEditMode(false);
   }
 
-  const onCancelChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onCancelChanges = (e: SyntheticEvent<Element, Event>) => {
     e.preventDefault();
     setUser({ name: name, email: email, password: PASSWORD_PLACEHOLDER });
     setIsEditMode(false);
   };
 
-  function handleLogout(e: React.ChangeEvent<HTMLInputElement>) {
+  function handleLogout(e: SyntheticEvent<Element, Event>) {
     e.preventDefault();
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore

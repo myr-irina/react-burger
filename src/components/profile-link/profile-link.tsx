@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 type ProfileLinkProps = {
   title: string;
   path?: string;
-  onClick?: (e: React.MouseEvent<HTMLElement>) => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
 function ProfileLink({ title, path, onClick }: ProfileLinkProps) {
