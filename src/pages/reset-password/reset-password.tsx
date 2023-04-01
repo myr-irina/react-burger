@@ -51,6 +51,9 @@ function ResetPassword() {
         name={'password'}
         placeholder={'Введите новый пароль'}
         extraClass='mb-6'
+        onIconClick={function (): void {
+          throw new Error('Function not implemented.');
+        }}
       />
       <EmailInput
         onChange={onChange}
@@ -59,6 +62,10 @@ function ResetPassword() {
         placeholder={'Введите код из письма'}
         isIcon={true}
         extraClass='mb-6'
+        icon={''}
+        onIconClick={function (): void {
+          throw new Error('Function not implemented.');
+        }}
       />
 
       <Button htmlType='submit' type='primary' size='large'>

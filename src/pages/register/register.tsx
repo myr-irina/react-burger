@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 function Register() {
   const [form, setValue] = useState({ name: '', email: '', password: '' });
 
-  const inputRef = React.useRef<HTMLIFrameElement>(null);
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue({ ...form, [e.target.name]: e.target.value });
@@ -68,12 +68,19 @@ function Register() {
         placeholder='Логин'
         isIcon={true}
         extraClass='mb-6'
+        icon={''}
+        onIconClick={function (): void {
+          throw new Error('Function not implemented.');
+        }}
       />
       <PasswordInput
         onChange={onChange}
         value={form.password}
         name={'password'}
         extraClass='mb-6'
+        onIconClick={function (): void {
+          throw new Error('Function not implemented.');
+        }}
       />
       <Button htmlType='submit' type='primary' size='large' disabled={!form}>
         Зарегистрироваться
