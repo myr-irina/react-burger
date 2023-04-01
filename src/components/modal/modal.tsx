@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, ReactNode } from 'react';
 import * as ReactDOM from 'react-dom';
 import styles from './modal.module.scss';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -6,7 +6,17 @@ import ModalOverlay from '../modal-overlay/modal-overlay';
 
 const modalRoot = document.getElementById('react-modals');
 
-function Modal({ children, handleClose, title }) {
+type HandleModalProps = {
+  children: ReactNode;
+  handleClose: () => void;
+  title: string;
+};
+interface KeyboardEvent {
+  code: string;
+  key: string;
+}
+
+function Modal({ children, handleClose, title }: HandleModalProps) {
   useEffect(() => {
     document.addEventListener('keydown', onEscKeyClose);
     return () => {
@@ -14,7 +24,7 @@ function Modal({ children, handleClose, title }) {
     };
   }, []);
 
-  const onEscKeyClose = (e) => {
+  const onEscKeyClose = (e: KeyboardEvent) => {
     if (e.code === 'Escape') {
       handleClose();
     }
