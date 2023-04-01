@@ -47,19 +47,15 @@ function Login() {
         placeholder='Логин'
         isIcon={true}
         extraClass='mb-6'
-        icon={''}
-        onIconClick={function (): void {
-          throw new Error('Function not implemented.');
-        }}
+        icon=''
+        onIconClick={() => console.log()}
       />
       <PasswordInput
         onChange={onChange}
         value={form.password}
         name={'password'}
         extraClass='mb-6'
-        onIconClick={function (): void {
-          throw new Error('Function not implemented.');
-        }}
+        onIconClick={() => console.log()}
       />
       <Button htmlType='submit' type='primary' size='large' disabled={!form}>
         Войти
