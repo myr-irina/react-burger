@@ -17,7 +17,7 @@ function ForgotPssword() {
   const { resetPasswordSuccess } = useSelector((state) => state.auth);
   const location = useLocation();
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ function ForgotPssword() {
     <form className={styles.container} onSubmit={handleSubmit}>
       <p className='text text_type_main-medium mb-6'>Восстановление пароля</p>
       <EmailInput
-        onChange={onChange}
+        onChange={handleChange}
         value={email}
         name={'email'}
         placeholder={'Укажите e-mail'}

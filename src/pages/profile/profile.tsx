@@ -123,9 +123,6 @@ function Profile() {
           placeholder='Логин'
           isIcon={true}
           extraClass='mb-6'
-          icon='EditIcon'
-          disabled={!isEditMode}
-          onIconClick={handleEditing}
         />
         <PasswordInput
           onChange={onUpdateField}
@@ -134,7 +131,6 @@ function Profile() {
           extraClass='mb-6'
           icon={'EditIcon'}
           disabled={!isEditMode}
-          onIconClick={handleEditing}
         />
         {isEditMode && (
           <div className={styles.wrapper}>
