@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import styles from './styles.module.scss';
 import {
   EmailInput,
@@ -47,15 +47,12 @@ function Login() {
         placeholder='Логин'
         isIcon={true}
         extraClass='mb-6'
-        icon=''
-        onIconClick={() => console.log()}
       />
       <PasswordInput
         onChange={onChange}
         value={form.password}
         name={'password'}
         extraClass='mb-6'
-        onIconClick={() => console.log()}
       />
       <Button htmlType='submit' type='primary' size='large' disabled={!form}>
         Войти

@@ -41,6 +41,7 @@ function Register() {
 
   const onIconClick = () => {
     setTimeout(() => inputRef.current?.focus(), 0);
+    alert('Icon Click Callback');
   };
 
   return (
@@ -68,19 +69,12 @@ function Register() {
         placeholder='Логин'
         isIcon={true}
         extraClass='mb-6'
-        icon={''}
-        onIconClick={function (): void {
-          throw new Error('Function not implemented.');
-        }}
       />
       <PasswordInput
         onChange={onChange}
         value={form.password}
         name={'password'}
         extraClass='mb-6'
-        onIconClick={function (): void {
-          throw new Error('Function not implemented.');
-        }}
       />
       <Button htmlType='submit' type='primary' size='large' disabled={!form}>
         Зарегистрироваться
