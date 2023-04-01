@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEventHandler } from 'react';
+import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import styles from './styles.module.scss';
 
