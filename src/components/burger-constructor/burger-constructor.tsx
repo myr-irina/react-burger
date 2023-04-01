@@ -22,6 +22,7 @@ import {
   getBun,
   getFillings,
 } from '../../services/selectors/burger-constructor';
+import { Ingredient } from '../../types/types-burger';
 
 function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
@@ -107,17 +108,15 @@ function BurgerConstructor() {
 
         {fillings.length !== 0 && (
           <ul className={styles.container__list}>
-            {fillings.map(
-              (element: { id: React.Key | null | undefined }, index: any) => {
-                return (
-                  <IngredientBox
-                    element={element}
-                    index={index}
-                    key={element.id}
-                  />
-                );
-              }
-            )}
+            {fillings.map((element: Ingredient, index: any) => {
+              return (
+                <IngredientBox
+                  element={element}
+                  index={index}
+                  key={element.id}
+                />
+              );
+            })}
           </ul>
         )}
         {bun.length !== 0 && (

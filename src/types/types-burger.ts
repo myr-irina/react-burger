@@ -1,4 +1,5 @@
 export type Ingredient = {
+  id: string | null | undefined;
   calories: number;
   carbohydrates: number;
   fat: number;

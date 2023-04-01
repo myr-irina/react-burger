@@ -17,12 +17,12 @@ function ForgotPssword() {
   const { resetPasswordSuccess } = useSelector((state) => state.auth);
   const location = useLocation();
 
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
   const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
@@ -45,6 +45,10 @@ function ForgotPssword() {
         placeholder={'Укажите e-mail'}
         isIcon={true}
         extraClass='mb-20'
+        icon={''}
+        onIconClick={function (): void {
+          throw new Error('Function not implemented.');
+        }}
       />
 
       <Button htmlType='submit' type='primary' size='large' disabled={!email}>

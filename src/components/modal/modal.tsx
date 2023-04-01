@@ -9,7 +9,7 @@ const modalRoot = document.getElementById('react-modals');
 type HandleModalProps = {
   children: ReactNode;
   handleClose: () => void;
-  title: string;
+  title: string | null;
 };
 interface KeyboardEvent {
   code: string;

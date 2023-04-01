@@ -87,17 +87,13 @@ function Profile() {
       <div className={styles.left}>
         <nav className={styles.list}>
           <li>
-            <ProfileLink title='Профиль' path='/profile' onClick />
+            <ProfileLink title='Профиль' path='/profile' />
           </li>
           <li>
-            <ProfileLink
-              title='История заказов'
-              path='/profile/orders'
-              onClick
-            />
+            <ProfileLink title='История заказов' path='/profile/orders' />
           </li>
           <li>
-            <ProfileLink title='Выход' onClick={handleLogout} path />
+            <ProfileLink title='Выход' onClick={handleLogout} />
           </li>
         </nav>
         <p className='text text_type_main-default text_color_inactive'>

@@ -1,8 +1,17 @@
 import { useSelector } from 'react-redux';
 import { useLocation, Navigate } from 'react-router-dom';
 import Preloader from '../preloader/preloader';
+import { ReactNode } from 'react';
 
-export const ProtectedRoute = ({ onlyUnAuth = false, children }) => {
+type ProtectedRouteProps = {
+  onlyUnAuth: boolean;
+  children: ReactNode;
+};
+
+export const ProtectedRoute = ({
+  onlyUnAuth = false,
+  children,
+}: ProtectedRouteProps) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const isAuthChecked = useSelector((state) => state.auth.isAuthChecked);
