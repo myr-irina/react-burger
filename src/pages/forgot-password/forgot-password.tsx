@@ -45,10 +45,6 @@ function ForgotPssword() {
         placeholder={'Укажите e-mail'}
         isIcon={true}
         extraClass='mb-20'
-        icon={''}
-        onIconClick={function (): void {
-          throw new Error('Function not implemented.');
-        }}
       />
 
       <Button htmlType='submit' type='primary' size='large' disabled={!email}>
