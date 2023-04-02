@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback, useEffect } from 'react';
 import {
   ForgotPassword,
@@ -33,7 +32,9 @@ function App() {
   }, [navigate]);
 
   useEffect(() => {
+    // @ts-ignore
     dispatch(fetchIngredients());
+    // @ts-ignore
     dispatch(checkUserAuth());
   }, [dispatch]);
 
