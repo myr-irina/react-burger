@@ -1,8 +1,14 @@
 import React from 'react';
-import { NavLink, useMatch, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import styles from './styles.module.scss';
 
-function ProfileLink({ title, path, onClick }) {
+type ProfileLinkProps = {
+  title: string;
+  path?: string;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+};
+
+function ProfileLink({ title, path, onClick }: ProfileLinkProps) {
   const pathname = useLocation().pathname;
 
   return path ? (

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { useDrop, useDrag } from 'react-dnd';
+import { useDrop, useDrag, XYCoord } from 'react-dnd';
 
 import styles from './styles.module.scss';
 import {
@@ -12,10 +12,16 @@ import {
   DELETE_BURGER_INGREDIENT,
   REORDER_BURGER_INGREDIENTS,
 } from '../../services/actions/burger-constructor';
+import { Ingredient } from '../../types/types-burger';
 
-function IngredientsBox({ element, index }) {
+type IngredientsBoxProps = {
+  element: Ingredient;
+  index: string;
+};
+
+function IngredientsBox({ element, index }: IngredientsBoxProps) {
   const dispatch = useDispatch();
-  const ref = useRef(null);
+  const ref = useRef<HTMLLIElement>(null);
 
   const [{ handlerId }, drop] = useDrop({
     accept: ['sort'],
@@ -25,7 +31,7 @@ function IngredientsBox({ element, index }) {
       };
     },
 
-    hover(item, monitor) {
+    hover(item: any, monitor) {
       if (!ref.current) {
         return;
       }
@@ -40,7 +46,7 @@ function IngredientsBox({ element, index }) {
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
 
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
@@ -63,7 +69,7 @@ function IngredientsBox({ element, index }) {
   const [{ isDragging }, drag] = useDrag({
     type: 'sort',
     item: () => ({ index }),
-    collect: monitor => ({
+    collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
   });
@@ -79,7 +85,7 @@ function IngredientsBox({ element, index }) {
       style={{ opacity }}
       data-handler-id={handlerId}
     >
-      <DragIcon />
+      <DragIcon type={'secondary'} />
       <ConstructorElement
         text={element.name}
         price={element.price}

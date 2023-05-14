@@ -14,21 +14,25 @@ import { useSelector } from 'react-redux';
 function Login() {
   const [form, setValue] = useState({ email: '', password: '' });
 
-  const onChange = e => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
-  const { loginFailed } = useSelector(store => store.auth);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const { loginFailed } = useSelector((store) => store.auth);
 
   const dispatch = useDispatch();
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     dispatch(login(form));
   };
 
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
-      <p className="text text_type_main-medium mb-6">Вход</p>
+      <p className='text text_type_main-medium mb-6'>Вход</p>
 
       {loginFailed && (
         <span className={`${styles.messagerror} text text_type_main-default`}>
@@ -40,29 +44,29 @@ function Login() {
         onChange={onChange}
         value={form.email}
         name={'email'}
-        placeholder="Логин"
+        placeholder='Логин'
         isIcon={true}
-        extraClass="mb-6"
+        extraClass='mb-6'
       />
       <PasswordInput
         onChange={onChange}
         value={form.password}
         name={'password'}
-        extraClass="mb-6"
+        extraClass='mb-6'
       />
-      <Button htmlType="submit" type="primary" size="large" disabled={!form}>
+      <Button htmlType='submit' type='primary' size='large' disabled={!form}>
         Войти
       </Button>
 
-      <p className="text text_type_main-default text_color_inactive mt-20">
+      <p className='text text_type_main-default text_color_inactive mt-20'>
         Вы — новый пользователь?{' '}
-        <Link className={styles.link} to="/register">
+        <Link className={styles.link} to='/register'>
           Зарегистрироваться
         </Link>
       </p>
-      <p className="text text_type_main-default text_color_inactive mt-4">
+      <p className='text text_type_main-default text_color_inactive mt-4'>
         Забыли пароль?{' '}
-        <Link className={styles.link} to="/forgot-password">
+        <Link className={styles.link} to='/forgot-password'>
           Восстановить пароль
         </Link>
       </p>

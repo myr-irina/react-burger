@@ -14,19 +14,22 @@ import { useNavigate } from 'react-router-dom';
 function Register() {
   const [form, setValue] = useState({ name: '', email: '', password: '' });
 
-  const inputRef = React.useRef(null);
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const onChange = e => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const { registerSuccess } = useSelector((state) => state.auth);
 
-  const { registerSuccess } = useSelector(state => state.auth);
-
-  const handleSubmit = e => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     dispatch(register(form));
   };
 
@@ -36,14 +39,9 @@ function Register() {
     }
   }, [navigate, registerSuccess]);
 
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
-    alert('Icon Click Callback');
-  };
-
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
-      <p className="text text_type_main-medium mb-6">Регистрация</p>
+      <p className='text text_type_main-medium mb-6'>Регистрация</p>
       <Input
         type={'text'}
         placeholder={'Имя'}
@@ -53,32 +51,31 @@ function Register() {
         name={'name'}
         error={false}
         ref={inputRef}
-        onIconClick={onIconClick}
         errorText={'Ошибка'}
         size={'default'}
-        extraClass="mb-6"
+        extraClass='mb-6'
       />
 
       <EmailInput
         onChange={onChange}
         value={form.email}
         name={'email'}
-        placeholder="Логин"
+        placeholder='Логин'
         isIcon={true}
-        extraClass="mb-6"
+        extraClass='mb-6'
       />
       <PasswordInput
         onChange={onChange}
         value={form.password}
         name={'password'}
-        extraClass="mb-6"
+        extraClass='mb-6'
       />
-      <Button htmlType="submit" type="primary" size="large" disabled={!form}>
+      <Button htmlType='submit' type='primary' size='large' disabled={!form}>
         Зарегистрироваться
       </Button>
-      <p className="text text_type_main-default text_color_inactive mt-20">
+      <p className='text text_type_main-default text_color_inactive mt-20'>
         Уже зарегистрированы?{' '}
-        <Link className={styles.link} to="/login">
+        <Link className={styles.link} to='/login'>
           Войти
         </Link>
       </p>

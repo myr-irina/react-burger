@@ -12,16 +12,20 @@ import { useNavigate, useLocation } from 'react-router-dom';
 function ForgotPssword() {
   const [email, setEmail] = React.useState('');
   const dispatch = useDispatch();
-  const { resetPasswordSuccess } = useSelector(state => state.auth);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const { resetPasswordSuccess } = useSelector((state) => state.auth);
   const location = useLocation();
 
-  const onChange = e => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
   const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     dispatch(resetPassword(email));
   }
 
@@ -33,23 +37,23 @@ function ForgotPssword() {
 
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
-      <p className="text text_type_main-medium mb-6">Восстановление пароля</p>
+      <p className='text text_type_main-medium mb-6'>Восстановление пароля</p>
       <EmailInput
-        onChange={onChange}
+        onChange={handleChange}
         value={email}
         name={'email'}
         placeholder={'Укажите e-mail'}
         isIcon={true}
-        extraClass="mb-20"
+        extraClass='mb-20'
       />
 
-      <Button htmlType="submit" type="primary" size="large" disabled={!email}>
+      <Button htmlType='submit' type='primary' size='large' disabled={!email}>
         Восстановить
       </Button>
 
-      <p className="text text_type_main-default text_color_inactive mt-20">
+      <p className='text text_type_main-default text_color_inactive mt-20'>
         Вспомнили пароль?{' '}
-        <Link className={styles.link} to="/login">
+        <Link className={styles.link} to='/login'>
           Войти
         </Link>
       </p>

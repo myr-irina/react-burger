@@ -1,18 +1,24 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import styles from './ingredient-details.module.scss';
 import { useParams } from 'react-router-dom';
-import { ingredientPropTypes } from '../../utils/prop-types';
 import { useSelector } from 'react-redux';
+import { Ingredient } from '../../types/types-burger';
 
 function IngredientDetails() {
-  const ingredientsArray = useSelector(store => store.ingredients.ingredients);
+  const ingredientsArray = useSelector(
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    (store) => store.ingredients.ingredients
+  );
 
   const { id } = useParams();
 
-  const [ingredient, setIngredient] = useState(null);
+  const [ingredient, setIngredient] = useState<Ingredient | null>(null);
 
   useEffect(() => {
-    const ingredient = ingredientsArray.find(elem => elem._id === id);
+    const ingredient = ingredientsArray.find(
+      (elem: Ingredient) => elem._id === id
+    );
     setIngredient(ingredient);
   }, [id, ingredientsArray]);
 
@@ -75,9 +81,5 @@ function IngredientDetails() {
     </>
   );
 }
-
-// IngredientDetails.propTypes = {
-//   content: ingredientPropTypes.isRequired,
-// };
 
 export default IngredientDetails;

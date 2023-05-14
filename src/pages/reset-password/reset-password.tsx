@@ -12,20 +12,23 @@ import { createNewPassword } from '../../services/actions/user';
 
 function ResetPassword() {
   const [form, setValue] = useState({ password: '', token: '' });
-  const { newPasswordSuccess } = useSelector(state => state.auth);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const { newPasswordSuccess } = useSelector((state) => state.auth);
 
   const location = useLocation();
 
-  const onChange = e => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     dispatch(createNewPassword(form));
   }
 
@@ -41,13 +44,13 @@ function ResetPassword() {
 
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
-      <p className="text text_type_main-medium mb-6">Восстановление пароля</p>
+      <p className='text text_type_main-medium mb-6'>Восстановление пароля</p>
       <PasswordInput
         onChange={onChange}
         value={form.password}
         name={'password'}
         placeholder={'Введите новый пароль'}
-        extraClass="mb-6"
+        extraClass='mb-6'
       />
       <EmailInput
         onChange={onChange}
@@ -55,16 +58,16 @@ function ResetPassword() {
         name={'token'}
         placeholder={'Введите код из письма'}
         isIcon={true}
-        extraClass="mb-6"
+        extraClass='mb-6'
       />
 
-      <Button htmlType="submit" type="primary" size="large">
+      <Button htmlType='submit' type='primary' size='large'>
         Сохранить
       </Button>
 
-      <p className="text text_type_main-default text_color_inactive mt-20">
+      <p className='text text_type_main-default text_color_inactive mt-20'>
         Вспомнили пароль?{' '}
-        <Link className={styles.link} to="/login">
+        <Link className={styles.link} to='/login'>
           Войти
         </Link>
       </p>

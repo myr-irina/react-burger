@@ -5,7 +5,9 @@ import Preloader from '../preloader/preloader';
 
 function OrderDetails() {
   const { order, orderRequest, orderFailed } = useSelector(
-    state => state.order
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    (state) => state.order
   );
 
   if (orderFailed) {
@@ -28,7 +30,7 @@ function OrderDetails() {
           <p className={`${'text text_type_main-small'} mb-2`}>
             Ваш заказ начали готовить
           </p>
-          <p className="text text_type_main-default text_color_inactive">
+          <p className='text text_type_main-default text_color_inactive'>
             Дождитесь готовности на орбитальной станции
           </p>
         </>

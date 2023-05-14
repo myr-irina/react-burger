@@ -22,13 +22,16 @@ import {
   getBun,
   getFillings,
 } from '../../services/selectors/burger-constructor';
+import { Ingredient } from '../../types/types-burger';
 
 function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
   const bun = useSelector(getBun);
   const fillings = useSelector(getFillings);
   const totalPrice = useSelector(getPrice);
-  const { user } = useSelector(store => store.auth);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const { user } = useSelector((store) => store.auth);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,13 +49,15 @@ function BurgerConstructor() {
   const ids = useMemo(() => {
     return [
       bun._id,
-      ...fillings.map(item => {
+      ...fillings.map((item: { _id: number }) => {
         return item._id;
       }),
     ];
   }, [fillings, bun]);
 
   function sendOrder() {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     dispatch(createOrderId(ids));
   }
 
@@ -67,7 +72,7 @@ function BurgerConstructor() {
 
   const [{ isHover }, dropTarget] = useDrop({
     accept: 'fillingsItem',
-    collect: monitor => ({
+    collect: (monitor) => ({
       isHover: monitor.isOver(),
     }),
     drop(item) {
@@ -80,10 +85,10 @@ function BurgerConstructor() {
       <div className={styles.container} ref={dropTarget}>
         {bun.length === 0 && fillings.length === 0 ? (
           <div className={styles.empty_field}>
-            <p className="text text_type_main-default">
+            <p className='text text_type_main-default'>
               Переместите сюда выбранную Вами булочку
             </p>
-            <p className="text text_type_main-default">
+            <p className='text text_type_main-default'>
               А затем начинки и соусы.
             </p>
           </div>
@@ -92,7 +97,7 @@ function BurgerConstructor() {
         {bun.length !== 0 && (
           <div className={`${styles.element} ml-8`}>
             <ConstructorElement
-              type="top"
+              type='top'
               isLocked={true}
               text={`${bun.name} (верх)`}
               price={bun.price}
@@ -103,7 +108,7 @@ function BurgerConstructor() {
 
         {fillings.length !== 0 && (
           <ul className={styles.container__list}>
-            {fillings.map((element, index) => {
+            {fillings.map((element: Ingredient, index: any) => {
               return (
                 <IngredientBox
                   element={element}
@@ -117,7 +122,7 @@ function BurgerConstructor() {
         {bun.length !== 0 && (
           <div className={`${styles.element} ml-8`}>
             <ConstructorElement
-              type="bottom"
+              type='bottom'
               isLocked={true}
               text={`${bun.name} (низ)`}
               price={bun.price}
@@ -128,13 +133,13 @@ function BurgerConstructor() {
 
         <section className={styles.container__info}>
           <p className={styles.container__info_text}>{totalPrice}</p>
-          <CurrencyIcon />
+          <CurrencyIcon type={'secondary'} />
           <Button
             onClick={handleClick}
-            htmlType="button"
-            type="primary"
-            size="medium"
-            extraClass="ml-10"
+            htmlType='button'
+            type='primary'
+            size='medium'
+            extraClass='ml-10'
             disabled={bun.length === 0}
           >
             Оформить заказ
