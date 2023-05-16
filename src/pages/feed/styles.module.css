@@ -1,0 +1,49 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  gap: 60px;
+}
+
+.left_column {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.right_column {
+  composes: left_column;
+  margin-left: 60px;
+  margin-top: 80px;
+}
+
+.orders_wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 16px;
+  max-height: 900px;
+  overflow-y: scroll;
+  padding-right: 8px;
+}
+
+.orders-List {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8585ad;
+  border: 3px solid #2f2f37;
+  border-radius: 6px;
+}/*# sourceMappingURL=styles.module.css.map */
