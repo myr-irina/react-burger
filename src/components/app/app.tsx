@@ -8,6 +8,7 @@ import {
   Register,
   ResetPassword,
   NotFound,
+  Feed,
 } from '../../pages';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
@@ -86,6 +87,8 @@ function App() {
           />
 
           <Route path='/ingredients/:id' element={<Ingredient />} />
+          <Route path='/feed' element={<Feed />}></Route>
+
           <Route path='*' element={<NotFound />} />
         </Routes>
 

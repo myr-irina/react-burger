@@ -35,11 +35,8 @@
   }
 }
 
-.link_inactive {
-  @extend .link;
-  composes: text_type_main-default text_color_inactive from global;
-
-  cursor: pointer;
+.active {
+  color: white;
 }
 
 .link_logo {
