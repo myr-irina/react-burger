@@ -5,15 +5,7 @@
   gap: 60px;
 }
 
-.left_column {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
 .right_column {
-  composes: left_column;
-  margin-left: 60px;
   margin-top: 80px;
 }
 
@@ -25,13 +17,6 @@
   max-height: 900px;
   overflow-y: scroll;
   padding-right: 8px;
-}
-
-.orders-List {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 50px;
 }
 
 ::-webkit-scrollbar {
@@ -46,4 +31,41 @@
   background: #8585ad;
   border: 3px solid #2f2f37;
   border-radius: 6px;
+}
+
+.orders_board {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  column-gap: 36px;
+  overflow: hidden;
+}
+
+.order_numbers {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  height: 330px;
+  margin: 0;
+  padding: 0;
+  margin-top: 12px;
+}
+
+.orders_ready_color {
+  color: #00cccc;
+}
+
+.orders_list {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  height: 330px;
+  margin: 0;
+  padding: 0;
+  margin-top: 12px;
+}
+
+.orders_done_list {
+  overflow: hidden;
+  height: 206px;
 }
