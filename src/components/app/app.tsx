@@ -20,6 +20,7 @@ import { fetchIngredients } from '../../services/actions/ingredients';
 import { checkUserAuth } from '../../services/actions/user';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import FeedOrderDetails from '../feed-order-details/feed-order-details';
 
 function App() {
   const dispatch = useDispatch();
@@ -87,7 +88,10 @@ function App() {
           />
 
           <Route path='/ingredients/:id' element={<Ingredient />} />
-          <Route path='/feed' element={<Feed />}></Route>
+          <Route path='/feed'>
+            <Route path='' element={<Feed />} />
+            <Route path=':id' element={<FeedOrderDetails />} />
+          </Route>
 
           <Route path='*' element={<NotFound />} />
         </Routes>
