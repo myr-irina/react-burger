@@ -6,7 +6,7 @@ import {
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/logo';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 function AppHeader() {
   const location = useLocation();
@@ -19,7 +19,7 @@ function AppHeader() {
       return 'ingredients';
     } else if (location.pathname.includes('/feed')) {
       return 'feed';
-    } else if (location.pathname.includes('/login')) {
+    } else if (location.pathname.includes('/profile')) {
       return 'login';
     } else {
       return;
@@ -69,7 +69,7 @@ function AppHeader() {
           <Logo />
         </NavLink>
 
-        <NavLink to='/profile' className={headerStyles.link_inactive}>
+        <NavLink to='/profile' className={headerStyles.link}>
           <div className={headerStyles.block}>
             <ProfileIcon
               type={activeLink === 'login' ? 'primary' : 'secondary'}
