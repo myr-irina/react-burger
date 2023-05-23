@@ -21,6 +21,8 @@ import { checkUserAuth } from '../../services/actions/user';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import FeedOrderDetails from '../feed-order-details/feed-order-details';
+import FeedOrder from '../feed-order';
+import ProfileLayout from '../../pages/profile-layout/profile-layout';
 
 function App() {
   const dispatch = useDispatch();
@@ -82,12 +84,40 @@ function App() {
             path='/profile'
             element={
               <ProtectedRoute onlyUnAuth={false}>
-                <Profile />
+                <ProfileLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route path='' element={<Profile />} />
+            <Route path='orders' element={<FeedOrder />} />
+          </Route>
+          <Route
+            path='/profile/orders/:id'
+            element={
+              <ProtectedRoute onlyUnAuth={false}>
+                <FeedOrderDetails />
               </ProtectedRoute>
             }
           />
 
+          {background && (
+            <Routes>
+              <Route
+                path='/orders/:id'
+                element={
+                  <Modal
+                    title='Детали ингредиента'
+                    handleClose={handleCloseModal}
+                  >
+                    <FeedOrderDetails />
+                  </Modal>
+                }
+              />
+            </Routes>
+          )}
+
           <Route path='/ingredients/:id' element={<Ingredient />} />
+
           <Route path='/feed'>
             <Route path='' element={<Feed />} />
             <Route path=':id' element={<FeedOrderDetails />} />

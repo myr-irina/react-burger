@@ -1,6 +1,6 @@
 import React, { useState, useEffect, SyntheticEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+
 import styles from './styles.module.scss';
 import {
   EmailInput,
@@ -22,7 +22,7 @@ type UpdatedFields = {
 function Profile() {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const { logoutSuccess } = useSelector((state) => state.auth);
+
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const { name, email } = useSelector((state) => state.auth.user);
@@ -38,7 +38,7 @@ function Profile() {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const navigate = useNavigate();
+ 
   const dispatch = useDispatch();
 
   function onSaveChanges(e: SyntheticEvent<Element, Event>) {
@@ -65,41 +65,14 @@ function Profile() {
     setIsEditMode(false);
   };
 
-  function handleLogout(e: SyntheticEvent<Element, Event>) {
-    e.preventDefault();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    dispatch(logout());
-  }
-
   function handleEditing() {
     setIsEditMode(true);
   }
 
-  useEffect(() => {
-    if (logoutSuccess) {
-      navigate('/login');
-    }
-  }, [logoutSuccess, navigate]);
+
 
   return (
     <article className={styles.container}>
-      <div className={styles.left}>
-        <nav className={styles.list}>
-          <li>
-            <ProfileLink title='Профиль' path='/profile' />
-          </li>
-          <li>
-            <ProfileLink title='История заказов' path='/profile/orders' />
-          </li>
-          <li>
-            <ProfileLink title='Выход' onClick={handleLogout} />
-          </li>
-        </nav>
-        <p className='text text_type_main-default text_color_inactive'>
-          В этом разделе вы можете изменить свои персональные данные
-        </p>
-      </div>
       <form>
         <Input
           type={'text'}
