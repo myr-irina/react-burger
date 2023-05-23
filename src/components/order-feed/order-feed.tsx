@@ -5,12 +5,17 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './styles.module.scss';
 import BurgerIcon from '../../images/burger-small-icon.svg';
+import { Link, useLocation } from 'react-router-dom';
 
-function OrderFeed() {
+function OrderFeed(props: any) {
   const dateFromServer = '2022-10-10T17:33:32.877Z';
+  const location = useLocation();
 
   return (
-    <section className={styles.wrapper}>
+    <Link
+      to={`${location.pathname}/${props.orders?.number}`}
+      className={styles.wrapper}
+    >
       <div className={styles.order_info}>
         <div className={styles.order_number}>
           <p className='text text_type_digits-default'>#31</p>
@@ -62,7 +67,7 @@ function OrderFeed() {
           <CurrencyIcon type='primary' />
         </div>
       </div>
-    </section>
+    </Link>
   );
 }
 
