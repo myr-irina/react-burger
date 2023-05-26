@@ -12,8 +12,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 function ForgotPssword() {
   const [email, setEmail] = React.useState('');
   const dispatch = useDispatch();
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+
   const { resetPasswordSuccess } = useSelector((state) => state.auth);
   const location = useLocation();
 
@@ -24,8 +23,7 @@ function ForgotPssword() {
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+
     dispatch(resetPassword(email));
   }
 

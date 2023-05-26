@@ -6,8 +6,6 @@ import { TIngredientType } from '../../services/types/types-ingredient';
 
 function IngredientDetails() {
   const ingredientsArray = useSelector(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     (store) => store.ingredients.ingredients
   );
 

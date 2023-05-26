@@ -5,8 +5,6 @@ import Preloader from '../preloader/preloader';
 
 function OrderDetails() {
   const { order, orderRequest, orderFailed } = useSelector(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     (state) => state.order
   );
 

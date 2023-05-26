@@ -6,17 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Outlet } from 'react-router-dom';
 
 function ProfileLayout() {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const dispatch = useDispatch();
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+
   const { logoutSuccess } = useSelector((state) => state.auth);
 
   function handleLogout(e: SyntheticEvent<Element, Event>) {
     e.preventDefault();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     dispatch(logout());
   }
   const navigate = useNavigate();

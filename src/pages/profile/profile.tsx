@@ -20,11 +20,6 @@ type UpdatedFields = {
 };
 
 function Profile() {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const { name, email } = useSelector((state) => state.auth.user);
   const [isEditMode, setIsEditMode] = useState(false);
 
@@ -38,7 +33,6 @@ function Profile() {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
- 
   const dispatch = useDispatch();
 
   function onSaveChanges(e: SyntheticEvent<Element, Event>) {
@@ -52,8 +46,7 @@ function Profile() {
     if (user.password.length !== 0 || user.password.indexOf('*') === -1) {
       updatedFields.password = user.password;
     }
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+
     dispatch(updateUser(updatedFields));
     setUser((prevState) => ({ ...prevState, password: PASSWORD_PLACEHOLDER }));
     setIsEditMode(false);
@@ -68,8 +61,6 @@ function Profile() {
   function handleEditing() {
     setIsEditMode(true);
   }
-
-
 
   return (
     <article className={styles.container}>

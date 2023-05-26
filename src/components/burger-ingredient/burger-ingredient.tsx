@@ -9,8 +9,8 @@ import {
 import { TIngredientType } from '../../services/types/types-ingredient';
 
 type BurgerIngredientProps = {
-  ingredientData: Ingredient;
-  onCardClick: (obj: Ingredient) => void;
+  ingredientData: TIngredientType;
+  onCardClick: (obj: TIngredientType) => void;
   onOpen: () => void;
   count: number;
 };

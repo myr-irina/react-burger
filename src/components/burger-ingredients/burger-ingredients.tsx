@@ -16,8 +16,6 @@ function BurgerIngredients() {
   const [currentTab, setCurrentTab] = useState('buns');
 
   const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     (store) => store.ingredients
   );
 
