@@ -6,7 +6,7 @@ import {
   Counter,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Ingredient } from '../../types/types-burger';
+import { TIngredientType } from '../../services/types/types-ingredient';
 
 type BurgerIngredientProps = {
   ingredientData: Ingredient;

@@ -6,14 +6,14 @@ import styles from './styles.module.scss';
 
 import { getIngredientsCount } from '../../services/selectors/burger-constructor';
 import { Link, useLocation } from 'react-router-dom';
-import { Ingredient } from '../../types/types-burger';
+import { TIngredientType } from '../../services/types/types-ingredient';
 
 type IngredientsCategoryProps = {
   title: string;
   titleId: string;
-  ingredients: Ingredient[];
+  ingredients: TIngredientType[];
   onOpen: () => void;
-  onCardClick: (obj: Ingredient) => void;
+  onCardClick: (obj: TIngredientType) => void;
 };
 
 const IngredientsCategory = React.forwardRef<

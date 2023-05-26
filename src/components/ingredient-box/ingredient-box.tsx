@@ -12,10 +12,10 @@ import {
   DELETE_BURGER_INGREDIENT,
   REORDER_BURGER_INGREDIENTS,
 } from '../../services/actions/burger-constructor';
-import { Ingredient } from '../../types/types-burger';
+import { TIngredientType } from '../../services/types/types-ingredient';
 
 type IngredientsBoxProps = {
-  element: Ingredient;
+  element: TIngredientType;
   index: string;
 };
 

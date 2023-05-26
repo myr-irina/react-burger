@@ -9,7 +9,7 @@ import IngredientsCategory from '../ingredients-category/ingredients-category';
 import Preloader from '../preloader/preloader';
 
 import { SET_INGREDIENT_DATA } from '../../services/actions/ingredient-details';
-import { Ingredient } from '../../types/types-burger';
+import { TIngredientType } from '../../services/types/types-ingredient';
 
 function BurgerIngredients() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,17 +22,17 @@ function BurgerIngredients() {
   );
 
   const buns = useMemo(
-    () => ingredients.filter((item: Ingredient) => item.type === 'bun'),
+    () => ingredients.filter((item: TIngredientType) => item.type === 'bun'),
     [ingredients]
   );
 
   const fillings = useMemo(
-    () => ingredients.filter((item: Ingredient) => item.type === 'main'),
+    () => ingredients.filter((item: TIngredientType) => item.type === 'main'),
     [ingredients]
   );
 
   const sauces = useMemo(
-    () => ingredients.filter((item: Ingredient) => item.type === 'sauce'),
+    () => ingredients.filter((item: TIngredientType) => item.type === 'sauce'),
     [ingredients]
   );
 
@@ -52,7 +52,7 @@ function BurgerIngredients() {
     }
   }, [fillings, inViewBunsRef, inViewFillingsRef, inViewSaucesRef]);
 
-  function handleCardClick(ingredient: Ingredient) {
+  function handleCardClick(ingredient: TIngredientType) {
     dispatch({ type: SET_INGREDIENT_DATA, payload: ingredient });
   }
 

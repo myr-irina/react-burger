@@ -35,10 +35,8 @@ function App() {
     navigate(-1);
   }, [navigate]);
 
-  useEffect(() => {
-    // @ts-ignore
-    dispatch(fetchIngredients());
-    // @ts-ignore
+  useEffect(() => {  
+    dispatch(fetchIngredients());  
     dispatch(checkUserAuth());
   }, [dispatch]);
 

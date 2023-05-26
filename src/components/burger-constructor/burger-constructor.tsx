@@ -22,15 +22,13 @@ import {
   getBun,
   getFillings,
 } from '../../services/selectors/burger-constructor';
-import { Ingredient } from '../../types/types-burger';
+import { TIngredientType } from '../../services/types/types-ingredient';
 
 function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
   const bun = useSelector(getBun);
   const fillings = useSelector(getFillings);
   const totalPrice = useSelector(getPrice);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const { user } = useSelector((store) => store.auth);
 
   const dispatch = useDispatch();
@@ -56,8 +54,6 @@ function BurgerConstructor() {
   }, [fillings, bun]);
 
   function sendOrder() {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     dispatch(createOrderId(ids));
   }
 
@@ -108,7 +104,7 @@ function BurgerConstructor() {
 
         {fillings.length !== 0 && (
           <ul className={styles.container__list}>
-            {fillings.map((element: Ingredient, index: any) => {
+            {fillings.map((element: TIngredientType, index: any) => {
               return (
                 <IngredientBox
                   element={element}

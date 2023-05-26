@@ -2,7 +2,7 @@ import React, { useMemo, useEffect, useState } from 'react';
 import styles from './ingredient-details.module.scss';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Ingredient } from '../../types/types-burger';
+import { TIngredientType } from '../../services/types/types-ingredient';
 
 function IngredientDetails() {
   const ingredientsArray = useSelector(
@@ -13,11 +13,11 @@ function IngredientDetails() {
 
   const { id } = useParams();
 
-  const [ingredient, setIngredient] = useState<Ingredient | null>(null);
+  const [ingredient, setIngredient] = useState<TIngredientType | null>(null);
 
   useEffect(() => {
     const ingredient = ingredientsArray.find(
-      (elem: Ingredient) => elem._id === id
+      (elem: TIngredientType) => elem._id === id
     );
     setIngredient(ingredient);
   }, [id, ingredientsArray]);
