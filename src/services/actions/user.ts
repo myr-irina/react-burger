@@ -111,6 +111,7 @@ export interface IGetUserRequestAction {
 
 export interface IGetUserSuccessAction {
   readonly type: typeof GET_USER_SUCCESS;
+  readonly payload: TUser;
 }
 
 export interface IGetUserFailedAction {

@@ -32,7 +32,7 @@ export interface IResetBurgerIngredientAction {
   readonly type: typeof RESET_BURGER_INGREDIENTS;
 }
 
-export type TSelectionIngredientActions =
+export type TBurgerIngredientActions =
   | IAddBurgerIngredientAction
   | IDeleteBurgerIngredientAction
   | IReorderBurgerIngredientAction

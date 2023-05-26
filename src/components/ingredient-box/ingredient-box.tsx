@@ -11,7 +11,7 @@ import {
 import {
   DELETE_BURGER_INGREDIENT,
   REORDER_BURGER_INGREDIENTS,
-} from '../../services/actions/burger-constructor';
+} from '../../services/constants/burger-constructor';
 import { TIngredientType } from '../../services/types/types-ingredient';
 
 type IngredientsBoxProps = {

@@ -13,9 +13,10 @@ import {
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 
-import { createOrderId, ORDER_RESET } from '../../services/actions/order';
+import { createOrderId } from '../../services/actions/order';
+import { ORDER_RESET } from '../../services/constants/order';
+import { RESET_BURGER_INGREDIENTS } from '../../services/constants/burger-constructor';
 import { addBurgerIngredient } from '../../services/actions/burger-constructor';
-import { RESET_BURGER_INGREDIENTS } from '../../services/actions/burger-constructor';
 import IngredientBox from '../ingredient-box/ingredient-box';
 import {
   getPrice,

@@ -26,15 +26,15 @@ export type IIngredientsApiActions =
   | IIngredientsFailedAction;
 
 export function fetchIngredients() {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch: any) {
     dispatch({
       type: GET_INGREDIENTS_REQUEST,
     });
     getIngredients()
-      .then((data) => {
+      .then((...data) => {
         dispatch({
           type: GET_INGREDIENTS_SUCCESS,
-          payload: data.data,
+          payload: data,
         });
       })
       .catch((error) => {

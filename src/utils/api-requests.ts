@@ -1,10 +1,12 @@
 import { getCookie, setCookie } from './cookies';
+
 import {
-  FormData,
-  LoginRequest,
+  TFormData,
   TResponse,
-  UserData,
-} from '../types/types-api';
+  TUser,
+  TUserLogin,
+  TUserRegister,
+} from '../services/types/types-api';
 
 export const BASE_URL = 'https://norma.nomoreparties.space/api';
 
@@ -49,7 +51,7 @@ export const resetPasswordRequest = (email: string) => {
   });
 };
 
-export const createNewPasswordRequest = (formData: FormData) => {
+export const createNewPasswordRequest = (formData: TFormData) => {
   return requestUrl(`${BASE_URL}/password-reset/reset`, {
     method: 'POST',
     headers: {
@@ -63,7 +65,7 @@ export const createNewPasswordRequest = (formData: FormData) => {
   });
 };
 
-export const registerRequest = (userData: UserData) => {
+export const registerRequest = (userData: TUser) => {
   return requestUrl(`${BASE_URL}/auth/register`, {
     method: 'POST',
     headers: {
@@ -138,7 +140,7 @@ export const getUser = () => {
   });
 };
 
-export const loginRequest = (form: LoginRequest) => {
+export const loginRequest = (form: TUserLogin) => {
   return requestUrl(`${BASE_URL}/auth/login`, {
     method: 'POST',
     headers: {
@@ -160,7 +162,7 @@ export const logoutRequest = () => {
   });
 };
 
-export const updateUserRequest = ({ email, name, password }: UserData) => {
+export const updateUserRequest = ({ email, name, password }: TUserRegister) => {
   return fetchWithRefresh(`${BASE_URL}/auth/user`, {
     method: 'PATCH',
     headers: {

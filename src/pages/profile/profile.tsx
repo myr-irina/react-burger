@@ -1,4 +1,4 @@
-import React, { useState, useEffect, SyntheticEvent } from 'react';
+import React, { useState, SyntheticEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './styles.module.scss';
@@ -9,8 +9,7 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import ProfileLink from '../../components/profile-link/profile-link';
-import { logout, updateUser } from '../../services/actions/user';
+import { updateUser } from '../../services/actions/user';
 import { PASSWORD_PLACEHOLDER } from '../../utils/constants';
 
 type UpdatedFields = {

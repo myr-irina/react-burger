@@ -1,7 +1,7 @@
 import React, { useEffect, SyntheticEvent } from 'react';
 import styles from './styles.module.scss';
 import ProfileLink from '../../components/profile-link/profile-link';
-import { logout, updateUser } from '../../services/actions/user';
+import { logout } from '../../services/actions/user';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Outlet } from 'react-router-dom';
 

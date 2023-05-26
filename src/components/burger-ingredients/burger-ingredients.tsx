@@ -7,8 +7,7 @@ import styles from './burger-ingredients.module.scss';
 
 import IngredientsCategory from '../ingredients-category/ingredients-category';
 import Preloader from '../preloader/preloader';
-
-import { SET_INGREDIENT_DATA } from '../../services/actions/ingredient-details';
+import { SET_INGREDIENT_DATA } from '../../services/constants/ingredient-details';
 import { TIngredientType } from '../../services/types/types-ingredient';
 
 function BurgerIngredients() {

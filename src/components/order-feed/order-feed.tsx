@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 import BurgerIcon from '../../images/burger-small-icon.svg';
 import { Link, useLocation } from 'react-router-dom';
 
-function OrderFeed(props: any) {
+function OrderFeed(props) {
   const dateFromServer = '2022-10-10T17:33:32.877Z';
   const location = useLocation();
 

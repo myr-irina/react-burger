@@ -13,6 +13,7 @@ export interface IOrderRequestAction {
 
 export interface IOrderSuccessAction {
   readonly type: typeof GET_ORDER_SUCCESS;
+  readonly payload: number;
 }
 
 export interface IOrderFailedAction {
@@ -20,7 +21,7 @@ export interface IOrderFailedAction {
 }
 
 export interface IOrderResetAction {
-  readonly type: typeof GET_ORDER_FAILED;
+  readonly type: typeof ORDER_RESET;
 }
 
 export type TOrderActions =
@@ -30,7 +31,7 @@ export type TOrderActions =
   | IOrderResetAction;
 
 export function createOrderId(ids: Array<string>) {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch: any) {
     dispatch({
       type: GET_ORDER_REQUEST,
     });
