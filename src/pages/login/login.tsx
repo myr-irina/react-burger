@@ -6,10 +6,10 @@ import {
   PasswordInput,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 
 import { login } from '../../services/actions/user';
-import { useSelector } from 'react-redux';
+
 
 function Login() {
   const [form, setValue] = useState({ email: '', password: '' });

@@ -26,7 +26,7 @@ export type TIngredientsApiActions =
   | IIngredientsFailedAction;
 
 export function fetchIngredients() {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_INGREDIENTS_REQUEST,
     });

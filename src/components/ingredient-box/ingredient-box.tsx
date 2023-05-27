@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/hooks';
 import { useDrop, useDrag, XYCoord } from 'react-dnd';
 
 import styles from './styles.module.scss';

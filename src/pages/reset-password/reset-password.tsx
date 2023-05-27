@@ -6,7 +6,7 @@ import {
   PasswordInput,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { createNewPassword } from '../../services/actions/user';
 

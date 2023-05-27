@@ -11,10 +11,11 @@ import {
   Feed,
 } from '../../pages';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+
 import AppHeader from '../app-header/app-header';
 import styles from './app.module.css';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../services/hooks';
 import { ProtectedRoute } from '../protected-routes/protected-routes';
 import { fetchIngredients } from '../../services/actions/ingredients';
 import { checkUserAuth } from '../../services/actions/user';
@@ -25,18 +26,17 @@ import FeedOrder from '../feed-order';
 import ProfileLayout from '../../pages/profile-layout/profile-layout';
 
 function App() {
-  const dispatch = useDispatch();
   const location = useLocation();
   const background = location.state && location.state.background;
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleCloseModal = useCallback(() => {
     navigate(-1);
   }, [navigate]);
 
-  useEffect(() => {  
-    dispatch(fetchIngredients());  
+  useEffect(() => {
+    dispatch(fetchIngredients());
     dispatch(checkUserAuth());
   }, [dispatch]);
 

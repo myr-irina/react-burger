@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/hooks';
 import { useLocation, Navigate } from 'react-router-dom';
 import Preloader from '../preloader/preloader';
 import { ReactNode } from 'react';

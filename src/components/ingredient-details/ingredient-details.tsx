@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import styles from './ingredient-details.module.scss';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/hooks';
 import { TIngredientType } from '../../services/types/types-ingredient';
 
 function IngredientDetails() {

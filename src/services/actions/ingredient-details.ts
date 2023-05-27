@@ -14,6 +14,6 @@ export interface IResetIngredientDataAction {
   readonly type: typeof RESET_INGREDIENT_DATA;
 }
 
-export type IIngredientDetailsAction =
+export type TIngredientDetailsAction =
   | ISetIngredientDataAction
   | IResetIngredientDataAction;

@@ -5,7 +5,7 @@ import {
   EmailInput,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { resetPassword } from '../../services/actions/user';
 import { useNavigate, useLocation } from 'react-router-dom';
 

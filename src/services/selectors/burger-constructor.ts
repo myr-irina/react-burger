@@ -1,11 +1,14 @@
 import { createSelector } from 'reselect';
+import { TRootState } from '../types/types-store';
+import { TIngredientTypeWithId } from '../types/types-ingredient';
 
-export const getBun = store => store.burgerConstructor.bun;
-export const getFillings = store => store.burgerConstructor.fillings;
+export const getBun = (store: TRootState) => store.burgerConstructor.bun;
+export const getFillings = (store: TRootState) =>
+  store.burgerConstructor.fillings;
 
 export const getPrice = createSelector(getBun, getFillings, (bun, fillings) => {
-  if (bun.length === 0) return;
-  if (bun.length !== 0 || fillings.length !== 0) {
+  if (!bun) return;
+  if (bun !== null || fillings !== null) {
     return (
       (bun ? bun.price * 2 : 0) +
       fillings.reduce((acc, curr) => {
@@ -21,12 +24,14 @@ export const getConstructorItems = createSelector(
   (bun, fillings) => ({ bun, fillings })
 );
 
+type TCounters = {};
+
 export const getIngredientsCount = createSelector(
   getConstructorItems,
   ({ bun, fillings }) => {
-    const counters = {};
+    const counters: any = {};
 
-    fillings.forEach(fillings => {
+    fillings.forEach((fillings) => {
       if (!counters[fillings._id]) counters[fillings._id] = 0;
       counters[fillings._id]++;
     });

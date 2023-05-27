@@ -161,7 +161,7 @@ export type TUserActions =
   | IUpdateInfoUserFailedAction;
 
 export function register(userData: TUserRegister) {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: REGISTER_REQUEST,
     });
