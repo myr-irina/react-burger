@@ -10,7 +10,6 @@ import {
 import {
   TIngredientTypeWithId,
   TIngredientPos,
-  TIngredientType,
 } from '../types/types-ingredient';
 
 export interface IAddBurgerIngredientAction {
@@ -40,7 +39,7 @@ export type TBurgerIngredientActions =
 
 export function addBurgerIngredient({
   ...ingredient
-}: TIngredientType): IAddBurgerIngredientAction {
+}: TIngredientTypeWithId): IAddBurgerIngredientAction {
   return {
     type: ADD_BURGER_INGREDIENT,
     payload: {

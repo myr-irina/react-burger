@@ -6,6 +6,7 @@ import {
   TUser,
   TUserLogin,
   TUserRegister,
+  TUserUpdate,
 } from '../services/types/types-api';
 
 export const BASE_URL = 'https://norma.nomoreparties.space/api';
@@ -27,7 +28,7 @@ export const getIngredients = () => {
   });
 };
 
-export const createOrder = (ingredients: [string]) => {
+export const createOrder = (ingredients: Array<string>) => {
   return requestUrl(`${BASE_URL}/orders`, {
     method: 'POST',
     headers: {
@@ -162,7 +163,7 @@ export const logoutRequest = () => {
   });
 };
 
-export const updateUserRequest = ({ email, name, password }: TUserRegister) => {
+export const updateUserRequest = ({ email, name, password }: TUserUpdate) => {
   return fetchWithRefresh(`${BASE_URL}/auth/user`, {
     method: 'PATCH',
     headers: {

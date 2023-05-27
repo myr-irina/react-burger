@@ -20,7 +20,7 @@ export interface IIngredientsFailedAction {
   readonly type: typeof GET_INGREDIENTS_FAILED;
 }
 
-export type IIngredientsApiActions =
+export type TIngredientsApiActions =
   | IIngredientsRequestAction
   | IIngredientsSuccessAction
   | IIngredientsFailedAction;

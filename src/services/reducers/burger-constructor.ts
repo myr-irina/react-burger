@@ -3,14 +3,25 @@ import {
   DELETE_BURGER_INGREDIENT,
   REORDER_BURGER_INGREDIENTS,
   RESET_BURGER_INGREDIENTS,
-} from '../actions/burger-constructor';
+} from '../constants/burger-constructor';
 
-const initialState = {
-  bun: [],
+import { TBurgerIngredientActions } from '../actions/burger-constructor';
+import { TIngredientTypeWithId } from '../types/types-ingredient';
+
+type TBurgerIngredientState = {
+  bun: TIngredientTypeWithId | null;
+  fillings: Array<TIngredientTypeWithId>;
+};
+
+const initialState: TBurgerIngredientState = {
+  bun: null,
   fillings: [],
 };
 
-export const burgerConstructorReducer = (state = initialState, action) => {
+export const burgerConstructorReducer = (
+  state = initialState,
+  action: TBurgerIngredientActions
+) => {
   switch (action.type) {
     case ADD_BURGER_INGREDIENT: {
       if (action.payload.type === 'bun') {

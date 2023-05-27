@@ -43,6 +43,7 @@ export function createOrderId(ids: Array<string>) {
         });
       })
       .catch((error) => {
+        console.log(error);
         dispatch({
           type: GET_ORDER_FAILED,
         });

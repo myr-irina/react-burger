@@ -38,6 +38,7 @@ import {
   TUserRegister,
   TUserLogin,
   TUserUpdate,
+  TFormData,
 } from '../types/types-api';
 import { AppDispatch } from '../types/types-store';
 
@@ -160,7 +161,7 @@ export type TUserActions =
   | IUpdateInfoUserFailedAction;
 
 export function register(userData: TUserRegister) {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch: any) {
     dispatch({
       type: REGISTER_REQUEST,
     });
@@ -193,7 +194,7 @@ export function register(userData: TUserRegister) {
 }
 
 export function login(userData: TUserLogin) {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch: any) {
     dispatch({
       type: LOGIN_REQUEST,
     });
@@ -230,7 +231,7 @@ export function login(userData: TUserLogin) {
 }
 
 export function logout() {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch: any) {
     dispatch({
       type: LOGOUT_REQUEST,
     });
@@ -255,7 +256,7 @@ export function logout() {
 }
 
 export function resetPassword(email: string) {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch: any) {
     dispatch({
       type: RESET_PASSWORD_REQUEST,
     });
@@ -274,8 +275,8 @@ export function resetPassword(email: string) {
   };
 }
 
-export function createNewPassword(password: string) {
-  return function (dispatch: AppDispatch) {
+export function createNewPassword(password: TFormData) {
+  return function (dispatch: any) {
     dispatch({
       type: CREATE_NEW_PASSWORD_REQUEST,
     });
@@ -293,7 +294,7 @@ export function createNewPassword(password: string) {
       });
   };
 }
-export const checkUserAuth = () => (dispatch: AppDispatch) => {
+export const checkUserAuth = () => (dispatch: any) => {
   if (getCookie('accessToken')) {
     dispatch(
       getUserData(() => {
@@ -306,7 +307,7 @@ export const checkUserAuth = () => (dispatch: AppDispatch) => {
 };
 
 export const getUserData = (afterCallback: any) => {
-  return function (dispatch: AppDispatch) {
+  return function (dispatch: any) {
     dispatch({
       type: GET_USER_REQUEST,
     });
@@ -318,6 +319,7 @@ export const getUserData = (afterCallback: any) => {
         });
       })
       .catch((err) => {
+        console.log(err);
         dispatch({
           type: GET_USER_FAILED,
         });
@@ -329,7 +331,7 @@ export const getUserData = (afterCallback: any) => {
 };
 
 export function updateUser(user: TUserUpdate) {
-  return function (dispatch) {
+  return function (dispatch: any) {
     dispatch({
       type: UPDATE_USER_REQUEST,
     });
@@ -341,6 +343,7 @@ export function updateUser(user: TUserUpdate) {
         });
       })
       .catch((error) => {
+        console.log(error);
         dispatch({
           type: UPDATE_USER_FAILED,
         });

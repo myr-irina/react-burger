@@ -1,13 +1,23 @@
 import {
   SET_INGREDIENT_DATA,
   RESET_INGREDIENT_DATA,
-} from '../actions/ingredient-details';
+} from '../constants/ingredient-details';
 
-const initialState = {
+import { IIngredientDetailsAction } from '../actions/ingredient-details';
+import { TIngredientType } from '../types/types-ingredient';
+
+type TIngredientDetailsState = {
+  ingredientData: TIngredientType | null;
+};
+
+const initialState: TIngredientDetailsState = {
   ingredientData: null,
 };
 
-export const ingredientDetailsReducer = (state = initialState, action) => {
+export const ingredientDetailsReducer = (
+  state = initialState,
+  action: IIngredientDetailsAction
+) => {
   switch (action.type) {
     case SET_INGREDIENT_DATA: {
       return {
