@@ -12,18 +12,35 @@ import {
   DELETE_BURGER_INGREDIENT,
   REORDER_BURGER_INGREDIENTS,
 } from '../../services/constants/burger-constructor';
-import { TIngredientType } from '../../services/types/types-ingredient';
+import { TIngredientTypeWithId } from '../../services/types/types-ingredient';
+import type { Identifier } from 'dnd-core';
 
 type IngredientsBoxProps = {
-  element: TIngredientType;
+  element: TIngredientTypeWithId;
   index: string;
+};
+
+type TDragCollectedPropsType = {
+  isDragging: boolean;
+};
+
+type TIngredientDragType = {
+  index: string;
+};
+
+type TDropCollectedPropTypes = {
+  handlerId: Identifier | null;
 };
 
 function IngredientsBox({ element, index }: IngredientsBoxProps) {
   const dispatch = useDispatch();
   const ref = useRef<HTMLLIElement>(null);
 
-  const [{ handlerId }, drop] = useDrop({
+  const [{ handlerId }, drop] = useDrop<
+    TIngredientDragType,
+    unknown,
+    TDropCollectedPropTypes
+  >({
     accept: ['sort'],
     collect(monitor) {
       return {
@@ -31,7 +48,7 @@ function IngredientsBox({ element, index }: IngredientsBoxProps) {
       };
     },
 
-    hover(item: any, monitor) {
+    hover(item, monitor) {
       if (!ref.current) {
         return;
       }
@@ -42,10 +59,12 @@ function IngredientsBox({ element, index }: IngredientsBoxProps) {
         return;
       }
 
-      const hoverBoundingRect = ref.current?.getBoundingClientRect();
+      const hoverBoundingRect = ref.current.getBoundingClientRect();
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
+
       const clientOffset = monitor.getClientOffset();
+      if (!clientOffset) return;
       const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
 
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
@@ -66,7 +85,11 @@ function IngredientsBox({ element, index }: IngredientsBoxProps) {
     },
   });
 
-  const [{ isDragging }, drag] = useDrag({
+  const [{ isDragging }, drag] = useDrag<
+    TIngredientDragType,
+    unknown,
+    TDragCollectedPropsType
+  >({
     type: 'sort',
     item: () => ({ index }),
     collect: (monitor) => ({

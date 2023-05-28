@@ -23,7 +23,14 @@ import {
   getBun,
   getFillings,
 } from '../../services/selectors/burger-constructor';
-import { TIngredientType } from '../../services/types/types-ingredient';
+import {
+  TIngredientType,
+  TIngredientTypeWithId,
+} from '../../services/types/types-ingredient';
+
+type TIngredientDragType = {
+  item: TIngredientTypeWithId;
+};
 
 function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,8 +54,8 @@ function BurgerConstructor() {
 
   const ids = useMemo(() => {
     return [
-      bun._id,
-      ...fillings.map((item: { _id: number }) => {
+      bun && bun._id,
+      ...fillings.map((item: { _id: string }) => {
         return item._id;
       }),
     ];
@@ -67,7 +74,7 @@ function BurgerConstructor() {
     }
   };
 
-  const [{ isHover }, dropTarget] = useDrop({
+  const [, dropTarget] = useDrop<TIngredientDragType>({
     accept: 'fillingsItem',
     collect: (monitor) => ({
       isHover: monitor.isOver(),
@@ -80,7 +87,7 @@ function BurgerConstructor() {
   return (
     <>
       <div className={styles.container} ref={dropTarget}>
-        {bun.length === 0 && fillings.length === 0 ? (
+        {bun && fillings.length === 0 ? (
           <div className={styles.empty_field}>
             <p className='text text_type_main-default'>
               Переместите сюда выбранную Вами булочку
@@ -91,7 +98,7 @@ function BurgerConstructor() {
           </div>
         ) : null}
 
-        {bun.length !== 0 && (
+        {bun && (
           <div className={`${styles.element} ml-8`}>
             <ConstructorElement
               type='top'
@@ -105,7 +112,7 @@ function BurgerConstructor() {
 
         {fillings.length !== 0 && (
           <ul className={styles.container__list}>
-            {fillings.map((element: TIngredientType, index: any) => {
+            {fillings.map((element, index) => {
               return (
                 <IngredientBox
                   element={element}
@@ -116,7 +123,7 @@ function BurgerConstructor() {
             })}
           </ul>
         )}
-        {bun.length !== 0 && (
+        {bun && (
           <div className={`${styles.element} ml-8`}>
             <ConstructorElement
               type='bottom'
@@ -137,7 +144,7 @@ function BurgerConstructor() {
             type='primary'
             size='medium'
             extraClass='ml-10'
-            disabled={bun.length === 0}
+            disabled={!bun}
           >
             Оформить заказ
           </Button>

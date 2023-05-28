@@ -30,7 +30,7 @@ export type TOrderActions =
   | IOrderFailedAction
   | IOrderResetAction;
 
-export function createOrderId(ids: Array<string>) {
+export function createOrderId(ids: Array<string | null>) {
   return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_ORDER_REQUEST,

@@ -6,11 +6,14 @@ import {
 } from '../constants/burger-constructor';
 
 import { TBurgerIngredientActions } from '../actions/burger-constructor';
-import { TIngredientTypeWithId } from '../types/types-ingredient';
+import {
+  TIngredientTypeWithId,
+  TIngredientType,
+} from '../types/types-ingredient';
 
 type TBurgerIngredientState = {
-  bun: TIngredientTypeWithId | null;
-  fillings: Array<TIngredientTypeWithId>;
+  bun: TIngredientType | null;
+  fillings: Array<TIngredientType>;
 };
 
 const initialState: TBurgerIngredientState = {
@@ -60,6 +63,7 @@ export const burgerConstructorReducer = (
         fillings,
       };
     }
+
     case RESET_BURGER_INGREDIENTS: {
       return initialState;
     }

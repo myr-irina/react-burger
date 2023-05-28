@@ -28,7 +28,7 @@ export const getIngredients = () => {
   });
 };
 
-export const createOrder = (ingredients: Array<string>) => {
+export const createOrder = (ingredients: Array<string | null>) => {
   return requestUrl(`${BASE_URL}/orders`, {
     method: 'POST',
     headers: {
