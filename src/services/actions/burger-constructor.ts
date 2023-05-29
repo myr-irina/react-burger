@@ -20,7 +20,7 @@ export interface IAddBurgerIngredientAction {
 
 export interface IDeleteBurgerIngredientAction {
   readonly type: typeof DELETE_BURGER_INGREDIENT;
-  readonly payload: string;
+  readonly payload: number;
 }
 
 export interface IReorderBurgerIngredientAction {

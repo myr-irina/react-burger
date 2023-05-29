@@ -8,8 +8,8 @@ import { TOrderActions } from '../actions/order';
 
 type TOrderState = {
   order: number | null;
-  orderRequest: false;
-  orderFailed: false;
+  orderRequest: boolean;
+  orderFailed: boolean;
 };
 
 const initialState: TOrderState = {

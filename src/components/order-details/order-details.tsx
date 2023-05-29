@@ -4,7 +4,7 @@ import styles from './styles.module.scss';
 import Preloader from '../preloader/preloader';
 
 function OrderDetails() {
-  const { order, orderRequest, orderFailed } = useSelector(
+  const { orderRequest, orderFailed, order } = useSelector(
     (state) => state.order
   );
 
@@ -19,7 +19,7 @@ function OrderDetails() {
       ) : (
         <>
           <p className={`${'text text_type_digits-large'} mt-30 mb-8`}>
-            {order.order.number}
+            {order?.order.number}
           </p>
           <p className={`${'text text_type_main-medium'} mb-15`}>
             идентификатор заказа

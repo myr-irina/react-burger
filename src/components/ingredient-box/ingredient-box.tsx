@@ -12,12 +12,12 @@ import {
   DELETE_BURGER_INGREDIENT,
   REORDER_BURGER_INGREDIENTS,
 } from '../../services/constants/burger-constructor';
-import { TIngredientTypeWithId } from '../../services/types/types-ingredient';
+import { TIngredientType, TIngredientTypeWithId } from '../../services/types/types-ingredient';
 import type { Identifier } from 'dnd-core';
 
 type IngredientsBoxProps = {
-  element: TIngredientTypeWithId;
-  index: string;
+  element: TIngredientType;
+  index: number;
 };
 
 type TDragCollectedPropsType = {
@@ -25,7 +25,7 @@ type TDragCollectedPropsType = {
 };
 
 type TIngredientDragType = {
-  index: string;
+  index: number;
 };
 
 type TDropCollectedPropTypes = {

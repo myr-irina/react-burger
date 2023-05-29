@@ -12,8 +12,8 @@ import {
 } from '../types/types-ingredient';
 
 type TBurgerIngredientState = {
-  bun: TIngredientType | null;
-  fillings: Array<TIngredientType>;
+  bun: TIngredientTypeWithId | null;
+  fillings: Array<TIngredientTypeWithId>;
 };
 
 const initialState: TBurgerIngredientState = {

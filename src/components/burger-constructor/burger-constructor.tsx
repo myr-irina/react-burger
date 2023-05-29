@@ -28,7 +28,7 @@ import {
   TIngredientTypeWithId,
 } from '../../services/types/types-ingredient';
 
-type TIngredientDragType = {
+type TIngredientDropType = {
   item: TIngredientTypeWithId;
 };
 
@@ -79,7 +79,7 @@ function BurgerConstructor() {
   };
 
   const [, dropTarget] = useDrop<
-    TIngredientDragType,
+    TIngredientDropType,
     unknown,
     TDropCollectedPropTypes
   >({
@@ -87,7 +87,7 @@ function BurgerConstructor() {
     collect: (monitor) => ({
       isHover: monitor.isOver(),
     }),
-    drop(item) {
+    drop(item:TIngredientTypeWithId) {
       dispatch(addBurgerIngredient(item));
     },
   });
@@ -120,7 +120,7 @@ function BurgerConstructor() {
 
         {fillings.length !== 0 && (
           <ul className={styles.container__list}>
-            {fillings.map((element: TIngredientTypeWithId, index: string) => {
+            {fillings.map((element: TIngredientTypeWithId, index: number) => {
               return (
                 <IngredientBox
                   element={element}

@@ -15,7 +15,7 @@ function IngredientDetails() {
 
   useEffect(() => {
     const ingredient = ingredientsArray.find(
-      (elem: TIngredientType) => elem._id === id
+      (elem: TIngredientType | null) => elem?._id === id
     );
     setIngredient(ingredient);
   }, [id, ingredientsArray]);

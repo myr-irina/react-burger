@@ -16,7 +16,7 @@ export type TIngredientType = {
 export type TIngredientTypeWithId = TIngredientType & { id: string };
 
 export type TIngredientPos = {
-  [name: string]: string;
+  [name: string]: number;
 };
 
 export type TIngredientsCategory = {
