@@ -19,7 +19,7 @@ function OrderDetails() {
       ) : (
         <>
           <p className={`${'text text_type_digits-large'} mt-30 mb-8`}>
-            {order?.order.number}
+            {order}
           </p>
           <p className={`${'text text_type_main-medium'} mb-15`}>
             идентификатор заказа

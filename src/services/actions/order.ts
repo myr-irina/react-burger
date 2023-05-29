@@ -39,7 +39,7 @@ export function createOrderId(ids: Array<string | null>) {
       .then((data) => {
         dispatch({
           type: GET_ORDER_SUCCESS,
-          payload: data,
+          payload: data.order.number,
         });
       })
       .catch((error) => {
