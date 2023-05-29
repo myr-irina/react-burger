@@ -20,7 +20,7 @@ export interface IAddBurgerIngredientAction {
 
 export interface IDeleteBurgerIngredientAction {
   readonly type: typeof DELETE_BURGER_INGREDIENT;
-  readonly payload: number;
+  readonly payload: string;
 }
 
 export interface IReorderBurgerIngredientAction {
@@ -40,7 +40,7 @@ export type TBurgerIngredientActions =
 
 export function addBurgerIngredient({
   ...ingredient
-}: TIngredientType): IAddBurgerIngredientAction {
+}: TIngredientTypeWithId): IAddBurgerIngredientAction {
   return {
     type: ADD_BURGER_INGREDIENT,
     payload: {

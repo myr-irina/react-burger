@@ -6,13 +6,21 @@ import {
   Counter,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { TIngredientType } from '../../services/types/types-ingredient';
+import { TIngredientType, TIngredientTypeWithId } from '../../services/types/types-ingredient';
 
 type BurgerIngredientProps = {
-  ingredientData: TIngredientType;
+  ingredientData: TIngredientTypeWithId;
   onCardClick: (obj: TIngredientType) => void;
   onOpen: () => void;
   count: number;
+};
+
+type TIngredientDragType = {
+  item: TIngredientTypeWithId;
+};
+
+type TDragCollectedPropsType = {
+  opacity: number;
 };
 
 function BurgerIngredient(props: BurgerIngredientProps) {
@@ -23,9 +31,13 @@ function BurgerIngredient(props: BurgerIngredientProps) {
     onOpen();
   }
 
-  const [{ opacity }, ref] = useDrag({
+  const [{ opacity }, ref] = useDrag<
+    TIngredientDragType,
+    unknown,
+    TDragCollectedPropsType
+  >({
     type: 'fillingsItem',
-    item: { ingredientData },
+    item:  ingredientData ,
     collect: (monitor) => ({
       opacity: monitor.isDragging() ? 0.5 : 1,
     }),

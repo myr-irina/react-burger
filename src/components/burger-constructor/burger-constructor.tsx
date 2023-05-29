@@ -32,6 +32,10 @@ type TIngredientDragType = {
   item: TIngredientTypeWithId;
 };
 
+type TDropCollectedPropTypes = {
+  isHover: boolean;
+};
+
 function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
   const bun = useSelector(getBun);
@@ -74,7 +78,11 @@ function BurgerConstructor() {
     }
   };
 
-  const [, dropTarget] = useDrop<TIngredientDragType>({
+  const [, dropTarget] = useDrop<
+    TIngredientDragType,
+    unknown,
+    TDropCollectedPropTypes
+  >({
     accept: 'fillingsItem',
     collect: (monitor) => ({
       isHover: monitor.isOver(),
@@ -112,7 +120,7 @@ function BurgerConstructor() {
 
         {fillings.length !== 0 && (
           <ul className={styles.container__list}>
-            {fillings.map((element, index) => {
+            {fillings.map((element: TIngredientTypeWithId, index: string) => {
               return (
                 <IngredientBox
                   element={element}
