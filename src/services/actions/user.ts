@@ -244,7 +244,7 @@ export function logout() {
 
           dispatch({
             type: LOGOUT_SUCCESS,
-            payload: res.user,
+            // payload: res.user,
           });
         }
       })

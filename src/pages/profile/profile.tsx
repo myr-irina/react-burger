@@ -19,12 +19,12 @@ type UpdatedFields = {
 };
 
 function Profile() {
-  const { name, email } = useSelector((state) => state.auth.user);
+  const auth = useSelector((state) => state.auth.user);
   const [isEditMode, setIsEditMode] = useState(false);
 
   const [user, setUser] = useState({
-    name: name,
-    email: email,
+    name: auth?.name,
+    email: auth?.email,
     password: PASSWORD_PLACEHOLDER,
   });
 
