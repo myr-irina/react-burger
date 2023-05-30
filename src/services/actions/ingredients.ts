@@ -31,13 +31,16 @@ export function fetchIngredients() {
       type: GET_INGREDIENTS_REQUEST,
     });
     getIngredients()
-      .then((...data) => {
-        dispatch({
-          type: GET_INGREDIENTS_SUCCESS,
-          payload: data,
-        });
+      .then((res) => {
+        if (res && res.success) {
+          dispatch({
+            type: GET_INGREDIENTS_SUCCESS,
+            payload: res.data,
+          });
+        }
       })
       .catch((error) => {
+        console.log(error);
         dispatch({
           type: GET_INGREDIENTS_FAILED,
         });

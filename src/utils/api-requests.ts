@@ -9,6 +9,15 @@ import {
   TUserUpdate,
 } from '../services/types/types-api';
 
+import { TIngredientType } from '../services/types/types-ingredient';
+
+export interface IResponseBody {
+  success: boolean;
+}
+export interface IGetBurgerIngredientsResponse extends IResponseBody {
+  data: Array<TIngredientType>;
+}
+
 export const BASE_URL = 'https://norma.nomoreparties.space/api';
 
 export const checkResponse = <T>(res: TResponse<T>): Promise<T> => {
@@ -25,6 +34,12 @@ export const getIngredients = () => {
     headers: {
       'Content-Type': 'application/json',
     },
+  }).then((data) => {
+    console.log({ data });
+    if (data?.success) {
+      return data;
+    }
+    return Promise.reject(data);
   });
 };
 
