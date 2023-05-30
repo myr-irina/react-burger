@@ -12,6 +12,12 @@ import {
 import { updateUser } from '../../services/actions/user';
 import { PASSWORD_PLACEHOLDER } from '../../utils/constants';
 
+type TUserData = {
+  name: string;
+  email: string;
+  password: string;
+};
+
 type UpdatedFields = {
   email: string;
   name: string;
@@ -22,11 +28,12 @@ function Profile() {
   const auth = useSelector((state) => state.auth.user);
   const [isEditMode, setIsEditMode] = useState(false);
 
-  const [user, setUser] = useState<null | {
-    email: string;
-    name: string;
-    password: string | null;
-  }>(null);
+  const [user, setUser] = useState<TUserData>({
+    name: '',
+    email: '',
+    password: '',
+  });
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!auth) return;
@@ -38,13 +45,12 @@ function Profile() {
     });
   }, [auth]);
 
-  const onUpdateField = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
+  const onUpdateField = (e: React.ChangeEvent) => {
+    const elem = e.target as HTMLInputElement;
+    setUser({ ...user, [elem.name]: elem.value });
   };
 
-  const dispatch = useDispatch();
-
-  function onSaveChanges(e: SyntheticEvent<Element, Event>) {
+  function onSaveChanges(e: SyntheticEvent) {
     e.preventDefault();
 
     const updatedFields: UpdatedFields = {
@@ -52,7 +58,7 @@ function Profile() {
       name: user.name,
     };
 
-    if (user.password.length || user.password.indexOf('*') === -1) {
+    if (user.password || user.password.indexOf('*') === -1) {
       updatedFields.password = user.password;
     }
 
