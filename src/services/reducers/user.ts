@@ -27,7 +27,7 @@ import { TUser } from '../types/types-api';
 import { TUserActions } from '../actions/user';
 
 type TUserState = {
-  user: TUser | null;
+  user: TUser| null;
 
   isAuthChecked: boolean;
 
@@ -43,12 +43,12 @@ type TUserState = {
   logoutSuccess: boolean;
   logoutFailed: boolean;
 
-  passwordStatus: null;
+  passwordStatus: string | null;
   resetPasswordRequest: boolean;
   resetPasswordSuccess: boolean;
   resetPasswordFailed: boolean;
 
-  newPassword: null;
+  newPassword: string | null;
   newPasswordRequest: boolean;
   newPasswordSuccess: boolean;
   newPasswordFailed: boolean;

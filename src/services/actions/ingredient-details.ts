@@ -7,7 +7,7 @@ import { TIngredientType } from '../types/types-ingredient';
 
 export interface ISetIngredientDataAction {
   readonly type: typeof SET_INGREDIENT_DATA;
-  readonly payload: TIngredientType;
+  payload: TIngredientType;
 }
 
 export interface IResetIngredientDataAction {

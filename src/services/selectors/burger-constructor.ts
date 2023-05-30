@@ -30,7 +30,7 @@ export const getConstructorItems = createSelector(
 export const getIngredientsCount = createSelector(
   getConstructorItems,
   ({ bun, fillings }) => {
-    const counters: any = {};
+    const counters = {};
 
     fillings.forEach((fillings: TIngredientType) => {
       if (!counters[fillings._id]) counters[fillings._id] = 0;

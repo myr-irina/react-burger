@@ -20,7 +20,7 @@ const IngredientsCategory = React.forwardRef<
   HTMLInputElement,
   IngredientsCategoryProps
 >(({ title, titleId, ingredients, onOpen, onCardClick }, ref) => {
-  const counters: any = useSelector(getIngredientsCount);
+  const counters = useSelector(getIngredientsCount);
   const location = useLocation();
 
   return (

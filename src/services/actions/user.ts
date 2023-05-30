@@ -194,7 +194,7 @@ export function register(userData: TUserRegister) {
 }
 
 export function login(userData: TUserLogin) {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: LOGIN_REQUEST,
     });
@@ -223,6 +223,7 @@ export function login(userData: TUserLogin) {
         }
       })
       .catch((error) => {
+        console.log(error);
         dispatch({
           type: LOGIN_FAILED,
         });
@@ -231,7 +232,7 @@ export function login(userData: TUserLogin) {
 }
 
 export function logout() {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: LOGOUT_REQUEST,
     });
@@ -248,6 +249,7 @@ export function logout() {
         }
       })
       .catch((error) => {
+        console.log(error);
         dispatch({
           type: LOGOUT_FAILED,
         });
@@ -256,7 +258,7 @@ export function logout() {
 }
 
 export function resetPassword(email: string) {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: RESET_PASSWORD_REQUEST,
     });
@@ -276,7 +278,7 @@ export function resetPassword(email: string) {
 }
 
 export function createNewPassword(password: TFormData) {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: CREATE_NEW_PASSWORD_REQUEST,
     });
@@ -288,13 +290,14 @@ export function createNewPassword(password: TFormData) {
         });
       })
       .catch((error) => {
+        console.log(error);
         dispatch({
           type: CREATE_NEW_PASSWORD_FAILED,
         });
       });
   };
 }
-export const checkUserAuth = () => (dispatch: any) => {
+export const checkUserAuth = () => (dispatch: AppDispatch) => {
   if (getCookie('accessToken')) {
     dispatch(
       getUserData(() => {
@@ -306,8 +309,8 @@ export const checkUserAuth = () => (dispatch: any) => {
   }
 };
 
-export const getUserData = (afterCallback: any) => {
-  return function (dispatch: any) {
+export const getUserData = (afterCallback: () => void) => {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_USER_REQUEST,
     });
@@ -331,7 +334,7 @@ export const getUserData = (afterCallback: any) => {
 };
 
 export function updateUser(user: TUserUpdate) {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: UPDATE_USER_REQUEST,
     });

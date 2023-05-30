@@ -31,8 +31,8 @@ export const ingredientDetailsReducer = (
         initialState,
       };
     }
-
-    default:
+    default: {
       return state;
+    }
   }
 };
