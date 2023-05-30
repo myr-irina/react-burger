@@ -40,7 +40,7 @@ export type TBurgerIngredientActions =
 
 export function addBurgerIngredient({
   ...ingredient
-}: TIngredientTypeWithId): IAddBurgerIngredientAction {
+}: TIngredientType): IAddBurgerIngredientAction {
   return {
     type: ADD_BURGER_INGREDIENT,
     payload: {

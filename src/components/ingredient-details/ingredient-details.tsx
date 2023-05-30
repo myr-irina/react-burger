@@ -17,6 +17,8 @@ function IngredientDetails() {
     const ingredient = ingredientsArray.find(
       (elem: TIngredientType | null) => elem?._id === id
     );
+
+    if (!ingredient) return;
     setIngredient(ingredient);
   }, [id, ingredientsArray]);
 

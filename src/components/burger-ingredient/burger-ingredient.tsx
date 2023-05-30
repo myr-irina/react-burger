@@ -12,14 +12,10 @@ import {
 } from '../../services/types/types-ingredient';
 
 type BurgerIngredientProps = {
-  ingredientData: TIngredientTypeWithId;
-  onCardClick: (obj: TIngredientTypeWithId) => void;
+  ingredientData: TIngredientType;
+  onCardClick: (obj: TIngredientType) => void;
   onOpen: () => void;
   count: number;
-};
-
-type TIngredientDragType = {
-  item: TIngredientTypeWithId;
 };
 
 type TDragCollectedPropsType = {
@@ -35,7 +31,7 @@ function BurgerIngredient(props: BurgerIngredientProps) {
   }
 
   const [{ opacity }, ref] = useDrag<
-    TIngredientDragType,
+    TIngredientType,
     unknown,
     TDragCollectedPropsType
   >({

@@ -28,10 +28,6 @@ import {
   TIngredientTypeWithId,
 } from '../../services/types/types-ingredient';
 
-type TIngredientDropType = {
-  item: TIngredientTypeWithId;
-};
-
 type TDropCollectedPropTypes = {
   isHover: boolean;
 };
@@ -79,7 +75,7 @@ function BurgerConstructor() {
   };
 
   const [, dropTarget] = useDrop<
-    TIngredientDropType,
+    TIngredientType,
     unknown,
     TDropCollectedPropTypes
   >({
@@ -87,7 +83,7 @@ function BurgerConstructor() {
     collect: (monitor) => ({
       isHover: monitor.isOver(),
     }),
-    drop(item:TIngredientTypeWithId) {
+    drop(item) {
       dispatch(addBurgerIngredient(item));
     },
   });
