@@ -1,9 +1,6 @@
 import { createSelector } from 'reselect';
 import { RootState } from '../types/types-store';
-import {
-  TIngredientType,
-  TIngredientTypeWithId,
-} from '../types/types-ingredient';
+import { TIngredientType } from '../types/types-ingredient';
 
 export const getBun = (store: RootState) => store.burgerConstructor.bun;
 export const getFillings = (store: RootState) =>
@@ -27,10 +24,13 @@ export const getConstructorItems = createSelector(
   (bun, fillings) => ({ bun, fillings })
 );
 
+interface ICounter {
+  [key: string]: number;
+}
 export const getIngredientsCount = createSelector(
   getConstructorItems,
   ({ bun, fillings }) => {
-    const counters = {};
+    const counters: ICounter = {};
 
     fillings.forEach((fillings: TIngredientType) => {
       if (!counters[fillings._id]) counters[fillings._id] = 0;

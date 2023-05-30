@@ -1,4 +1,4 @@
-import React, { useState, SyntheticEvent } from 'react';
+import React, { useState, SyntheticEvent, useEffect } from 'react';
 import { useDispatch, useSelector } from '../../services/hooks';
 
 import styles from './styles.module.scss';
@@ -22,11 +22,21 @@ function Profile() {
   const auth = useSelector((state) => state.auth.user);
   const [isEditMode, setIsEditMode] = useState(false);
 
-  const [user, setUser] = useState({
-    name: auth?.name,
-    email: auth?.email,
-    password: PASSWORD_PLACEHOLDER,
-  });
+  const [user, setUser] = useState<null | {
+    email: string;
+    name: string;
+    password: string | null;
+  }>(null);
+
+  useEffect(() => {
+    if (!auth) return;
+
+    setUser({
+      email: auth.email,
+      name: auth.name,
+      password: PASSWORD_PLACEHOLDER,
+    });
+  }, [auth]);
 
   const onUpdateField = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -42,18 +52,21 @@ function Profile() {
       name: user.name,
     };
 
-    if (user.password.length !== 0 || user.password.indexOf('*') === -1) {
+    if (user.password.length || user.password.indexOf('*') === -1) {
       updatedFields.password = user.password;
     }
 
     dispatch(updateUser(updatedFields));
-    setUser((prevState) => ({ ...prevState, password: PASSWORD_PLACEHOLDER }));
+    setUser((prevState) => ({
+      ...prevState,
+      password: PASSWORD_PLACEHOLDER,
+    }));
     setIsEditMode(false);
   }
 
   const onCancelChanges = (e: SyntheticEvent<Element, Event>) => {
     e.preventDefault();
-    setUser({ name: name, email: email, password: PASSWORD_PLACEHOLDER });
+    setUser({ name: 'name', email: 'email', password: PASSWORD_PLACEHOLDER });
     setIsEditMode(false);
   };
 
