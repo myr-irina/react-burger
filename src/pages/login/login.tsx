@@ -5,11 +5,11 @@ import {
   EmailInput,
   PasswordInput,
   Button,
+  Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from '../../services/hooks';
 
 import { login } from '../../services/actions/user';
-
 
 function Login() {
   const [form, setValue] = useState({ email: '', password: '' });
@@ -38,18 +38,17 @@ function Login() {
         </span>
       )}
 
-      <EmailInput
+      <Input
         onChange={onChange}
         value={form.email}
-        name={'email'}
+        name='email'
         placeholder='Логин'
-        isIcon={true}
         extraClass='mb-6'
       />
       <PasswordInput
         onChange={onChange}
         value={form.password}
-        name={'password'}
+        name='password'
         extraClass='mb-6'
       />
       <Button htmlType='submit' type='primary' size='large' disabled={!form}>
