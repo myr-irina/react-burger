@@ -18,7 +18,11 @@ export interface IGetBurgerIngredientsResponse extends IResponseBody {
   data: Array<TIngredientType>;
 }
 
-export const BASE_URL = 'https://norma.nomoreparties.space/api';
+export const BASE_URL: string = 'https://norma.nomoreparties.space/api';
+export const WS_ORDERS_ALL: string =
+  'wss://norma.nomoreparties.space/orders/all';
+export const WS_ORDERS_PERSON: string =
+  'wss://norma.nomoreparties.space/orders';
 
 export const checkResponse = <T>(res: TResponse<T>): Promise<T> => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));

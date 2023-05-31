@@ -6,6 +6,8 @@ import { TIngredientsApiActions } from '../actions/ingredients';
 import { TOrderActions } from '../actions/order';
 import { TUserActions } from '../actions/user';
 
+
+
 export type RootState = ReturnType<typeof rootReducer>;
 
 type AppActions =
@@ -25,3 +27,4 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 export type AppDispatch<TReturnType = void> = (
   action: AppActions | AppThunk<TReturnType>
 ) => TReturnType;
+

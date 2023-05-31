@@ -26,3 +26,13 @@ export type TIngredientsCategory = {
   onOpen: () => void;
   onCardClick: () => void;
 };
+
+export type TWsOrderType = {
+  ingredients: Array<string>,
+  _id: string,
+  status: 'done' | 'created' | 'pending',
+  number: number,
+  createdAt: string,
+  updatedAt: string,
+  name: string
+}

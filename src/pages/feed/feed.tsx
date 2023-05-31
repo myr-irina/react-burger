@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './styles.module.scss';
 import OrderFeed from '../../components/order-feed/order-feed';
+import { WS_ORDERS_ALL } from '../../utils/api-requests';
 
 function Feed() {
   return (
