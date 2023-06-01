@@ -1,16 +1,13 @@
 import {
   WS_CONNECT_CLOSED,
-  WS_CONNECT_DISCONNECT,
   WS_CONNECT_ERROR,
   WS_CONNECT_OPEN,
-  WS_CONNECT_START,
   WS_CONNECT_SUCCESS,
   WS_MESSAGE,
-  WebSocketStatus,
-} from '../types/types-ws-orders';
+} from '../constants/ws-orders';
 
 import { TActions } from '../actions/ws-orders';
-
+import { WebSocketStatus } from '../constants/ws-orders';
 import { TWsOrderType } from '../types/types-ingredient';
 
 export type TOrdersWS = {

@@ -1,17 +1,19 @@
-export enum WebSocketStatus {
-  CONNECTING = 'CONNECTING',
-  ONLINE = 'ONLINE',
-  OFFLINE = 'OFFLINE',
-}
+import {
+  WS_CONNECT_CLOSED,
+  WS_CONNECT_DISCONNECT,
+  WS_CONNECT_ERROR,
+  WS_CONNECT_OPEN,
+  WS_CONNECT_START,
+  WS_MESSAGE,
+  WS_CONNECT_SUCCESS,
+} from '../constants/ws-orders';
 
-export const WS_CONNECT_START: 'WS_CONNECT_START' = 'WS_CONNECT_START';
-export const WS_CONNECT_OPEN: 'WS_CONNECT_OPEN' = 'WS_CONNECT_OPEN';
-
-export const WS_CONNECT_SUCCESS: 'WS_CONNECT_SUCCESS' = 'WS_CONNECT_SUCCESS';
-export const WS_CONNECT_CLOSED: 'WS_CONNECT_CLOSED' = 'WS_CONNECT_CLOSED';
-
-export const WS_CONNECT_DISCONNECT: 'WS_CONNECT_DISCONNECT' =
-  'WS_CONNECT_DISCONNECT';
-export const WS_CONNECT_ERROR: 'WS_CONNECT_ERROR' = 'WS_CONNECT_ERROR';
-
-export const WS_MESSAGE: 'WS_MESSAGE' = 'WS_MESSAGE';
+export type TActionStatus = {
+  onStart: typeof WS_CONNECT_START;
+  onOpen: typeof WS_CONNECT_OPEN;
+  onSuccess: typeof WS_CONNECT_SUCCESS;
+  onClose: typeof WS_CONNECT_CLOSED;
+  onDisconnect: typeof WS_CONNECT_DISCONNECT;
+  onError: typeof WS_CONNECT_ERROR;
+  onMessage: typeof WS_MESSAGE;
+};

@@ -6,7 +6,7 @@ import {
   WS_CONNECT_START,
   WS_CONNECT_SUCCESS,
   WS_MESSAGE,
-} from '../types/types-ws-orders';
+} from '../constants/ws-orders';
 
 import { TWsOrderType } from '../types/types-ingredient';
 
