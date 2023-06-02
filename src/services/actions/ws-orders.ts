@@ -42,7 +42,7 @@ export interface IMessageAction {
   payload: IMessage;
 }
 
-export type TActions =
+export type TWSActions =
   | IConnectStartAction
   | IConnectOpenAction
   | IConnectSuccessAction

@@ -1,23 +1,35 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { rootReducer } from './reducers';
-import { composeWithDevTools } from '@redux-devtools/extension';
-import { applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import { socketMiddleware } from './middleware/socket-middleware';
 
-// const wsActions = {
-//   onStart: WS_CONNECTION_START,
-//   onOpen: WS_CONNECTION_OPEN,
-//   onSuccess: WS_CONNECTION_SUCCESS,
-//   onClosed: WS_CONNECTION_CLOSED,
-//   onDisconnect: WS_CONNECTION_DISCONNECT,
-//   onError: WS_CONNECTION_ERROR,
-//   onMessage: WS_GET_MESSAGE
-// };
+import {
+  WS_CONNECT_CLOSED,
+  WS_CONNECT_START,
+  WS_CONNECT_DISCONNECT,
+  WS_CONNECT_ERROR,
+  WS_CONNECT_OPEN,
+  WS_CONNECT_SUCCESS,
+  WS_MESSAGE,
+} from './constants/ws-orders';
 
-// export const store = configureStore(
-//   rootReducer,
-//   middleware: (getDefaultMiddleware) => {
-//     return getDefaultMiddleware()
-//   },
-//   devTools: true
-// );
+const feedActions = {
+  onStart: WS_CONNECT_START,
+  onOpen: WS_CONNECT_OPEN,
+  onSuccess: WS_CONNECT_SUCCESS,
+  onClose: WS_CONNECT_CLOSED,
+  onDisconnect: WS_CONNECT_DISCONNECT,
+  onError: WS_CONNECT_ERROR,
+  onMessage: WS_MESSAGE,
+};
+
+const feedMiddleware = socketMiddleware({
+  ...feedActions,
+});
+
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(feedMiddleware);
+  },
+  devTools: true,
+});

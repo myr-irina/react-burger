@@ -6,7 +6,7 @@ import {
   WS_MESSAGE,
 } from '../constants/ws-orders';
 
-import { TActions } from '../actions/ws-orders';
+import { TWSActions } from '../actions/ws-orders';
 import { WebSocketStatus } from '../constants/ws-orders';
 import { TWsOrderType } from '../types/types-ingredient';
 
@@ -28,7 +28,7 @@ export const initialState: TOrdersWS = {
 
 export const WSOrderReducer = (
   state = initialState,
-  action: TActions
+  action: TWSActions
 ): TOrdersWS => {
   switch (action.type) {
     case WS_CONNECT_OPEN:
