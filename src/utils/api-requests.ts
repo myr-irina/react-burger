@@ -19,6 +19,7 @@ export interface IGetBurgerIngredientsResponse extends IResponseBody {
 }
 
 export const BASE_URL: string = 'https://norma.nomoreparties.space/api';
+
 export const WS_ORDERS_ALL: string =
   'wss://norma.nomoreparties.space/orders/all';
 export const WS_ORDERS_PROFILE: string =
@@ -191,6 +192,21 @@ export const updateUserRequest = ({ email, name, password }: TUserUpdate) => {
     },
     body: JSON.stringify({ email, name, password }),
   }).then((data) => {
+    if (data?.success) {
+      return data;
+    }
+    return Promise.reject(data);
+  });
+};
+
+export const getBurgerOrderData = (orderNumber: string | undefined) => {
+  return requestUrl(`${BASE_URL}/orders/${orderNumber}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  }).then((data) => {
+    console.log({ data });
     if (data?.success) {
       return data;
     }

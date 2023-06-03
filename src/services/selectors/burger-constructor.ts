@@ -3,6 +3,7 @@ import { RootState } from '../types/types-store';
 import { TIngredientType } from '../types/types-ingredient';
 
 export const ingredients = (store: RootState) => store.ingredients.ingredients;
+export const orderDetails = (store: RootState) => store.order.orderData;
 export const getBun = (store: RootState) => store.burgerConstructor.bun;
 export const getFillings = (store: RootState) =>
   store.burgerConstructor.fillings;

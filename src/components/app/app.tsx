@@ -21,9 +21,10 @@ import { fetchIngredients } from '../../services/actions/ingredients';
 import { checkUserAuth } from '../../services/actions/user';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-// import FeedOrderDetails from '../feed-order-details/feed-order-details';
-import FeedOrder from '../feed-order';
+import FeedOrderDetails from '../feed-order-details/feed-order-details';
+import FeedOrder from '../feed-order/feed-order';
 import ProfileLayout from '../../pages/profile-layout/profile-layout';
+import ProfileOrders from '../profile-orders/profile-orders';
 
 function App() {
   const location = useLocation();
@@ -87,39 +88,15 @@ function App() {
             }
           >
             <Route path='' element={<Profile />} />
-            <Route path='orders' element={<FeedOrder />} />
+            <Route path='orders' element={<ProfileOrders />} />
+            <Route path='orders/:id' element={<FeedOrder />} />
           </Route>
-          <Route
-            path='/profile/orders/:id'
-            element={
-              <ProtectedRoute onlyUnAuth={false}>
-                {/* <FeedOrderDetails /> */}
-              </ProtectedRoute>
-            }
-          />
-
-          {background && (
-            <Routes>
-              <Route
-                path='/orders/:id'
-                element={
-                  <Modal
-                    title='Детали ингредиента'
-                    handleClose={handleCloseModal}
-                  >
-                    {/* <FeedOrderDetails /> */}
-                  </Modal>
-                }
-              />
-            </Routes>
-          )}
-
-          <Route path='/ingredients/:id' element={<Ingredient />} />
-
           <Route path='/feed'>
             <Route path='' element={<Feed />} />
-            {/* <Route path=':id' element={<FeedOrderDetails />} /> */}
+            <Route path=':id' element={<FeedOrderDetails />} />
           </Route>
+
+          <Route path='/ingredients/:id' element={<Ingredient />} />
 
           <Route path='*' element={<NotFound />} />
         </Routes>
@@ -135,6 +112,27 @@ function App() {
                 >
                   <IngredientDetails />
                 </Modal>
+              }
+            />
+
+            <Route
+              path='/feed/:id'
+              element={
+                <div>
+                  <Modal title='' handleClose={handleCloseModal}>
+                    {/* <FeedOrder /> */}
+                  </Modal>
+                </div>
+              }
+            />
+            <Route
+              path='/profile/orders/:id'
+              element={
+                <div>
+                  <Modal title='' handleClose={handleCloseModal}>
+                    <FeedOrder />
+                  </Modal>
+                </div>
               }
             />
           </Routes>

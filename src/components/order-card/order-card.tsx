@@ -5,7 +5,6 @@ import {
   FormattedDate,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './styles.module.scss';
-import BurgerIcon from '../../images/burger-small-icon.svg';
 import { useSelector } from '../../services/hooks';
 import { ingredients } from '../../services/selectors/burger-constructor';
 import { TWsOrderType } from '../../services/types/types-ws-orders';
@@ -16,7 +15,6 @@ type TOrderCardProps = {
 };
 
 function OrderCard({ order }: TOrderCardProps) {
-  const dateFromServer = '2022-10-10T17:33:32.877Z';
   const location = useLocation();
 
   const maxIngredients = 6;
@@ -58,8 +56,6 @@ function OrderCard({ order }: TOrderCardProps) {
       date,
     };
   }, [ingredientsList, order]);
-
-  console.log({ orderInfo });
 
   if (!orderInfo) return null;
 
@@ -107,7 +103,11 @@ function OrderCard({ order }: TOrderCardProps) {
                   alt={ingredinet.name}
                 />
                 {maxIngredients === index + 1 ? (
-                  <span>{orderInfo.remains && `+${orderInfo?.remains}`}</span>
+                  <span
+                    className={`${styles.remains} text text_type_main-default`}
+                  >
+                    {orderInfo.remains && `+${orderInfo?.remains}`}
+                  </span>
                 ) : null}
               </li>
             );

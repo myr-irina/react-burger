@@ -1,3 +1,5 @@
+import { TWsOrderType } from './types-ws-orders';
+
 export type TUser = {
   email: string;
   name: string;
@@ -28,3 +30,7 @@ export type TFormData = {
   password: string;
   token: string;
 };
+
+export interface IResponseBody {
+  success: boolean;
+}
