@@ -17,3 +17,14 @@ export type TWsActionTypes = {
   onError: typeof WS_CONNECT_ERROR;
   onMessage: typeof WS_MESSAGE;
 };
+
+
+export type TWsOrderType = {
+  ingredients: Array<string>,
+  _id: string,
+  status: 'done' | 'created' | 'pending',
+  number: number,
+  createdAt: string,
+  updatedAt: string,
+  name: string
+}

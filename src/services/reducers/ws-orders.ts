@@ -8,7 +8,7 @@ import {
 
 import { TWSActions } from '../actions/ws-orders';
 import { WebSocketStatus } from '../constants/ws-orders';
-import { TWsOrderType } from '../types/types-ingredient';
+import { TWsOrderType } from '../types/types-ws-orders';
 
 export type TOrdersWS = {
   status: WebSocketStatus;

@@ -53,6 +53,7 @@
 
 .orders_ready_color {
   color: #00cccc;
+  padding-bottom: 8px;
 }
 
 .orders_list {
@@ -68,4 +69,12 @@
 .orders_done_list {
   overflow: hidden;
   height: 206px;
+}
+
+.orders_board_wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  column-gap: 24px;
+  overflow: hidden;
 }

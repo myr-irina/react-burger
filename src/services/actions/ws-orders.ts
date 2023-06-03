@@ -8,7 +8,7 @@ import {
   WS_MESSAGE,
 } from '../constants/ws-orders';
 
-import { TWsOrderType } from '../types/types-ingredient';
+import { TWsOrderType } from '../types/types-ws-orders';
 
 export interface IMessage {
   orders: TWsOrderType[];

@@ -21,7 +21,7 @@ export interface IGetBurgerIngredientsResponse extends IResponseBody {
 export const BASE_URL: string = 'https://norma.nomoreparties.space/api';
 export const WS_ORDERS_ALL: string =
   'wss://norma.nomoreparties.space/orders/all';
-export const WS_ORDERS_PERSON: string =
+export const WS_ORDERS_PROFILE: string =
   'wss://norma.nomoreparties.space/orders';
 
 export const checkResponse = <T>(res: TResponse<T>): Promise<T> => {
@@ -39,7 +39,6 @@ export const getIngredients = () => {
       'Content-Type': 'application/json',
     },
   }).then((data) => {
-    console.log({ data });
     if (data?.success) {
       return data;
     }

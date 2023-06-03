@@ -1,9 +1,63 @@
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import styles from './styles.module.scss';
 import OrderFeed from '../../components/order-feed/order-feed';
+import { useDispatch, useSelector } from '../../services/hooks';
+import {
+  connectionStart,
+  connectionClosed,
+} from '../../services/actions/ws-orders';
 import { WS_ORDERS_ALL } from '../../utils/api-requests';
+import { feed, total, totalToday } from '../../services/selectors/ws-selectors';
+import Preloader from '../../components/preloader/preloader';
+import { QTY_TO_SHOW } from '../../services/constants/ws-orders';
 
 function Feed() {
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  useEffect(() => {
+    dispatch(connectionStart(WS_ORDERS_ALL));
+
+    return () => {
+      dispatch(connectionClosed());
+    };
+  }, [dispatch]);
+
+  const feedOrders = useSelector(feed);
+  const totalOrders = useSelector(total);
+  const totalTodayOrders = useSelector(totalToday);
+
+  const doneOrderNumbers = useMemo(
+    () =>
+      feedOrders
+        .filter((order) => order.status === 'done')
+        .map((elem) => elem.number),
+    [feedOrders]
+  );
+
+  const pendingOrdersNumbers = useMemo(
+    () =>
+      feedOrders
+        .filter((order) => order.status === 'pending')
+        .map((elem) => elem.number),
+    [feedOrders]
+  );
+
+  if (!feedOrders) {
+    return <Preloader />;
+  }
+
+  const ordersToShow = doneOrderNumbers.slice(0, QTY_TO_SHOW);
+  const ordersToShowMore = doneOrderNumbers.slice(QTY_TO_SHOW, QTY_TO_SHOW * 2);
+  const ordersPendingToShow = pendingOrdersNumbers.slice(0, QTY_TO_SHOW);
+  const ordersPendingToShowMore = pendingOrdersNumbers.slice(
+    QTY_TO_SHOW,
+    QTY_TO_SHOW * 2
+  );
+
+  console.log({ ordersPendingToShow });
+
   return (
     <main className={styles.container}>
       <section>
@@ -18,117 +72,73 @@ function Feed() {
         </div>
       </section>
       <section className={styles.right_column}>
+        <div className={styles.orders_board}>
+          <p className='text text_type_main-medium mb-6'>Готовы:</p>
+          <p className='text text_type_main-medium mb-6'>В работе:</p>
+        </div>
+
         <div className={`${styles.orders_board} mb-15`}>
-          <ul className={styles.orders_done_list}>
-            <p className='text text_type_main-medium mb-6'>Готовы:</p>
-            <li>
-              <span
-                className={`${styles.orders_ready_color} text text_type_digits-default`}
-              >
-                1111111
-              </span>
-            </li>
+          <div className={styles.orders_board_wrapper}>
+            <ul className={styles.orders_done_list}>
+              {ordersToShow.map((number) => (
+                <li key={number} className={styles.orders_ready_color}>
+                  <Link to={`${number}`} state={{ background: location }}>
+                    <span className='text text_type_digits-default'>
+                      {number}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <ul className={styles.orders_done_list}>
+              {ordersToShowMore.map((number) => (
+                <li key={number} className={styles.orders_ready_color}>
+                  <Link to={`${number}`} state={{ background: location }}>
+                    <span className='text text_type_digits-default'>
+                      {number}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-            <li className='mt-2'>
-              <span
-                className={`${styles.orders_ready_color} text text_type_digits-default`}
-              >
-                1111111
-              </span>
-            </li>
-            <li className='mt-2'>
-              <span
-                className={`${styles.orders_ready_color} text text_type_digits-default`}
-              >
-                1111111
-              </span>
-            </li>
-            <li className='mt-2'>
-              <span
-                className={`${styles.orders_ready_color} text text_type_digits-default`}
-              >
-                1111111
-              </span>
-            </li>
-            <li className='mt-2'>
-              <span
-                className={`${styles.orders_ready_color} text text_type_digits-default`}
-              >
-                1111111
-              </span>
-            </li>
-            <li className='mt-2'>
-              <span
-                className={`${styles.orders_ready_color} text text_type_digits-default`}
-              >
-                1111111
-              </span>
-            </li>
-            <li className='mt-2'>
-              <span
-                className={`${styles.orders_ready_color} text text_type_digits-default`}
-              >
-                1111111
-              </span>
-            </li>
-            <li className='mt-2'>
-              <span
-                className={`${styles.orders_ready_color} text text_type_digits-default`}
-              >
-                1111111
-              </span>
-            </li>
-            <li className='mt-2'>
-              <span
-                className={`${styles.orders_ready_color} text text_type_digits-default`}
-              >
-                1111111
-              </span>
-            </li>
-          </ul>
-          <ul className={styles.orders_done_list}>
-            <p className='text text_type_main-medium mb-6'>В работе:</p>
-            <li>
-              <span className='text text_type_digits-default'>1111111</span>
-            </li>
-
-            <li className='mt-2'>
-              <span className='text text_type_digits-default'>1111111</span>
-            </li>
-            <li className='mt-2'>
-              <span className='text text_type_digits-default'>1111111</span>
-            </li>
-            <li className='mt-2'>
-              <span className='text text_type_digits-default'>1111111</span>
-            </li>
-            <li className='mt-2'>
-              <span className='text text_type_digits-default'>1111111</span>
-            </li>
-            <li className='mt-2'>
-              <span className='text text_type_digits-default'>1111111</span>
-            </li>
-            <li className='mt-2'>
-              <span className='text text_type_digits-default'>1111111</span>
-            </li>
-            <li className='mt-2'>
-              <span className='text text_type_digits-default'>1111111</span>
-            </li>
-            <li className='mt-2'>
-              <span className='text text_type_digits-default'>1111111</span>
-            </li>
-          </ul>
+          <div className={styles.orders_board_wrapper}>
+            <ul className={styles.orders_done_list}>
+              {ordersPendingToShow.map((number) => (
+                <li key={number} className='mt-2'>
+                  <Link to={`${number}`} state={{ background: location }}>
+                    <span className='text text_type_digits-default'>
+                      {number}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <ul className={styles.orders_done_list}>
+              {ordersPendingToShowMore.map((number) => (
+                <li key={number} className='mt-2'>
+                  <Link to={`${number}`} state={{ background: location }}>
+                    <span className='text text_type_digits-default'>
+                      {number}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         <section>
           <p className='text text_type_main-medium'>Выполнено за все время:</p>
           <p className={`${styles.text_sh} text text_type_digits-large pb-15`}>
-            222222
+            {totalOrders}
           </p>
         </section>
         <section>
           <p className='text text_type_main-medium'>Выполнено за сегодня:</p>
           <p className={`${styles.text_sh} text text_type_digits-large`}>
-            2222
+            {totalTodayOrders}
           </p>
         </section>
       </section>
