@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './styles.module.scss';
-import OrderFeed from '../../components/order-feed/order-feed';
+import OrderFeed from '../../components/order-card/order-card';
 import { useDispatch, useSelector } from '../../services/hooks';
 import {
   connectionStart,
@@ -11,6 +11,7 @@ import { WS_ORDERS_ALL } from '../../utils/api-requests';
 import { feed, total, totalToday } from '../../services/selectors/ws-selectors';
 import Preloader from '../../components/preloader/preloader';
 import { QTY_TO_SHOW } from '../../services/constants/ws-orders';
+import OrderCard from '../../components/order-card/order-card';
 
 function Feed() {
   const dispatch = useDispatch();
@@ -56,19 +57,15 @@ function Feed() {
     QTY_TO_SHOW * 2
   );
 
-  console.log({ ordersPendingToShow });
-
   return (
     <main className={styles.container}>
       <section>
         <p className='text text_type_main-large mt-6'>Лента заказов</p>
         <div className={`${styles.orders_wrapper} mt-4 mb-10`}>
-          <OrderFeed />
-          <OrderFeed />
-          <OrderFeed />
-          <OrderFeed />
-          <OrderFeed />
-          <OrderFeed />
+          {feedOrders &&
+            feedOrders.map((order, index) => (
+              <OrderCard key={index} order={order} />
+            ))}
         </div>
       </section>
       <section className={styles.right_column}>

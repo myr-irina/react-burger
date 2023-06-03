@@ -21,7 +21,7 @@ import { fetchIngredients } from '../../services/actions/ingredients';
 import { checkUserAuth } from '../../services/actions/user';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import FeedOrderDetails from '../feed-order-details/feed-order-details';
+// import FeedOrderDetails from '../feed-order-details/feed-order-details';
 import FeedOrder from '../feed-order';
 import ProfileLayout from '../../pages/profile-layout/profile-layout';
 
@@ -93,7 +93,7 @@ function App() {
             path='/profile/orders/:id'
             element={
               <ProtectedRoute onlyUnAuth={false}>
-                <FeedOrderDetails />
+                {/* <FeedOrderDetails /> */}
               </ProtectedRoute>
             }
           />
@@ -107,7 +107,7 @@ function App() {
                     title='Детали ингредиента'
                     handleClose={handleCloseModal}
                   >
-                    <FeedOrderDetails />
+                    {/* <FeedOrderDetails /> */}
                   </Modal>
                 }
               />
@@ -118,7 +118,7 @@ function App() {
 
           <Route path='/feed'>
             <Route path='' element={<Feed />} />
-            <Route path=':id' element={<FeedOrderDetails />} />
+            {/* <Route path=':id' element={<FeedOrderDetails />} /> */}
           </Route>
 
           <Route path='*' element={<NotFound />} />
