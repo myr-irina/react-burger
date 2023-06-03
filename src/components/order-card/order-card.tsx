@@ -12,14 +12,31 @@ import { TIngredientType } from '../../services/types/types-ingredient';
 
 type TOrderCardProps = {
   readonly order: TWsOrderType;
+  readonly isProfile: boolean;
 };
 
-function OrderCard({ order }: TOrderCardProps) {
+function OrderCard({ order, isProfile }: TOrderCardProps) {
   const location = useLocation();
 
   const maxIngredients = 6;
 
   const ingredientsList = useSelector(ingredients);
+
+  const orderStatus = useMemo(
+    () =>
+      order.status === 'done'
+        ? 'Выполнен'
+        : order.status === 'created'
+        ? 'Создан'
+        : 'Готовится',
+    [order.status]
+  );
+
+  const statusColor = useMemo(
+    () =>
+      order.status === 'done' ? styles.status_done : styles.status_default,
+    [order.status]
+  );
 
   const orderInfo = useMemo(() => {
     if (!ingredientsList.length) return;
@@ -61,7 +78,7 @@ function OrderCard({ order }: TOrderCardProps) {
 
   return (
     <Link
-      to={`${location.pathname}/${orderInfo?.number}`}
+      to={`${location.pathname}/${orderInfo.number}`}
       state={{ background: location }}
       className={styles.wrapper}
     >
@@ -79,7 +96,13 @@ function OrderCard({ order }: TOrderCardProps) {
       <p className={`${styles.order_name} text text_type_main-medium`}>
         {orderInfo.name}
       </p>
-      {/* {location.pathname  === '/profile/orders' && (<OrderStatus status={orderInfo.status}/>)} */}
+      {isProfile && orderStatus && (
+        <p
+          className={`${styles.status_order} ${statusColor} text text_type_main-default`}
+        >
+          {orderStatus}
+        </p>
+      )}
 
       <div className={styles.content}>
         <div className={styles.images_container}>

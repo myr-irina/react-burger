@@ -64,7 +64,7 @@ function Feed() {
         <div className={`${styles.orders_wrapper} mt-4 mb-10`}>
           {feedOrders &&
             feedOrders.map((order, index) => (
-              <OrderCard key={index} order={order} />
+              <OrderCard key={index} order={order} isProfile={false} />
             ))}
         </div>
       </section>

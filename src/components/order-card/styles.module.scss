@@ -130,3 +130,16 @@ $circular_image_size: 64px;
   position: absolute;
   line-height: 24px;
 }
+
+.status_order {
+  padding: 0px 0px 0px 24px;
+  margin: 12px 0px 0px 0px;
+}
+
+.status_done {
+  color: #00cccc;
+}
+
+.status_default {
+  color: #ffffff;
+}

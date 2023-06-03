@@ -22,7 +22,6 @@ import { checkUserAuth } from '../../services/actions/user';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import FeedOrderDetails from '../feed-order-details/feed-order-details';
-import FeedOrder from '../feed-order/feed-order';
 import ProfileLayout from '../../pages/profile-layout/profile-layout';
 import ProfileOrders from '../profile-orders/profile-orders';
 
@@ -44,6 +43,7 @@ function App() {
   return (
     <>
       <AppHeader />
+
       <div className={styles.app}>
         <Routes location={background || location}>
           <Route path='/' element={<Main />} />
@@ -89,8 +89,9 @@ function App() {
           >
             <Route path='' element={<Profile />} />
             <Route path='orders' element={<ProfileOrders />} />
-            <Route path='orders/:id' element={<FeedOrder />} />
+            <Route path='orders/:id' element={<FeedOrderDetails />} />
           </Route>
+
           <Route path='/feed'>
             <Route path='' element={<Feed />} />
             <Route path=':id' element={<FeedOrderDetails />} />
@@ -120,7 +121,7 @@ function App() {
               element={
                 <div>
                   <Modal title='' handleClose={handleCloseModal}>
-                    {/* <FeedOrder /> */}
+                    <FeedOrderDetails />
                   </Modal>
                 </div>
               }
@@ -130,7 +131,7 @@ function App() {
               element={
                 <div>
                   <Modal title='' handleClose={handleCloseModal}>
-                    <FeedOrder />
+                    <FeedOrderDetails />
                   </Modal>
                 </div>
               }
