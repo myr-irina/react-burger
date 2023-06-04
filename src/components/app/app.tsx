@@ -92,6 +92,24 @@ function App() {
             <Route path='orders/:id' element={<FeedOrderDetails />} />
           </Route>
 
+          <Route
+            path='/profile/orders'
+            element={
+              <ProtectedRoute onlyUnAuth={false}>
+                <ProfileOrders />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path='/profile/orders/:id'
+            element={
+              <ProtectedRoute onlyUnAuth={false}>
+                <FeedOrderDetails /> 
+              </ProtectedRoute>
+            }
+          />
+
           <Route path='/feed'>
             <Route path='' element={<Feed />} />
 

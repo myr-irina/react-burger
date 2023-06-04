@@ -10,6 +10,7 @@ export const socketMiddleware = (
     let socket: WebSocket | null = null;
     let url = '';
     let isConnected = false;
+    let reconnectTimer = 0;
 
     return (next) => (action) => {
       const { dispatch } = store;
@@ -29,16 +30,15 @@ export const socketMiddleware = (
         url = payload;
         socket = new WebSocket(url);
         isConnected = true;
-        socket.onopen = (event) => {
-          dispatch({ type: onSuccess });
-        };
+        dispatch({ type: onSuccess });
       }
+
       if (socket) {
-        socket.onopen = (event) => {
+        socket.onopen = () => {
           dispatch({ type: onOpen });
         };
 
-        socket.onerror = (event) => {
+        socket.onerror = () => {
           dispatch({ type: onError, payload: 'Connection error' });
         };
 
@@ -57,7 +57,20 @@ export const socketMiddleware = (
         };
 
         socket.onclose = (event) => {
-          dispatch({ type: onClose });
+          if (event.code !== 1000) {
+            dispatch({ type: onClose });
+            socket?.close();
+          }
+
+          if (isConnected) {
+            dispatch({ type: onSuccess });
+            reconnectTimer = window.setTimeout(() => {
+              dispatch({
+                type: onStart,
+                payload: url,
+              });
+            }, 3000);
+          }
         };
 
         if (type === onDisconnect) {

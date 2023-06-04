@@ -22,7 +22,7 @@ export const BASE_URL: string = 'https://norma.nomoreparties.space/api';
 
 export const WS_ORDERS_ALL: string =
   'wss://norma.nomoreparties.space/orders/all';
-export const WS_ORDERS_PROFILE: string =
+export const WS_ORDERS_PROFILE_URL: string =
   'wss://norma.nomoreparties.space/orders';
 
 export const checkResponse = <T>(res: TResponse<T>): Promise<T> => {
