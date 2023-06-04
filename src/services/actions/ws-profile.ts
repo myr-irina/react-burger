@@ -13,7 +13,7 @@ export interface IProfileMessage {
   orders: TWsOrderType[];
 }
 
-export interface IProfileConnectStartAction {
+export interface IProfileConnectAction {
   readonly type: typeof WS_PROFILE_START;
   payload: string;
 }
@@ -39,7 +39,7 @@ export interface IProfilMessageAction {
 }
 
 export type TWsProfileActions =
-  | IProfileConnectStartAction
+  | IProfileConnectAction
   | IProfileOpenAction
   | IProfileSuccessAction
   | IProfileClosedAction
@@ -47,7 +47,7 @@ export type TWsProfileActions =
   | IProfileErrorAction
   | IProfilMessageAction;
 
-export const wsProfileStart = (url: string): IProfileConnectStartAction => {
+export const wsProfileStart = (url: string): IProfileConnectAction => {
   return {
     type: WS_PROFILE_START,
     payload: url,

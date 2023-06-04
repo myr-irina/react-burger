@@ -8,6 +8,7 @@ import { TUserActions } from '../actions/user';
 import { TWSActions } from '../actions/ws-orders';
 import { TWsProfileActionTypes } from './types-ws-profile';
 import { TWsFeedActionTypes } from './types-ws-orders';
+import { TWsProfileActions } from '../actions/ws-profile';
 
 export type TWsActionTypes = TWsFeedActionTypes | TWsProfileActionTypes;
 
@@ -19,7 +20,8 @@ type AppActions =
   | TIngredientsApiActions
   | TOrderActions
   | TUserActions
-  | TWSActions;
+  | TWSActions
+  | TWsProfileActions;
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,

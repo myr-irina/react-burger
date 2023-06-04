@@ -37,7 +37,7 @@ $circular_image_size: 64px;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  overflow-y: scroll;
+  overflow-y: auto;
   max-height: 366px;
   margin-bottom: 40px;
 }
