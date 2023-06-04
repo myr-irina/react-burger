@@ -15,6 +15,7 @@ export const socketMiddleware = (
     return (next) => (action) => {
       const { dispatch } = store;
       const { type, payload } = action;
+      // const token = localStorage.getItem("accessToken")?.replace("Bearer ", "");
 
       const {
         onStart,
@@ -48,7 +49,7 @@ export const socketMiddleware = (
 
           if (
             !parsedData?.success &&
-            parsedData?.message === 'Token is invalid'
+            parsedData?.message === 'Invalid or missing token'
           ) {
             refreshToken();
           } else {

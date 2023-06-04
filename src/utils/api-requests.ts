@@ -53,6 +53,7 @@ export const createOrder = (ingredients: Array<string | null>) => {
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
+      Authorization: 'Bearer ' + getCookie('accessToken'),
     },
     body: JSON.stringify({
       ingredients: ingredients,

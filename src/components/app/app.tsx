@@ -88,6 +88,14 @@ function App() {
             }
           >
             <Route path='' element={<Profile />} />
+            <Route
+              path='orders'
+              element={
+                <ProtectedRoute onlyUnAuth={false}>
+                  <ProfileOrders />
+                </ProtectedRoute>
+              }
+            />
           </Route>
 
           <Route

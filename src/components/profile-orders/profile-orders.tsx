@@ -13,7 +13,7 @@ import Preloader from '../preloader/preloader';
 function ProfileOrders() {
   const dispatch = useDispatch();
   const accessToken = getCookie('accessToken');
-
+  console.log({ accessToken });
   const privateOrders = useSelector(profileOrders);
 
   useEffect(() => {
@@ -24,15 +24,16 @@ function ProfileOrders() {
     };
   }, [dispatch, accessToken]);
 
-  console.log({ accessToken, privateOrders });
+  console.log({ privateOrders });
 
   if (!privateOrders) return <Preloader />;
 
   return (
     <>
-      {privateOrders.map((order, index) => {
-        return <OrderCard order={order} key={index} isProfile={true} />;
-      })}
+      {privateOrders &&
+        privateOrders.map((order, index) => {
+          return <OrderCard order={order} key={index} isProfile={true} />;
+        })}
     </>
   );
 }
