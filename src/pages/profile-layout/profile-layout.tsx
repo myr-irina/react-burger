@@ -40,7 +40,9 @@ function ProfileLayout() {
           В этом разделе вы можете изменить свои персональные данные
         </p>
       </div>
-      <Outlet />
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <Outlet />
+      </div>
     </article>
   );
 }

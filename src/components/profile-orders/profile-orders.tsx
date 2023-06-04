@@ -13,7 +13,6 @@ import Preloader from '../preloader/preloader';
 function ProfileOrders() {
   const dispatch = useDispatch();
   const accessToken = getCookie('accessToken');
-  console.log({ accessToken });
   const privateOrders = useSelector(profileOrders);
 
   useEffect(() => {
@@ -23,8 +22,6 @@ function ProfileOrders() {
       dispatch(wsProfileClosed());
     };
   }, [dispatch, accessToken]);
-
-  console.log({ privateOrders });
 
   if (!privateOrders) return <Preloader />;
 
