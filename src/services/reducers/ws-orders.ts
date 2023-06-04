@@ -26,7 +26,7 @@ export const initialState: TOrdersWS = {
   connectingError: '',
 };
 
-export const WSOrderReducer = (
+export const wsOrderReducer = (
   state = initialState,
   action: TWSActions
 ): TOrdersWS => {

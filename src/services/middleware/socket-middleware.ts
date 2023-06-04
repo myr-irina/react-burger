@@ -1,6 +1,6 @@
 import type { Middleware, MiddlewareAPI } from 'redux';
 import { AppDispatch, RootState } from '../types/types-store';
-import { TWsActionTypes } from '../types/types-ws-orders';
+import { TWsActionTypes } from '../types/types-store';
 import { refreshToken } from '../../utils/api-requests';
 
 export const socketMiddleware = (

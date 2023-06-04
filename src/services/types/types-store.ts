@@ -6,6 +6,10 @@ import { TIngredientsApiActions } from '../actions/ingredients';
 import { TOrderActions } from '../actions/order';
 import { TUserActions } from '../actions/user';
 import { TWSActions } from '../actions/ws-orders';
+import { TWsProfileActionTypes } from './types-ws-profile';
+import { TWsFeedActionTypes } from './types-ws-orders';
+
+export type TWsActionTypes = TWsFeedActionTypes | TWsProfileActionTypes;
 
 export type RootState = ReturnType<typeof rootReducer>;
 

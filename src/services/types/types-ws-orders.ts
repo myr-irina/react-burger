@@ -8,7 +8,7 @@ import {
   WS_CONNECT_SUCCESS,
 } from '../constants/ws-orders';
 
-export type TWsActionTypes = {
+export type TWsFeedActionTypes = {
   onStart: typeof WS_CONNECT_START;
   onOpen: typeof WS_CONNECT_OPEN;
   onSuccess: typeof WS_CONNECT_SUCCESS;
