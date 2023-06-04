@@ -88,8 +88,6 @@ function App() {
             }
           >
             <Route path='' element={<Profile />} />
-            <Route path='orders' element={<ProfileOrders />} />
-            <Route path='orders/:id' element={<FeedOrderDetails />} />
           </Route>
 
           <Route
@@ -105,7 +103,7 @@ function App() {
             path='/profile/orders/:id'
             element={
               <ProtectedRoute onlyUnAuth={false}>
-                <FeedOrderDetails /> 
+                <FeedOrderDetails />
               </ProtectedRoute>
             }
           />

@@ -48,7 +48,7 @@ export const socketMiddleware = (
 
           if (
             !parsedData?.success &&
-            parsedData?.message === 'Invalid or missing token'
+            parsedData?.message === 'Token is invalid'
           ) {
             refreshToken();
           } else {
