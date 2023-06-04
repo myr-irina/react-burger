@@ -4,7 +4,6 @@ $circular_image_size: 64px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  margin: 122px 0 0;
   color: white;
   box-sizing: border-box;
   text-decoration: none;
@@ -20,7 +19,7 @@ $circular_image_size: 64px;
 
   max-width: 20vh;
   line-height: 24px;
-  align-self: center;
+  align-self: flex-start;
 }
 
 .order_name {
@@ -70,17 +69,31 @@ $circular_image_size: 64px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
   width: 100%;
   margin-bottom: 16px;
 
+  img {
+    box-sizing: border-box;
+    width: 64px;
+    height: 64px;
+    background: #131316;
+    border-radius: 100px;
+
+    background: linear-gradient(#131316, #131316) padding-box,
+      linear-gradient(to right, #801ab2, #4c4cff) border-box;
+    border-radius: 100px;
+    border: 2px solid transparent;
+
+    margin-right: 16px;
+  }
+
   &:first-of-type {
-    margin-top: 35px;
+    margin-top: 120px;
   }
 }
 
 .desc {
-  min-width: 414px;
+  max-width: 320px;
 }
 
 .price_calc {

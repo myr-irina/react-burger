@@ -76,7 +76,7 @@ export function createOrderId(ids: Array<string | null>) {
 }
 
 export const getBurgerOrder =
-  (orderNumber: string | undefined) => (dispatch: AppDispatch) => {
+  (orderNumber: string) => (dispatch: AppDispatch) => {
     dispatch({
       type: ORDER_DATA_REQUEST,
     });

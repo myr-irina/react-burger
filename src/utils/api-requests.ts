@@ -199,17 +199,11 @@ export const updateUserRequest = ({ email, name, password }: TUserUpdate) => {
   });
 };
 
-export const getBurgerOrderData = (orderNumber: string | undefined) => {
+export const getBurgerOrderData = (orderNumber: string) => {
   return requestUrl(`${BASE_URL}/orders/${orderNumber}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
-  }).then((data) => {
-    console.log({ data });
-    if (data?.success) {
-      return data;
-    }
-    return Promise.reject(data);
   });
 };
