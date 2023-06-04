@@ -118,6 +118,7 @@ export const fetchWithRefresh = async (url: string, options: RequestInit) => {
     if (err instanceof Error) {
       if (err.message === 'jwt expired') {
         const refreshData = await refreshToken();
+        console.log({ refreshData });
 
         if (!refreshData.success) {
           return Promise.reject(refreshData);
@@ -133,10 +134,11 @@ export const fetchWithRefresh = async (url: string, options: RequestInit) => {
           setCookie('accessToken', authToken);
         }
 
-        const headersInit: HeadersInit = {};
-        options.headers = headersInit;
+        if (options.headers) {
+          (options.headers as { [key: string]: string }).Authorization =
+            'Bearer ' + authToken;
+        }
 
-        options.headers.Authorization = 'Bearer ' + authToken;
         const res = await fetch(url, options);
         return await checkResponse(res);
       }

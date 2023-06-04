@@ -14,7 +14,7 @@
     justify-content: center;
     max-width: 720px;
     width: 100%;
-    min-height: 200px;
+    min-height: 380px;
     z-index: 2000;
     margin: auto;
     position: relative;
@@ -28,7 +28,6 @@
   }
 
   &_header {
-    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -38,8 +37,8 @@
 
   &_close {
     position: absolute;
-    right: 0;
-    top: 8px;
+    right: 2rem;
+    top: 2rem;
     cursor: pointer;
   }
 }
