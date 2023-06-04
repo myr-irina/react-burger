@@ -19,7 +19,7 @@ $circular_image_size: 64px;
 
   max-width: 20vh;
   line-height: 24px;
-  align-self: flex-start;
+  align-self: center;
 }
 
 .order_name {
@@ -35,7 +35,7 @@ $circular_image_size: 64px;
 .images_container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   overflow-y: scroll;
   max-height: 366px;
@@ -85,10 +85,6 @@ $circular_image_size: 64px;
     border: 2px solid transparent;
 
     margin-right: 16px;
-  }
-
-  &:first-of-type {
-    margin-top: 120px;
   }
 }
 

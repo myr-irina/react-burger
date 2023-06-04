@@ -15,8 +15,6 @@ type TIngredientCount = {
 };
 
 function FeedOrderDetails() {
-  const dateFromServer = '2022-10-10T17:33:32.877Z';
-
   const { id } = useParams();
 
   const [order, setOrder] = useState<TWsOrderType | null>(null);
@@ -100,7 +98,7 @@ function FeedOrderDetails() {
         <div className={styles.price_block}>
           <div>
             <FormattedDate
-              date={new Date(dateFromServer)}
+              date={new Date(order.createdAt)}
               className='text text_type_main-default text_color_inactive'
             />
           </div>

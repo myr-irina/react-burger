@@ -13,7 +13,7 @@ import {
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 import AppHeader from '../app-header/app-header';
-import styles from './app.module.css';
+import styles from './styles.module.scss';
 
 import { useDispatch } from '../../services/hooks';
 import { ProtectedRoute } from '../protected-routes/protected-routes';
@@ -94,7 +94,15 @@ function App() {
 
           <Route path='/feed'>
             <Route path='' element={<Feed />} />
-            <Route path=':id' element={<FeedOrderDetails />} />
+
+            <Route
+              path=':id'
+              element={
+                <div className={styles.feed_wrapper}>
+                  <FeedOrderDetails />
+                </div>
+              }
+            />
           </Route>
 
           <Route path='/ingredients/:id' element={<Ingredient />} />
