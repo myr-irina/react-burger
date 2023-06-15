@@ -2,21 +2,19 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './styles.module.scss';
 import {
-  EmailInput,
   PasswordInput,
   Button,
   Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch, useSelector } from '../../services/hooks';
-
 import { login } from '../../services/actions/user';
+import { useForm } from '../../hooks/useForm';
 
 function Login() {
-  const [form, setValue] = useState({ email: '', password: '' });
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue({ ...form, [e.target.name]: e.target.value });
-  };
+  const { values, handleChange } = useForm({
+    email: '',
+    password: '',
+  });
 
   const { loginFailed } = useSelector((store) => store.auth);
 
@@ -25,7 +23,7 @@ function Login() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    dispatch(login(form));
+    dispatch(login(values));
   };
 
   return (
@@ -39,19 +37,19 @@ function Login() {
       )}
 
       <Input
-        onChange={onChange}
-        value={form.email}
+        onChange={handleChange}
+        value={values.email}
         name='email'
         placeholder='Логин'
         extraClass='mb-6'
       />
       <PasswordInput
-        onChange={onChange}
-        value={form.password}
+        onChange={handleChange}
+        value={values.password}
         name='password'
         extraClass='mb-6'
       />
-      <Button htmlType='submit' type='primary' size='large' disabled={!form}>
+      <Button htmlType='submit' type='primary' size='large' disabled={!values}>
         Войти
       </Button>
 

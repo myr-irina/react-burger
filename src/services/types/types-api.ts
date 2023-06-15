@@ -1,5 +1,3 @@
-import { TWsOrderType } from './types-ws-orders';
-
 export type TUser = {
   email: string;
   name: string;

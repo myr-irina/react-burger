@@ -116,7 +116,7 @@ function BurgerConstructor() {
 
         {fillings.length !== 0 && (
           <ul className={styles.container__list}>
-            {fillings.map((element: TIngredientTypeWithId, index: number) => {
+            {fillings.map((element, index: number) => {
               return (
                 <IngredientBox
                   element={element}
