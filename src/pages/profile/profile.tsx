@@ -1,6 +1,6 @@
-import React, { useState, useEffect, SyntheticEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, SyntheticEvent, useEffect } from 'react';
+import { useDispatch, useSelector } from '../../services/hooks';
+
 import styles from './styles.module.scss';
 import {
   EmailInput,
@@ -9,9 +9,14 @@ import {
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import ProfileLink from '../../components/profile-link/profile-link';
-import { logout, updateUser } from '../../services/actions/user';
+import { updateUser } from '../../services/actions/user';
 import { PASSWORD_PLACEHOLDER } from '../../utils/constants';
+
+type TUserData = {
+  name: string;
+  email: string;
+  password: string;
+};
 
 type UpdatedFields = {
   email: string;
@@ -20,28 +25,32 @@ type UpdatedFields = {
 };
 
 function Profile() {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const { logoutSuccess } = useSelector((state) => state.auth);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const { name, email } = useSelector((state) => state.auth.user);
+  const auth = useSelector((state) => state.auth.user);
   const [isEditMode, setIsEditMode] = useState(false);
 
-  const [user, setUser] = useState({
-    name: name,
-    email: email,
-    password: PASSWORD_PLACEHOLDER,
+  const [user, setUser] = useState<TUserData>({
+    name: '',
+    email: '',
+    password: '',
   });
-
-  const onUpdateField = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
-
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  function onSaveChanges(e: SyntheticEvent<Element, Event>) {
+  useEffect(() => {
+    if (!auth) return;
+
+    setUser({
+      email: auth.email,
+      name: auth.name,
+      password: PASSWORD_PLACEHOLDER,
+    });
+  }, [auth]);
+
+  const onUpdateField = (e: React.ChangeEvent) => {
+    const elem = e.target as HTMLInputElement;
+    setUser({ ...user, [elem.name]: elem.value });
+  };
+
+  function onSaveChanges(e: SyntheticEvent) {
     e.preventDefault();
 
     const updatedFields: UpdatedFields = {
@@ -49,57 +58,30 @@ function Profile() {
       name: user.name,
     };
 
-    if (user.password.length !== 0 || user.password.indexOf('*') === -1) {
+    if (user.password || user.password.indexOf('*') === -1) {
       updatedFields.password = user.password;
     }
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+
     dispatch(updateUser(updatedFields));
-    setUser((prevState) => ({ ...prevState, password: PASSWORD_PLACEHOLDER }));
+    setUser((prevState) => ({
+      ...prevState,
+      password: PASSWORD_PLACEHOLDER,
+    }));
     setIsEditMode(false);
   }
 
   const onCancelChanges = (e: SyntheticEvent<Element, Event>) => {
     e.preventDefault();
-    setUser({ name: name, email: email, password: PASSWORD_PLACEHOLDER });
+    setUser({ name: 'name', email: 'email', password: PASSWORD_PLACEHOLDER });
     setIsEditMode(false);
   };
-
-  function handleLogout(e: SyntheticEvent<Element, Event>) {
-    e.preventDefault();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    dispatch(logout());
-  }
 
   function handleEditing() {
     setIsEditMode(true);
   }
 
-  useEffect(() => {
-    if (logoutSuccess) {
-      navigate('/login');
-    }
-  }, [logoutSuccess, navigate]);
-
   return (
     <article className={styles.container}>
-      <div className={styles.left}>
-        <nav className={styles.list}>
-          <li>
-            <ProfileLink title='Профиль' path='/profile' />
-          </li>
-          <li>
-            <ProfileLink title='История заказов' path='/profile/orders' />
-          </li>
-          <li>
-            <ProfileLink title='Выход' onClick={handleLogout} />
-          </li>
-        </nav>
-        <p className='text text_type_main-default text_color_inactive'>
-          В этом разделе вы можете изменить свои персональные данные
-        </p>
-      </div>
       <form>
         <Input
           type={'text'}

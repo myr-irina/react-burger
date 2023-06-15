@@ -1,24 +1,24 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import styles from './ingredient-details.module.scss';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { Ingredient } from '../../types/types-burger';
+import { useSelector } from '../../services/hooks';
+import { TIngredientType } from '../../services/types/types-ingredient';
 
 function IngredientDetails() {
   const ingredientsArray = useSelector(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     (store) => store.ingredients.ingredients
   );
 
   const { id } = useParams();
 
-  const [ingredient, setIngredient] = useState<Ingredient | null>(null);
+  const [ingredient, setIngredient] = useState<TIngredientType | null>(null);
 
   useEffect(() => {
     const ingredient = ingredientsArray.find(
-      (elem: Ingredient) => elem._id === id
+      (elem: TIngredientType | null) => elem?._id === id
     );
+
+    if (!ingredient) return;
     setIngredient(ingredient);
   }, [id, ingredientsArray]);
 

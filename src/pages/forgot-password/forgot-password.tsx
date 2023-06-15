@@ -5,15 +5,14 @@ import {
   EmailInput,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { resetPassword } from '../../services/actions/user';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 function ForgotPssword() {
   const [email, setEmail] = React.useState('');
   const dispatch = useDispatch();
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
+
   const { resetPasswordSuccess } = useSelector((state) => state.auth);
   const location = useLocation();
 
@@ -24,8 +23,7 @@ function ForgotPssword() {
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+
     dispatch(resetPassword(email));
   }
 

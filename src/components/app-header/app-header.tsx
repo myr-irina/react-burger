@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import headerStyles from './app-header.module.scss';
 import {
   BurgerIcon,
@@ -6,45 +6,85 @@ import {
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/logo';
-import { Link } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 function AppHeader() {
+  const location = useLocation();
+
+  const activeLink = useMemo(() => {
+    if (
+      location.pathname === '/' ||
+      location.pathname.includes('/ingredients')
+    ) {
+      return 'ingredients';
+    } else if (location.pathname.includes('/feed')) {
+      return 'feed';
+    } else if (location.pathname.includes('/profile')) {
+      return 'login';
+    } else {
+      return;
+    }
+  }, [location.pathname]);
+
   return (
     <header className={headerStyles.header}>
       <nav className={headerStyles.wrapper}>
         <ul className={headerStyles.block}>
-          <Link to="/" className={headerStyles.link}>
+          <NavLink to='/' className={headerStyles.link}>
             <li className={`${headerStyles.block}`}>
-              <BurgerIcon type="primary" />
-              <p className={`${headerStyles.link_text}`}>Конструктор</p>
-            </li>
-          </Link>
-
-          <Link to="/" className={headerStyles.link_inactive}>
-            <li className={headerStyles.block}>
-              <ListIcon type="secondary" />
+              <BurgerIcon
+                type={activeLink === 'ingredients' ? 'primary' : 'secondary'}
+              />
               <p
-                className={`${'text_type_main-default text_color_inactive'} pl-2`}
+                className={`text text_type_main-default ${
+                  activeLink === 'ingredients'
+                    ? headerStyles.active
+                    : 'text_color_inactive'
+                } ml-2`}
+              >
+                Конструктор
+              </p>
+            </li>
+          </NavLink>
+
+          <NavLink to='/feed' className={headerStyles.link}>
+            <li className={headerStyles.block}>
+              <ListIcon
+                type={activeLink === 'feed' ? 'primary' : 'secondary'}
+              />
+              <p
+                className={`text text_type_main-default ${
+                  activeLink === 'feed'
+                    ? headerStyles.active
+                    : 'text_color_inactive'
+                } ml-2`}
               >
                 Лента заказов
               </p>
             </li>
-          </Link>
+          </NavLink>
         </ul>
-        <Link to="/" className={headerStyles.link_logo}>
-          <Logo />
-        </Link>
 
-        <Link to="/profile" className={headerStyles.link_inactive}>
+        <NavLink to='/' className={headerStyles.link_logo}>
+          <Logo />
+        </NavLink>
+
+        <NavLink to='/profile' className={headerStyles.link}>
           <div className={headerStyles.block}>
-            <ProfileIcon type="secondary" />
+            <ProfileIcon
+              type={activeLink === 'login' ? 'primary' : 'secondary'}
+            />
             <p
-              className={`${'text_type_main-default text_color_inactive'} pl-2`}
+              className={`text text_type_main-default ${
+                activeLink === 'login'
+                  ? headerStyles.active
+                  : 'text_color_inactive'
+              } ml-2`}
             >
               Личный кабинет
             </p>
           </div>
-        </Link>
+        </NavLink>
       </nav>
     </header>
   );

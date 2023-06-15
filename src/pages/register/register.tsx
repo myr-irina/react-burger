@@ -7,7 +7,7 @@ import {
   Input,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { register } from '../../services/actions/user';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,14 +22,10 @@ function Register() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const { registerSuccess } = useSelector((state) => state.auth);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     dispatch(register(form));
   };
 

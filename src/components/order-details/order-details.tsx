@@ -1,12 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/hooks';
 import styles from './styles.module.scss';
 import Preloader from '../preloader/preloader';
 
 function OrderDetails() {
-  const { order, orderRequest, orderFailed } = useSelector(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+  const { orderRequest, orderFailed, order } = useSelector(
     (state) => state.order
   );
 
@@ -21,7 +19,7 @@ function OrderDetails() {
       ) : (
         <>
           <p className={`${'text text_type_digits-large'} mt-30 mb-8`}>
-            {order.order.number}
+            {order}
           </p>
           <p className={`${'text text_type_main-medium'} mb-15`}>
             идентификатор заказа

@@ -1,33 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styles from './styles.module.scss';
 import {
-  EmailInput,
   PasswordInput,
   Button,
+  Input,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from 'react-redux';
-
+import { useDispatch, useSelector } from '../../services/hooks';
 import { login } from '../../services/actions/user';
-import { useSelector } from 'react-redux';
+import { useForm } from '../../hooks/useForm';
 
 function Login() {
-  const [form, setValue] = useState({ email: '', password: '' });
+  const { values, handleChange } = useForm({
+    email: '',
+    password: '',
+  });
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue({ ...form, [e.target.name]: e.target.value });
-  };
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const { loginFailed } = useSelector((store) => store.auth);
 
   const dispatch = useDispatch();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    dispatch(login(form));
+
+    dispatch(login(values));
   };
 
   return (
@@ -40,21 +36,20 @@ function Login() {
         </span>
       )}
 
-      <EmailInput
-        onChange={onChange}
-        value={form.email}
-        name={'email'}
+      <Input
+        onChange={handleChange}
+        value={values.email}
+        name='email'
         placeholder='Логин'
-        isIcon={true}
         extraClass='mb-6'
       />
       <PasswordInput
-        onChange={onChange}
-        value={form.password}
-        name={'password'}
+        onChange={handleChange}
+        value={values.password}
+        name='password'
         extraClass='mb-6'
       />
-      <Button htmlType='submit' type='primary' size='large' disabled={!form}>
+      <Button htmlType='submit' type='primary' size='large' disabled={!values}>
         Войти
       </Button>
 

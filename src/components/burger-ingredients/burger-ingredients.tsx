@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useInView } from 'react-intersection-observer';
 
@@ -7,32 +7,29 @@ import styles from './burger-ingredients.module.scss';
 
 import IngredientsCategory from '../ingredients-category/ingredients-category';
 import Preloader from '../preloader/preloader';
-
-import { SET_INGREDIENT_DATA } from '../../services/actions/ingredient-details';
-import { Ingredient } from '../../types/types-burger';
+import { SET_INGREDIENT_DATA } from '../../services/constants/ingredient-details';
+import { TIngredientType } from '../../services/types/types-ingredient';
 
 function BurgerIngredients() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentTab, setCurrentTab] = useState('buns');
 
   const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     (store) => store.ingredients
   );
 
   const buns = useMemo(
-    () => ingredients.filter((item: Ingredient) => item.type === 'bun'),
+    () => ingredients.filter((item: TIngredientType) => item.type === 'bun'),
     [ingredients]
   );
 
   const fillings = useMemo(
-    () => ingredients.filter((item: Ingredient) => item.type === 'main'),
+    () => ingredients.filter((item: TIngredientType) => item.type === 'main'),
     [ingredients]
   );
 
   const sauces = useMemo(
-    () => ingredients.filter((item: Ingredient) => item.type === 'sauce'),
+    () => ingredients.filter((item: TIngredientType) => item.type === 'sauce'),
     [ingredients]
   );
 
@@ -52,7 +49,7 @@ function BurgerIngredients() {
     }
   }, [fillings, inViewBunsRef, inViewFillingsRef, inViewSaucesRef]);
 
-  function handleCardClick(ingredient: Ingredient) {
+  function handleCardClick(ingredient: TIngredientType) {
     dispatch({ type: SET_INGREDIENT_DATA, payload: ingredient });
   }
 

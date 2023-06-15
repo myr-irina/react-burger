@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { useDrop } from 'react-dnd';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,24 +13,30 @@ import {
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 
-import { createOrderId, ORDER_RESET } from '../../services/actions/order';
+import { createOrderId } from '../../services/actions/order';
+import { ORDER_RESET } from '../../services/constants/order';
+import { RESET_BURGER_INGREDIENTS } from '../../services/constants/burger-constructor';
 import { addBurgerIngredient } from '../../services/actions/burger-constructor';
-import { RESET_BURGER_INGREDIENTS } from '../../services/actions/burger-constructor';
 import IngredientBox from '../ingredient-box/ingredient-box';
 import {
   getPrice,
   getBun,
   getFillings,
 } from '../../services/selectors/burger-constructor';
-import { Ingredient } from '../../types/types-burger';
+import {
+  TIngredientType,
+  TIngredientTypeWithId,
+} from '../../services/types/types-ingredient';
+
+type TDropCollectedPropTypes = {
+  isHover: boolean;
+};
 
 function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
   const bun = useSelector(getBun);
   const fillings = useSelector(getFillings);
   const totalPrice = useSelector(getPrice);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const { user } = useSelector((store) => store.auth);
 
   const dispatch = useDispatch();
@@ -48,16 +54,14 @@ function BurgerConstructor() {
 
   const ids = useMemo(() => {
     return [
-      bun._id,
-      ...fillings.map((item: { _id: number }) => {
+      bun && bun._id,
+      ...fillings.map((item: { _id: string }) => {
         return item._id;
       }),
     ];
   }, [fillings, bun]);
 
   function sendOrder() {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     dispatch(createOrderId(ids));
   }
 
@@ -70,7 +74,11 @@ function BurgerConstructor() {
     }
   };
 
-  const [{ isHover }, dropTarget] = useDrop({
+  const [, dropTarget] = useDrop<
+    TIngredientType,
+    unknown,
+    TDropCollectedPropTypes
+  >({
     accept: 'fillingsItem',
     collect: (monitor) => ({
       isHover: monitor.isOver(),
@@ -83,7 +91,7 @@ function BurgerConstructor() {
   return (
     <>
       <div className={styles.container} ref={dropTarget}>
-        {bun.length === 0 && fillings.length === 0 ? (
+        {bun && fillings.length === 0 ? (
           <div className={styles.empty_field}>
             <p className='text text_type_main-default'>
               Переместите сюда выбранную Вами булочку
@@ -94,7 +102,7 @@ function BurgerConstructor() {
           </div>
         ) : null}
 
-        {bun.length !== 0 && (
+        {bun && (
           <div className={`${styles.element} ml-8`}>
             <ConstructorElement
               type='top'
@@ -108,7 +116,7 @@ function BurgerConstructor() {
 
         {fillings.length !== 0 && (
           <ul className={styles.container__list}>
-            {fillings.map((element: Ingredient, index: any) => {
+            {fillings.map((element, index: number) => {
               return (
                 <IngredientBox
                   element={element}
@@ -119,7 +127,7 @@ function BurgerConstructor() {
             })}
           </ul>
         )}
-        {bun.length !== 0 && (
+        {bun && (
           <div className={`${styles.element} ml-8`}>
             <ConstructorElement
               type='bottom'
@@ -140,7 +148,7 @@ function BurgerConstructor() {
             type='primary'
             size='medium'
             extraClass='ml-10'
-            disabled={bun.length === 0}
+            disabled={!bun}
           >
             Оформить заказ
           </Button>

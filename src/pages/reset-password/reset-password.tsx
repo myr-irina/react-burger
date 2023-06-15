@@ -6,14 +6,12 @@ import {
   PasswordInput,
   Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from '../../services/hooks';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { createNewPassword } from '../../services/actions/user';
 
 function ResetPassword() {
   const [form, setValue] = useState({ password: '', token: '' });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const { newPasswordSuccess } = useSelector((state) => state.auth);
 
   const location = useLocation();
@@ -27,8 +25,6 @@ function ResetPassword() {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     dispatch(createNewPassword(form));
   }
 

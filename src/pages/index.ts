@@ -6,8 +6,8 @@ import Profile from './profile/profile';
 import Register from './register/register';
 import ResetPassword from './reset-password/reset-password';
 import NotFound from './not-found/not-found';
-import HomePage from './homepage/homepage';
 import OrderHistory from './order-history/order-history';
+import Feed from './feed/feed';
 
 export {
   ForgotPassword,
@@ -18,6 +18,6 @@ export {
   Register,
   ResetPassword,
   NotFound,
-  HomePage,
   OrderHistory,
+  Feed,
 };
