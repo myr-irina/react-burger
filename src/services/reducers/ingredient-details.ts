@@ -10,7 +10,7 @@ type TIngredientDetailsState = {
   ingredientData: TIngredientType | null;
 };
 
-const initialState: TIngredientDetailsState = {
+export const initialState: TIngredientDetailsState = {
   ingredientData: null,
 };
 
