@@ -37,7 +37,11 @@ function Modal({ children, handleClose, title }: HandleModalProps) {
         <div className={styles.modal_content}>
           <div className={styles.modal_header} data-testid="modal-header">
             {title && <p className="text text_type_main-large">{title}</p>}
-            <div className={styles.modal_close} onClick={handleClose}>
+            <div
+              className={styles.modal_close}
+              onClick={handleClose}
+              data-testid="modal-close"
+            >
               <CloseIcon type="primary" />
             </div>
           </div>

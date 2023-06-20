@@ -23,10 +23,7 @@ import {
   getBun,
   getFillings,
 } from '../../services/selectors/burger-constructor';
-import {
-  TIngredientType,
-  TIngredientTypeWithId,
-} from '../../services/types/types-ingredient';
+import { TIngredientType } from '../../services/types/types-ingredient';
 
 type TDropCollectedPropTypes = {
   isHover: boolean;
@@ -153,6 +150,7 @@ function BurgerConstructor() {
             size="medium"
             extraClass="ml-10"
             disabled={!bun}
+            data-testid="constructor-button"
           >
             Оформить заказ
           </Button>
