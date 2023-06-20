@@ -17,7 +17,7 @@ describe('test burger drag and drop feature', () => {
     cy.get('[data-testid=modal-header]').children().last().click();
   });
 
-  it('should drag ingredinet to the constructor container', () => {
+  it('should drag ingredient to the constructor container', () => {
     cy.get('[data-testid=ingredient-container]').first().trigger('dragstart');
     cy.get('[data-testid=constructor-container]').trigger('drop');
     cy.get('[data-testid=ingredient-container]').last().trigger('dragstart');
@@ -31,11 +31,12 @@ describe('test burger drag and drop feature', () => {
     cy.get('[data-testid=constructor-container]').trigger('drop');
     cy.get('[data-testid=constructor-button]').click();
 
-    cy.contains('Вход');
+    cy.url().should('include', '/login');
     cy.get('[data-testid=login-email-input]').type(email);
     cy.get('[data-testid=login-password-input]').type(password);
     cy.get('[data-testid=login-button]').click();
-    cy.get('.button').contains('Оформить заказ').click();
+
+    cy.get('[data-testid=constructor-button]').click();
     // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(20000);
     cy.contains('идентификатор заказа');
