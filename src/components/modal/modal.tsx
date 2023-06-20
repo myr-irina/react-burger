@@ -35,17 +35,17 @@ function Modal({ children, handleClose, title }: HandleModalProps) {
       <div className={styles.modal}>
         <ModalOverlay onClick={handleClose} />
         <div className={styles.modal_content}>
-          <div className={styles.modal_header}>
-            {title && <p className='text text_type_main-large'>{title}</p>}
+          <div className={styles.modal_header} data-testid="modal-header">
+            {title && <p className="text text_type_main-large">{title}</p>}
             <div className={styles.modal_close} onClick={handleClose}>
-              <CloseIcon type='primary' />
+              <CloseIcon type="primary" />
             </div>
           </div>
           {children}
         </div>
       </div>
     </>,
-    modalRoot!
+    modalRoot!,
   );
 }
 

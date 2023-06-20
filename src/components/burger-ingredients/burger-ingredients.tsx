@@ -15,22 +15,22 @@ function BurgerIngredients() {
   const [currentTab, setCurrentTab] = useState('buns');
 
   const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
-    (store) => store.ingredients
+    (store) => store.ingredients,
   );
 
   const buns = useMemo(
     () => ingredients.filter((item: TIngredientType) => item.type === 'bun'),
-    [ingredients]
+    [ingredients],
   );
 
   const fillings = useMemo(
     () => ingredients.filter((item: TIngredientType) => item.type === 'main'),
-    [ingredients]
+    [ingredients],
   );
 
   const sauces = useMemo(
     () => ingredients.filter((item: TIngredientType) => item.type === 'sauce'),
-    [ingredients]
+    [ingredients],
   );
 
   const dispatch = useDispatch();
@@ -75,21 +75,21 @@ function BurgerIngredients() {
         <nav>
           <ul className={styles.container__menu}>
             <Tab
-              value='buns'
+              value="buns"
               active={currentTab === 'buns'}
               onClick={onTabClick}
             >
               Булки
             </Tab>
             <Tab
-              value='sauces'
+              value="sauces"
               active={currentTab === 'sauces'}
               onClick={onTabClick}
             >
               Соусы
             </Tab>
             <Tab
-              value='fillings'
+              value="fillings"
               active={currentTab === 'fillings'}
               onClick={onTabClick}
             >
@@ -98,15 +98,18 @@ function BurgerIngredients() {
           </ul>
         </nav>
 
-        <div className={styles.container__list}>
+        <div
+          className={styles.container__list}
+          data-testid="ingredients-container"
+        >
           {ingredientsRequest ? (
             <Preloader />
           ) : (
             <>
               <section>
                 <IngredientsCategory
-                  title='Булки'
-                  titleId='buns'
+                  title="Булки"
+                  titleId="buns"
                   ingredients={buns}
                   onOpen={handleOpenModal}
                   onCardClick={handleCardClick}
@@ -115,8 +118,8 @@ function BurgerIngredients() {
               </section>
               <section className={`${styles.container__section} mt-10`}>
                 <IngredientsCategory
-                  title='Соусы'
-                  titleId='sauces'
+                  title="Соусы"
+                  titleId="sauces"
                   ingredients={sauces}
                   onOpen={handleOpenModal}
                   onCardClick={handleCardClick}
@@ -125,8 +128,8 @@ function BurgerIngredients() {
               </section>
               <section className={`${styles.container__section} mt-10`}>
                 <IngredientsCategory
-                  title='Начинки'
-                  titleId='fillings'
+                  title="Начинки"
+                  titleId="fillings"
                   ingredients={fillings}
                   onOpen={handleOpenModal}
                   onCardClick={handleCardClick}

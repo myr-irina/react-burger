@@ -90,13 +90,17 @@ function BurgerConstructor() {
 
   return (
     <>
-      <div className={styles.container} ref={dropTarget}>
+      <div
+        className={styles.container}
+        ref={dropTarget}
+        data-testid="constructor-container"
+      >
         {bun && fillings.length === 0 ? (
           <div className={styles.empty_field}>
-            <p className='text text_type_main-default'>
+            <p className="text text_type_main-default">
               Переместите сюда выбранную Вами булочку
             </p>
-            <p className='text text_type_main-default'>
+            <p className="text text_type_main-default">
               А затем начинки и соусы.
             </p>
           </div>
@@ -105,7 +109,7 @@ function BurgerConstructor() {
         {bun && (
           <div className={`${styles.element} ml-8`}>
             <ConstructorElement
-              type='top'
+              type="top"
               isLocked={true}
               text={`${bun.name} (верх)`}
               price={bun.price}
@@ -130,7 +134,7 @@ function BurgerConstructor() {
         {bun && (
           <div className={`${styles.element} ml-8`}>
             <ConstructorElement
-              type='bottom'
+              type="bottom"
               isLocked={true}
               text={`${bun.name} (низ)`}
               price={bun.price}
@@ -144,10 +148,10 @@ function BurgerConstructor() {
           <CurrencyIcon type={'secondary'} />
           <Button
             onClick={handleClick}
-            htmlType='button'
-            type='primary'
-            size='medium'
-            extraClass='ml-10'
+            htmlType="button"
+            type="primary"
+            size="medium"
+            extraClass="ml-10"
             disabled={!bun}
           >
             Оформить заказ
