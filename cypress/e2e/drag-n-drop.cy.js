@@ -18,17 +18,37 @@ describe('test burger drag and drop feature', () => {
   });
 
   it('should drag ingredient to the constructor container', () => {
-    cy.get('[data-testid=ingredient-container]').first().trigger('dragstart');
-    cy.get('[data-testid=constructor-container]').trigger('drop');
-    cy.get('[data-testid=ingredient-container]').last().trigger('dragstart');
-    cy.get('[data-testid=constructor-container]').trigger('drop');
+    const dataTransfer = new DataTransfer();
+
+    cy.get('[data-testid=ingredient-container]')
+      .first()
+      .trigger('dragstart', { dataTransfer });
+    cy.get('[data-testid=constructor-container]').trigger('drop', {
+      dataTransfer,
+    });
+    cy.get('[data-testid=ingredient-container]')
+      .last()
+      .trigger('dragstart', { dataTransfer });
+    cy.get('[data-testid=constructor-container]').trigger('drop', {
+      dataTransfer,
+    });
   });
 
   it('should create order', () => {
-    cy.get('[data-testid=ingredient-container]').first().trigger('dragstart');
-    cy.get('[data-testid=constructor-container]').trigger('drop');
-    cy.get('[data-testid=ingredient-container]').last().trigger('dragstart');
-    cy.get('[data-testid=constructor-container]').trigger('drop');
+    const dataTransfer = new DataTransfer();
+
+    cy.get('[data-testid=ingredient-container]')
+      .first()
+      .trigger('dragstart', { dataTransfer });
+    cy.get('[data-testid=constructor-container]').trigger('drop', {
+      dataTransfer,
+    });
+    cy.get('[data-testid=ingredient-container]')
+      .last()
+      .trigger('dragstart', { dataTransfer });
+    cy.get('[data-testid=constructor-container]').trigger('drop', {
+      dataTransfer,
+    });
     cy.get('[data-testid=constructor-button]').click();
 
     cy.url().should('include', '/login');
