@@ -36,6 +36,7 @@ function BurgerIngredient(props: BurgerIngredientProps) {
     item: ingredientData,
     collect: (monitor) => ({
       opacity: monitor.isDragging() ? 0.5 : 1,
+      isDragging: !!monitor.getItem(),
     }),
   });
 
