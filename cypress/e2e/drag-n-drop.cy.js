@@ -1,5 +1,41 @@
 import { email, password } from '../fixtures/auth.json';
 
+function DndSimulatorDataTransfer() {
+  this.data = {};
+}
+
+DndSimulatorDataTransfer.prototype.dropEffect = 'move';
+DndSimulatorDataTransfer.prototype.effectAllowed = 'all';
+DndSimulatorDataTransfer.prototype.files = [];
+DndSimulatorDataTransfer.prototype.items = [];
+DndSimulatorDataTransfer.prototype.types = [];
+
+DndSimulatorDataTransfer.prototype.clearData = function (format) {
+  if (format) {
+    delete this.data[format];
+
+    const index = this.types.indexOf(format);
+    delete this.types[index];
+    delete this.data[index];
+  } else {
+    this.data = {};
+  }
+};
+
+DndSimulatorDataTransfer.prototype.setData = function (format, data) {
+  this.data[format] = data;
+  this.items.push(data);
+  this.types.push(format);
+};
+
+DndSimulatorDataTransfer.prototype.getData = function (format) {
+  if (format in this.data) {
+    return this.data[format];
+  }
+
+  return '';
+};
+
 describe('test burger drag and drop feature', () => {
   beforeEach('visit localhost:3000', () => {
     cy.visit('http://localhost:3000');
@@ -18,7 +54,7 @@ describe('test burger drag and drop feature', () => {
   });
 
   it('should drag ingredient to the constructor container', () => {
-    const dataTransfer = new DataTransfer();
+    const dataTransfer = new DndSimulatorDataTransfer();
 
     cy.get('[data-testid=ingredient-container]')
       .first()
@@ -35,7 +71,7 @@ describe('test burger drag and drop feature', () => {
   });
 
   it('should create order', () => {
-    const dataTransfer = new DataTransfer();
+    const dataTransfer = new DndSimulatorDataTransfer();
 
     cy.get('[data-testid=ingredient-container]')
       .first()
