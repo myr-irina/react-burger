@@ -7,6 +7,54 @@ import {
   RESET_BURGER_INGREDIENTS,
 } from '../constants/burger-constructor';
 
+const mockedIngredient = {
+  _id: '',
+  name: '',
+  type: '',
+  proteins: 0,
+  fat: 0,
+  carbohydrates: 0,
+  calories: 0,
+  price: 0,
+  image: '',
+  image_mobile: '',
+  image_large: '',
+  __v: 0,
+  id: '',
+};
+
+const mockedFillings1 = {
+  _id: '1',
+  name: 'sauce 1',
+  type: '',
+  proteins: 0,
+  fat: 0,
+  carbohydrates: 0,
+  calories: 0,
+  price: 0,
+  image: '',
+  image_mobile: '',
+  image_large: '',
+  __v: 0,
+  id: '1',
+};
+
+const mockedFillings2 = {
+  _id: '2',
+  name: 'sauce 2',
+  type: '',
+  proteins: 0,
+  fat: 0,
+  carbohydrates: 0,
+  calories: 0,
+  price: 0,
+  image: '',
+  image_mobile: '',
+  image_large: '',
+  __v: 0,
+  id: '2',
+};
+
 describe('burgerConstructorReducer reducer', () => {
   it('should return the initial state', () => {
     expect(burgerConstructorReducer(undefined, { type: null })).toEqual(
@@ -15,30 +63,15 @@ describe('burgerConstructorReducer reducer', () => {
   });
 
   it('should handle ADD_BURGER_INGREDIENT', () => {
-    const ingredient = {
-      _id: '',
-      name: '',
-      type: '',
-      proteins: 0,
-      fat: 0,
-      carbohydrates: 0,
-      calories: 0,
-      price: 0,
-      image: '',
-      image_mobile: '',
-      image_large: '',
-      __v: 0,
-      id: '',
-    };
     const state = {
       ...initialState,
-      fillings: [...initialState.fillings, ingredient],
+      fillings: [...initialState.fillings, mockedIngredient],
     };
 
     expect(
       burgerConstructorReducer(initialState, {
         type: ADD_BURGER_INGREDIENT,
-        payload: ingredient,
+        payload: mockedIngredient,
       }),
     ).toEqual(state);
   });
@@ -46,23 +79,7 @@ describe('burgerConstructorReducer reducer', () => {
   it('should handle DELETE_BURGER_INGREDIENT', () => {
     const newInitialState = {
       ...initialState,
-      fillings: [
-        {
-          _id: '1',
-          name: 'sauce 1',
-          type: '',
-          proteins: 0,
-          fat: 0,
-          carbohydrates: 0,
-          calories: 0,
-          price: 0,
-          image: '',
-          image_mobile: '',
-          image_large: '',
-          __v: 0,
-          id: '1',
-        },
-      ],
+      fillings: [mockedFillings1],
     };
     const state = {
       ...initialState,
@@ -80,74 +97,12 @@ describe('burgerConstructorReducer reducer', () => {
   it('should handle REORDER_BURGER_INGREDIENTS', () => {
     const newInitialState = {
       ...initialState,
-      fillings: [
-        {
-          _id: '1',
-          name: 'sauce 1',
-          type: '',
-          proteins: 0,
-          fat: 0,
-          carbohydrates: 0,
-          calories: 0,
-          price: 0,
-          image: '',
-          image_mobile: '',
-          image_large: '',
-          __v: 0,
-          id: '1',
-        },
-        {
-          _id: '2',
-          name: 'sauce 2',
-          type: '',
-          proteins: 0,
-          fat: 0,
-          carbohydrates: 0,
-          calories: 0,
-          price: 0,
-          image: '',
-          image_mobile: '',
-          image_large: '',
-          __v: 0,
-          id: '2',
-        },
-      ],
+      fillings: [mockedFillings1, mockedFillings2],
     };
 
     const state = {
       ...initialState,
-      fillings: [
-        {
-          _id: '2',
-          name: 'sauce 2',
-          type: '',
-          proteins: 0,
-          fat: 0,
-          carbohydrates: 0,
-          calories: 0,
-          price: 0,
-          image: '',
-          image_mobile: '',
-          image_large: '',
-          __v: 0,
-          id: '2',
-        },
-        {
-          _id: '1',
-          name: 'sauce 1',
-          type: '',
-          proteins: 0,
-          fat: 0,
-          carbohydrates: 0,
-          calories: 0,
-          price: 0,
-          image: '',
-          image_mobile: '',
-          image_large: '',
-          __v: 0,
-          id: '1',
-        },
-      ],
+      fillings: [mockedFillings2, mockedFillings1],
     };
     expect(
       burgerConstructorReducer(newInitialState, {
