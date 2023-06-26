@@ -6,24 +6,21 @@ import {
 } from '../constants/burger-constructor';
 
 import { TBurgerIngredientActions } from '../actions/burger-constructor';
-import {
-  TIngredientTypeWithId,
-  TIngredientType,
-} from '../types/types-ingredient';
+import { TIngredientTypeWithId } from '../types/types-ingredient';
 
 type TBurgerIngredientState = {
   bun: TIngredientTypeWithId | null;
   fillings: Array<TIngredientTypeWithId>;
 };
 
-const initialState: TBurgerIngredientState = {
+export const initialState: TBurgerIngredientState = {
   bun: null,
   fillings: [],
 };
 
 export const burgerConstructorReducer = (
   state = initialState,
-  action: TBurgerIngredientActions
+  action: TBurgerIngredientActions,
 ) => {
   switch (action.type) {
     case ADD_BURGER_INGREDIENT: {
@@ -55,7 +52,7 @@ export const burgerConstructorReducer = (
       fillings.splice(
         action.payload.to,
         0,
-        fillings.splice(action.payload.from, 1)[0]
+        fillings.splice(action.payload.from, 1)[0],
       );
 
       return {

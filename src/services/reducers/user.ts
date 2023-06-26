@@ -27,7 +27,7 @@ import { TUser } from '../types/types-api';
 import { TUserActions } from '../actions/user';
 
 type TUserState = {
-  user: TUser| null;
+  user: TUser | null;
 
   isAuthChecked: boolean;
 
@@ -62,7 +62,7 @@ type TUserState = {
   updateUserFailed: boolean;
 };
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   user: null,
 
   isAuthChecked: false,

@@ -28,7 +28,7 @@ function Login() {
 
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
-      <p className='text text_type_main-medium mb-6'>Вход</p>
+      <p className="text text_type_main-medium mb-6">Вход</p>
 
       {loginFailed && (
         <span className={`${styles.messagerror} text text_type_main-default`}>
@@ -39,29 +39,37 @@ function Login() {
       <Input
         onChange={handleChange}
         value={values.email}
-        name='email'
-        placeholder='Логин'
-        extraClass='mb-6'
+        name="email"
+        placeholder="Логин"
+        extraClass="mb-6"
+        data-testid="login-email-input"
       />
       <PasswordInput
         onChange={handleChange}
         value={values.password}
-        name='password'
-        extraClass='mb-6'
+        name="password"
+        extraClass="mb-6"
+        data-testid="login-password-input"
       />
-      <Button htmlType='submit' type='primary' size='large' disabled={!values}>
+      <Button
+        htmlType="submit"
+        type="primary"
+        size="large"
+        disabled={!values}
+        data-testid="login-button"
+      >
         Войти
       </Button>
 
-      <p className='text text_type_main-default text_color_inactive mt-20'>
+      <p className="text text_type_main-default text_color_inactive mt-20">
         Вы — новый пользователь?{' '}
-        <Link className={styles.link} to='/register'>
+        <Link className={styles.link} to="/register">
           Зарегистрироваться
         </Link>
       </p>
-      <p className='text text_type_main-default text_color_inactive mt-4'>
+      <p className="text text_type_main-default text_color_inactive mt-4">
         Забыли пароль?{' '}
-        <Link className={styles.link} to='/forgot-password'>
+        <Link className={styles.link} to="/forgot-password">
           Восстановить пароль
         </Link>
       </p>

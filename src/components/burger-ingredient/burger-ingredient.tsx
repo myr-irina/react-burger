@@ -6,10 +6,7 @@ import {
   Counter,
   CurrencyIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import {
-  TIngredientType,
-  TIngredientTypeWithId,
-} from '../../services/types/types-ingredient';
+import { TIngredientType } from '../../services/types/types-ingredient';
 
 type BurgerIngredientProps = {
   ingredientData: TIngredientType;
@@ -39,6 +36,7 @@ function BurgerIngredient(props: BurgerIngredientProps) {
     item: ingredientData,
     collect: (monitor) => ({
       opacity: monitor.isDragging() ? 0.5 : 1,
+      isDragging: !!monitor.getItem(),
     }),
   });
 
@@ -48,8 +46,9 @@ function BurgerIngredient(props: BurgerIngredientProps) {
       onClick={handleClick}
       style={{ opacity }}
       ref={ref}
+      data-testid="ingredient-container"
     >
-      {count > 0 && <Counter count={count} size='default' extraClass='m-1' />}
+      {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
       <img
         src={ingredientData.image}
         alt={`изображение ${ingredientData.name}`}
@@ -58,9 +57,9 @@ function BurgerIngredient(props: BurgerIngredientProps) {
         <p className={burgerStyles.container__wrapper_desc}>
           {ingredientData.price}
         </p>
-        <CurrencyIcon type='primary' />
+        <CurrencyIcon type="primary" />
       </div>
-      <p className='text text_type_main-default'>{ingredientData.name}</p>
+      <p className="text text_type_main-default">{ingredientData.name}</p>
     </div>
   );
 }
